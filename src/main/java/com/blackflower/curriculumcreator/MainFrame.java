@@ -21,8 +21,13 @@ public class MainFrame extends javax.swing.JFrame {
     private final RegisterPanel registerPage;
     private final TestPanel testPage;
     
+    private final AddClassPanel addClassPage;
+    
     private final JPanel pageContainer;
     
+    private ActionListener pageSetActionListener = (ActionEvent e) -> {
+        System.out.println("Button clicked!");
+    };
     
     public MainFrame() {
         initComponents();
@@ -32,11 +37,12 @@ public class MainFrame extends javax.swing.JFrame {
         homePage = new HomePagePanel();
         loginPage = new LoginPanel();
         registerPage = new RegisterPanel();
+        addClassPage = new AddClassPanel();
         
         pageContainer = new JPanel();
         
         this.add(pageContainer);
-        pageContainer.add(loginPage);
+        pageContainer.add(addClassPage);
         setSize(950, 600);
     }
     
@@ -45,6 +51,7 @@ public class MainFrame extends javax.swing.JFrame {
     public TestPanel getTestPage() { return testPage; }
     public LoginPanel getLoginPage() { return loginPage; }
     public RegisterPanel getRegisterPage() { return registerPage; }
+    public AddClassPanel getAddClassPage() { return addClassPage; }
 
     
     @SuppressWarnings("unchecked")
@@ -101,6 +108,11 @@ public class MainFrame extends javax.swing.JFrame {
         pageContainer.revalidate();
         pageContainer.repaint();
         System.out.println("Page Setted!");
+        
+        if (page instanceof IPage) {
+            IPage iPage = (IPage)page;
+            iPage.onPageSetted();
+        }
     }
     
     public static void testInit(){

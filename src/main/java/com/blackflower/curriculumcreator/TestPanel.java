@@ -7,7 +7,7 @@ import javax.swing.JButton;
  *
  * @author emirs
  */
-public class TestPanel extends javax.swing.JPanel {
+public class TestPanel extends javax.swing.JPanel implements IPage{
 
     /**
      * Creates new form TestPanel
@@ -88,4 +88,9 @@ public class TestPanel extends javax.swing.JPanel {
     private javax.swing.JButton loginBtn;
     private java.awt.TextField textField1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onPageSetted() {
+        
+    }
 }

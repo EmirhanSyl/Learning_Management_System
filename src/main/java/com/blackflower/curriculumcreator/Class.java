@@ -12,6 +12,7 @@ public class Class {
     // --------------- VARIABLE DECLERATIONS ------------------
     private String className;
     private final ArrayList<Student> students = new ArrayList();
+    private final ArrayList<Lesson> lessons = new ArrayList();
     private final ArrayList<CourseSession> sessions = new ArrayList();
     
     
@@ -26,6 +27,7 @@ public class Class {
     public void setClassName(String className) { this.className = className; }
 
     public ArrayList<Student> getStudents() { return students; }
+    public ArrayList<Lesson> getLessons() { return lessons; }
     public ArrayList<CourseSession> getSessions() { return sessions; }
     
      // --------------- ENCAPSULATE FIELDS END ------------------

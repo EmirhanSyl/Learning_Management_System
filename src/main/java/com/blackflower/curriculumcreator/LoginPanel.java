@@ -4,7 +4,7 @@ package com.blackflower.curriculumcreator;
  *
  * @author emirs
  */
-public class LoginPanel extends javax.swing.JPanel {
+public class LoginPanel extends javax.swing.JPanel implements IPage{
 
     /**
      * Creates new form LoginPanel
@@ -155,4 +155,9 @@ public class LoginPanel extends javax.swing.JPanel {
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel registerLinkBtn;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onPageSetted() {
+        
+    }
 }

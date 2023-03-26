@@ -20,5 +20,12 @@ public class Database {
     public static ArrayList<Lesson> getLessons() { return lessons; }
      // --------------- ENCAPSULATE FIELDS END ------------------
     
+    public static void addClass(String className){
+        Class newClass = new Class(className);
+        classes.add(newClass);
+    }
     
+    public static void removeClass(Class r_class){
+        classes.remove(r_class);
+    }
 }

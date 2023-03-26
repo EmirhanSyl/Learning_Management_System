@@ -4,7 +4,7 @@ package com.blackflower.curriculumcreator;
  *
  * @author emirs
  */
-public class RegisterPanel extends javax.swing.JPanel {
+public class RegisterPanel extends javax.swing.JPanel implements IPage{
 
     
     
@@ -222,4 +222,9 @@ public class RegisterPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox termsCheckBox;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onPageSetted() {
+        
+    }
 }
