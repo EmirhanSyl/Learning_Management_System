@@ -8,6 +8,61 @@ import java.util.ArrayList;
  */
 public class Class {
 
-   private final ArrayList<Student> students = new ArrayList();
+
+    // --------------- VARIABLE DECLERATIONS ------------------
+    private String className;
+    private final ArrayList<Student> students = new ArrayList();
+    private final ArrayList<CourseSession> sessions = new ArrayList();
+    
+    
+    // --------------- VARIABLE DECLERATIONS END ------------------
+
+    public Class(String className) {
+        this.className = className;
+    }
+    
+     // --------------- ENCAPSULATE FIELDS ------------------
+    public String getClassName() { return className; }
+    public void setClassName(String className) { this.className = className; }
+
+    public ArrayList<Student> getStudents() { return students; }
+    public ArrayList<CourseSession> getSessions() { return sessions; }
+    
+     // --------------- ENCAPSULATE FIELDS END ------------------
+
+    public void addStudent(Student student){
+        students.add(student);
+    }
+    
+    public void removeStudent(Student student){
+        students.remove(student);
+    }
+    public void removeStudent(String username){
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getUserName().equals(username)) {
+                students.remove(i);
+                break;
+            }
+        }
+    }
+    
+    public ArrayList<CourseSession> getLessonSessions(String lessonName){
+        ArrayList<CourseSession> result = new ArrayList<>();
+        
+        for (CourseSession session : sessions) {
+            if (session.getLesson().getLessonName().equals(lessonName)) {
+                result.add(session);
+            }
+        }
+        
+        return result;
+    }
+    
+    @Override
+    public String toString() {
+        return className;
+    }
+    
+    
     
 }

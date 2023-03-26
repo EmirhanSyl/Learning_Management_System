@@ -87,6 +87,7 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                testInit();
                 // ---------------- SINGLETON -----------------
                 instance = new MainFrame();
                 instance.setVisible(true);
@@ -102,23 +103,19 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println("Page Setted!");
     }
     
-    public final void addBackButton(JPanel page){
-        JButton menuBtn1 = new JButton("Test Page");
-        menuBtn1.setSize(100, 50);
+    public static void testInit(){
+        Instructor instructor = new Instructor("Ali", "Nizam");
+        Lesson lesson = new Lesson("CP2", instructor);
+        Lesson lesson2 = new Lesson("CP1", instructor);
         
-        menuBtn1.addActionListener((ActionEvent e) -> {
-            setPage(testPage);
-        });
+        Class newClass = new Class("Software Eng.");
+        Class newClass2 = new Class("Computer Eng.");
         
-        JButton menuBtn2 = new JButton("Home Page");
-        menuBtn2.setSize(100, 50);
+        Database.getLessons().add(lesson);
+        Database.getLessons().add(lesson2);
         
-        menuBtn2.addActionListener((ActionEvent e) -> {
-            setPage(homePage);
-        });
-        
-        page.add(menuBtn1);
-        page.add(menuBtn2);
+        Database.getClasses().add(newClass);
+        Database.getClasses().add(newClass2);
     }
     
     
