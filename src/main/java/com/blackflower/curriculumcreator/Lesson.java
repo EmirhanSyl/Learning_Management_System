@@ -1,0 +1,49 @@
+
+package com.blackflower.curriculumcreator;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author emirs
+ */
+public class Lesson {
+
+    // --------------- VARIABLE DECLERATIONS ------------------
+    private String lessonName;
+    private final ArrayList<String> topics = new ArrayList<>();
+    private Instructor instructor;
+
+    public Lesson(String lessonName, Instructor instructor) {
+        this.lessonName = lessonName;
+        this.instructor = instructor;
+    }
+    
+    // --------------- VARIABLE DECLERATIONS END ------------------
+    
+     // --------------- ENCAPSULATE FIELDS ------------------
+    public String getLessonName() { return lessonName; }
+    public void setLessonName(String lessonName) { this.lessonName = lessonName; }
+    
+    public Instructor getInstructor() { return instructor; }
+    public void setInstructor(Instructor instructor) { this.instructor = instructor; }
+    
+    public ArrayList<String> getTopics() { return topics; }
+    
+     // --------------- ENCAPSULATE FIELDS END ------------------
+    
+    
+    public void addTopic(String topicName){
+        topics.add(topicName);
+    }
+    public void addTopic(String topicName, int topicIndex){
+        topics.add(topicIndex, topicName);
+    }
+    
+    @Override
+    public String toString() {
+        return getLessonName();
+    }
+    
+    
+}
