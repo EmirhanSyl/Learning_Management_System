@@ -48,6 +48,24 @@ public class Class {
         }
     }
     
+    public void addLesson(Lesson lesson){
+        lessons.add(lesson);
+    }
+    
+    public void removeLesson(Lesson lesson){
+        for (int i = 0; i < sessions.size(); i++) {
+            if (sessions.get(i).getLesson().equals(lesson)) {
+                sessions.remove(i);
+            }
+        }
+        lessons.remove(lesson);
+    }
+    public void removeAllLesson(){
+        sessions.clear();
+        lessons.clear();
+    }
+            
+    
     public ArrayList<CourseSession> getLessonSessions(String lessonName){
         ArrayList<CourseSession> result = new ArrayList<>();
         

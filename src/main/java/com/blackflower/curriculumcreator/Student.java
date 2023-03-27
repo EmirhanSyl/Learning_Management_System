@@ -21,5 +21,10 @@ public class Student extends Person{
     public void setStudentClass(Class studentClass) { this.studentClass = studentClass; }
      // --------------- ENCAPSULATE FIELDS ------------------
     
+    public void changeStudentClass(Class newClass){
+        studentClass.getStudents().remove(this);
+        newClass.getStudents().add(this);
+        studentClass = newClass;
+    }
     
 }

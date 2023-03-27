@@ -31,7 +31,8 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
         addClassBtn = new javax.swing.JButton();
         removeClassBtn = new javax.swing.JButton();
         refreshToggleBtn = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
+        addDropLessonBtn = new javax.swing.JButton();
+        addRemoveStudentBtn = new javax.swing.JButton();
 
         ClassLessonLabel.setText("Class Name:");
 
@@ -69,10 +70,17 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
             }
         });
 
-        jButton1.setText("HomePage");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addDropLessonBtn.setText("Add&Drop Lesson");
+        addDropLessonBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addDropLessonBtnActionPerformed(evt);
+            }
+        });
+
+        addRemoveStudentBtn.setText("Add&Remove Student");
+        addRemoveStudentBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRemoveStudentBtnActionPerformed(evt);
             }
         });
 
@@ -92,16 +100,18 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
                                 .addComponent(ClassNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(addClassBtn)
-                                .addGap(54, 54, 54)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(removeClassBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(refreshToggleBtn)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(removeClassBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(addRemoveStudentBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(addDropLessonBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(232, 232, 232))))
         );
         layout.setVerticalGroup(
@@ -113,13 +123,14 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ClassNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addClassBtn)
-                    .addComponent(jButton1))
+                    .addComponent(removeClassBtn))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(removeClassBtn)
-                    .addComponent(refreshToggleBtn))
+                    .addComponent(refreshToggleBtn)
+                    .addComponent(addDropLessonBtn)
+                    .addComponent(addRemoveStudentBtn))
                 .addGap(36, 36, 36))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -162,10 +173,15 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
         
     }//GEN-LAST:event_removeClassBtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addDropLessonBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDropLessonBtnActionPerformed
         // TODO add your handling code here:
-        MainFrame.instance.setPage(MainFrame.instance.getHomePage());
-    }//GEN-LAST:event_jButton1ActionPerformed
+        MainFrame.instance.setPage(MainFrame.instance.getManageClassesPage());
+    }//GEN-LAST:event_addDropLessonBtnActionPerformed
+
+    private void addRemoveStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRemoveStudentBtnActionPerformed
+        // TODO add your handling code here:
+        MainFrame.instance.setPage(MainFrame.instance.getManageClassesStudentsPage());
+    }//GEN-LAST:event_addRemoveStudentBtnActionPerformed
 
     public void refreshTableData(){
         tableModel.setRowCount(0);
@@ -185,7 +201,8 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
     private javax.swing.JTextField ClassNameField;
     private javax.swing.JTable ClassTable;
     private javax.swing.JButton addClassBtn;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton addDropLessonBtn;
+    private javax.swing.JButton addRemoveStudentBtn;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToggleButton refreshToggleBtn;
     private javax.swing.JButton removeClassBtn;

@@ -28,4 +28,15 @@ public class Database {
     public static void removeClass(Class r_class){
         classes.remove(r_class);
     }
+    
+    public static Person findPersonByName(String name){
+        Person person = null;
+        
+        for (Person user : users) {
+            if (user.getFirstName().equals(name)) {
+                person = user;
+            }
+        }
+        return person;
+    }
 }

@@ -1,8 +1,5 @@
 package com.blackflower.curriculumcreator;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -22,12 +19,10 @@ public class MainFrame extends javax.swing.JFrame {
     private final TestPanel testPage;
     
     private final AddClassPanel addClassPage;
+    private final ManageClassesPanel manageClassesPage;
+    private final ManageClassStudentsPanel manageClassStudentsPage;
     
     private final JPanel pageContainer;
-    
-    private ActionListener pageSetActionListener = (ActionEvent e) -> {
-        System.out.println("Button clicked!");
-    };
     
     public MainFrame() {
         initComponents();
@@ -38,11 +33,13 @@ public class MainFrame extends javax.swing.JFrame {
         loginPage = new LoginPanel();
         registerPage = new RegisterPanel();
         addClassPage = new AddClassPanel();
+        manageClassesPage = new ManageClassesPanel();
+        manageClassStudentsPage = new ManageClassStudentsPanel();
         
         pageContainer = new JPanel();
         
         this.add(pageContainer);
-        pageContainer.add(addClassPage);
+        pageContainer.add(registerPage);
         setSize(950, 600);
     }
     
@@ -52,6 +49,8 @@ public class MainFrame extends javax.swing.JFrame {
     public LoginPanel getLoginPage() { return loginPage; }
     public RegisterPanel getRegisterPage() { return registerPage; }
     public AddClassPanel getAddClassPage() { return addClassPage; }
+    public ManageClassesPanel getManageClassesPage() { return manageClassesPage; }
+    public ManageClassStudentsPanel getManageClassesStudentsPage() { return manageClassStudentsPage; }
 
     
     @SuppressWarnings("unchecked")
@@ -123,11 +122,33 @@ public class MainFrame extends javax.swing.JFrame {
         Class newClass = new Class("Software Eng.");
         Class newClass2 = new Class("Computer Eng.");
         
+        Student student = new Student("Meryem", "Kılıç");
+        Student student2 = new Student("Emirhan", "Soylu");
+        student.setStudentClass(newClass);
+        student2.setStudentClass(newClass);
+        
+        Student student3 = new Student("Zahid", "Baltaci");
+        Student student4 = new Student("Sare", "Bayram");
+        student3.setStudentClass(newClass2);
+        student4.setStudentClass(newClass2);
+        
+        newClass.getStudents().add(student);
+        newClass.getStudents().add(student2);
+        
+        newClass2.getStudents().add(student3);
+        newClass2.getStudents().add(student4);
+        
+        
         Database.getLessons().add(lesson);
         Database.getLessons().add(lesson2);
         
         Database.getClasses().add(newClass);
         Database.getClasses().add(newClass2);
+        
+        Database.getUsers().add(student);
+        Database.getUsers().add(student2);
+        Database.getUsers().add(student3);
+        Database.getUsers().add(student4);
     }
     
     
