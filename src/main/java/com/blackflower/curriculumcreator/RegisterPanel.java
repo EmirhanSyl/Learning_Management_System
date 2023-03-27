@@ -151,6 +151,14 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         // TODO add your handling code here:
+        if (buttonGroup1.isSelected(studentRadioBtn.getModel())) {
+            Class studentClass = (Class)stuLecComboBox.getSelectedItem(); 
+            MainFrame.instance.tmp_admin.addStudent(nameField.getText(), surnameField.getText(), studentClass);
+        }
+        else if(buttonGroup1.isSelected(instructorRadioBtn.getModel())){
+            Lesson lesson = (Lesson)stuLecComboBox.getSelectedItem(); 
+            MainFrame.instance.tmp_admin.addInstructor(nameField.getText(), surnameField.getText(), lesson);
+        }
         
     }//GEN-LAST:event_registerButtonActionPerformed
 

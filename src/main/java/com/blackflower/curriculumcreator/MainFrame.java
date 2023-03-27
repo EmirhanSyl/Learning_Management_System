@@ -8,6 +8,7 @@ import javax.swing.JPanel;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    public Admin tmp_admin = new Admin("admin", "admin", "admin", "123");
 
 // --------------- VARIABLE DECLERATIONS ------------------
 
