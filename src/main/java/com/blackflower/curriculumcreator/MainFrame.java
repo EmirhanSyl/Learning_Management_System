@@ -23,6 +23,9 @@ public class MainFrame extends javax.swing.JFrame {
     private final ManageClassesPanel manageClassesPage;
     private final ManageClassStudentsPanel manageClassStudentsPage;
     
+    private final AddLessonPanel addLessonPage;
+    private final AccountManagementPanel accountManagementPage;
+    
     private final JPanel pageContainer;
     
     public MainFrame() {
@@ -36,11 +39,13 @@ public class MainFrame extends javax.swing.JFrame {
         addClassPage = new AddClassPanel();
         manageClassesPage = new ManageClassesPanel();
         manageClassStudentsPage = new ManageClassStudentsPanel();
+        addLessonPage = new AddLessonPanel();
+        accountManagementPage = new AccountManagementPanel();
         
         pageContainer = new JPanel();
         
         this.add(pageContainer);
-        pageContainer.add(registerPage);
+        pageContainer.add(addLessonPage);
         setSize(950, 600);
     }
     
@@ -52,6 +57,8 @@ public class MainFrame extends javax.swing.JFrame {
     public AddClassPanel getAddClassPage() { return addClassPage; }
     public ManageClassesPanel getManageClassesPage() { return manageClassesPage; }
     public ManageClassStudentsPanel getManageClassesStudentsPage() { return manageClassStudentsPage; }
+    public AddLessonPanel getAddLessonPage() { return addLessonPage; }
+    public AccountManagementPanel getAccountManagementPage() { return accountManagementPage; }
 
     
     @SuppressWarnings("unchecked")
@@ -117,8 +124,10 @@ public class MainFrame extends javax.swing.JFrame {
     
     public static void testInit(){
         Instructor instructor = new Instructor("Ali", "Nizam");
-        Lesson lesson = new Lesson("CP2", instructor);
-        Lesson lesson2 = new Lesson("CP1", instructor);
+        Instructor instructor2 = new Instructor("Nazlı", "Doğan");
+        
+        Lesson lesson = new Lesson("CP2", instructor, 6);
+        Lesson lesson2 = new Lesson("CP1", instructor, 6);
         
         Class newClass = new Class("Software Eng.");
         Class newClass2 = new Class("Computer Eng.");
@@ -139,6 +148,8 @@ public class MainFrame extends javax.swing.JFrame {
         newClass2.getStudents().add(student3);
         newClass2.getStudents().add(student4);
         
+        Database.getUsers().add(instructor);
+        Database.getUsers().add(instructor2);
         
         Database.getLessons().add(lesson);
         Database.getLessons().add(lesson2);

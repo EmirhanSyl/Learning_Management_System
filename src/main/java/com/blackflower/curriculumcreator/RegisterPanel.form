@@ -60,6 +60,7 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="addClassManagementBtn" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -105,7 +106,9 @@
               <Component id="termsCheckBox" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="registerButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="126" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <Component id="addClassManagementBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="75" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -203,6 +206,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Student Class:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="addClassManagementBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add Class Management"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addClassManagementBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

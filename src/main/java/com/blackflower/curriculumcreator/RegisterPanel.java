@@ -1,6 +1,7 @@
 package com.blackflower.curriculumcreator;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,6 +33,7 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
         jLabel1 = new javax.swing.JLabel();
         stuLecComboBox = new javax.swing.JComboBox<>();
         stulecLabel = new javax.swing.JLabel();
+        addClassManagementBtn = new javax.swing.JButton();
 
         termsCheckBox.setText("I agree with the terms and conditions");
 
@@ -77,6 +79,13 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
 
         stulecLabel.setText("Student Class:");
 
+        addClassManagementBtn.setText("Add Class Management");
+        addClassManagementBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addClassManagementBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,7 +120,8 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(termsCheckBox)
                                         .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(10, 10, 10))))))
+                                    .addGap(10, 10, 10))
+                                .addComponent(addClassManagementBtn)))))
                 .addGap(344, 344, 344))
         );
         layout.setVerticalGroup(
@@ -145,12 +155,23 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
                 .addComponent(termsCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(registerButton)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(addClassManagementBtn)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         // TODO add your handling code here:
+        if (stuLecComboBox.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select A Class/Lesson!", "Class/Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if(!termsCheckBox.isSelected()){
+            JOptionPane.showMessageDialog(this, "Please Accept Terms And Conditions!", "Terms And Conditions", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
         if (buttonGroup1.isSelected(studentRadioBtn.getModel())) {
             Class studentClass = (Class)stuLecComboBox.getSelectedItem(); 
             MainFrame.instance.tmp_admin.addStudent(nameField.getText(), surnameField.getText(), studentClass);
@@ -159,6 +180,11 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
             Lesson lesson = (Lesson)stuLecComboBox.getSelectedItem(); 
             MainFrame.instance.tmp_admin.addInstructor(nameField.getText(), surnameField.getText(), lesson);
         }
+        
+        nameField.setText("");
+        surnameField.setText("");
+        
+        JOptionPane.showMessageDialog(this, "Account Created Succesfuly!", "Account Created", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_registerButtonActionPerformed
 
@@ -172,7 +198,12 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
         refreshComboBox("Instructor Lesson:", Database.getLessons());
     }//GEN-LAST:event_instructorRadioBtnActionPerformed
 
-    public void refreshComboBox(String labelText, ArrayList arrayList){
+    private void addClassManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClassManagementBtnActionPerformed
+        // TODO add your handling code here:
+        MainFrame.instance.setPage(MainFrame.instance.getAddClassPage());
+    }//GEN-LAST:event_addClassManagementBtnActionPerformed
+
+    public final void refreshComboBox(String labelText, ArrayList arrayList){
         stulecLabel.setText(labelText);
         stuLecComboBox.removeAllItems();
         
@@ -183,6 +214,7 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addClassManagementBtn;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton instructorRadioBtn;
     private javax.swing.JLabel jLabel1;

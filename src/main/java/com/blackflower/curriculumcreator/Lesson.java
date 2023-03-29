@@ -13,10 +13,12 @@ public class Lesson {
     private String lessonName;
     private final ArrayList<String> topics = new ArrayList<>();
     private Instructor instructor;
+    private int lessonCount;
 
-    public Lesson(String lessonName, Instructor instructor) {
+    public Lesson(String lessonName, Instructor instructor, int lessonCount) {
         this.lessonName = lessonName;
         this.instructor = instructor;
+        this.lessonCount = lessonCount;
     }
     
     // --------------- VARIABLE DECLERATIONS END ------------------
@@ -27,6 +29,9 @@ public class Lesson {
     
     public Instructor getInstructor() { return instructor; }
     public void setInstructor(Instructor instructor) { this.instructor = instructor; }
+    
+    public int getLessonCount(){ return lessonCount; }
+    public void setLessonCount(int lessonCount){ this.lessonCount = lessonCount; }
     
     public ArrayList<String> getTopics() { return topics; }
     

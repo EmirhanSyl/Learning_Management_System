@@ -29,6 +29,31 @@ public class Database {
         classes.remove(r_class);
     }
     
+    public static void addLesson(String lessonName, Instructor instructor, int lessonCount){
+        Lesson newLesson = new Lesson(lessonName, instructor, lessonCount);
+        lessons.add(newLesson);
+    }
+    
+    public static void removeLesson(Lesson r_Lesson){
+        r_Lesson.getInstructor().getLessons().remove(r_Lesson);
+        
+        for (Class classe : classes) {
+            classe.removeLessonSessions(r_Lesson);
+        }
+        
+        lessons.remove(r_Lesson);
+    }
+    
+    public static void updateLessonData(Lesson lesson, Instructor newInstructor, int newLessonCount){
+         if (!lesson.getInstructor().equals(newInstructor)) {
+            lesson.setInstructor(newInstructor);
+        }
+         
+         if (lesson.getLessonCount() != newLessonCount) {
+            lesson.setLessonCount(newLessonCount);
+        }
+    }
+    
     public static Person findPersonByName(String name){
         Person person = null;
         
@@ -38,5 +63,42 @@ public class Database {
             }
         }
         return person;
+    }
+    
+    public static Person findPersonById(int id){
+        Person person = null;
+
+        for (Person user : users) {
+            if (user.getId() == id) {
+                person = user;
+            }
+        }
+        return person;
+    }
+    
+    public static Lesson findLessonByName(String lessonName){
+        Lesson result = null;
+        
+        for (Lesson lesson : lessons) {
+            if (lesson.getLessonName().equals(lessonName)) {
+                result = lesson;
+            }
+        }
+        return result;
+    }
+    
+    public static void removeUser(Person user){
+        if (user instanceof Instructor) {
+//            Instructor instructor = (Instructor)user;
+//            instructor.getLessons().forEach((lesson) -> {
+//                lesson.setInstructor(null);
+//            });
+            users.remove(user);
+            
+        }
+        else if(user instanceof Student student){
+            student.getStudentClass().getStudents().remove(student);
+            users.remove(user);
+        }
     }
 }

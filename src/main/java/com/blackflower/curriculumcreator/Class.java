@@ -78,6 +78,14 @@ public class Class {
         return result;
     }
     
+    public void removeLessonSessions(Lesson lesson){
+        for (int i = 0; i < sessions.size(); i++) {
+            if (sessions.get(i).getLesson().equals(lesson)) {
+                sessions.remove(i);
+            }
+        }
+    }
+    
     @Override
     public String toString() {
         return className;

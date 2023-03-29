@@ -148,7 +148,6 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
         // TODO add your handling code here:
         Person user = Database.findPersonByName(nameTextField.getText());
         if (user != null) {
-            System.out.println("Not null");
             if (user instanceof Student) {
                 Student student = (Student) user;
                 refreshTableData(student);
