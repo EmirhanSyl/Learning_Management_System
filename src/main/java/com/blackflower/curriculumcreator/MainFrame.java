@@ -15,16 +15,19 @@ public class MainFrame extends javax.swing.JFrame {
     public static MainFrame instance;
     
     private final HomePagePanel homePage;
+    private final TestPanel testPage;
+    
     private final LoginPanel loginPage;
     private final RegisterPanel registerPage;
-    private final TestPanel testPage;
+    private final AccountManagementPanel accountManagementPage;
     
     private final AddClassPanel addClassPage;
     private final ManageClassesPanel manageClassesPage;
     private final ManageClassStudentsPanel manageClassStudentsPage;
     
     private final AddLessonPanel addLessonPage;
-    private final AccountManagementPanel accountManagementPage;
+    private final AdminHomePanel adminHomePage;
+    
     
     private final JPanel pageContainer;
     
@@ -41,11 +44,12 @@ public class MainFrame extends javax.swing.JFrame {
         manageClassStudentsPage = new ManageClassStudentsPanel();
         addLessonPage = new AddLessonPanel();
         accountManagementPage = new AccountManagementPanel();
+        adminHomePage = new AdminHomePanel();
         
         pageContainer = new JPanel();
         
         this.add(pageContainer);
-        pageContainer.add(addLessonPage);
+        pageContainer.add(adminHomePage);
         setSize(950, 600);
     }
     
@@ -59,6 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
     public ManageClassStudentsPanel getManageClassesStudentsPage() { return manageClassStudentsPage; }
     public AddLessonPanel getAddLessonPage() { return addLessonPage; }
     public AccountManagementPanel getAccountManagementPage() { return accountManagementPage; }
+    public AdminHomePanel getAdminHomePage() { return adminHomePage; }
 
     
     @SuppressWarnings("unchecked")

@@ -40,6 +40,7 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
         lessonToClassAllBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         manageClassPageBtn = new javax.swing.JButton();
+        homeBtn = new javax.swing.JButton();
 
         classesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
         classesComboBox.addItemListener(new java.awt.event.ItemListener() {
@@ -109,6 +110,13 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
             }
         });
 
+        homeBtn.setText("Home");
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,9 +141,9 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
                                 .addGap(67, 67, 67)
                                 .addComponent(manageClassPageBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,12 +155,16 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
                                 .addGap(63, 63, 63)))
                         .addGap(83, 83, 83)))
                 .addGap(232, 232, 232))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(homeBtn))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(homeBtn)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,6 +240,11 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
         refreshLists();
     }//GEN-LAST:event_classesComboBoxİtemStateChanged
 
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+        // TODO add your handling code here:
+        MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+    }//GEN-LAST:event_homeBtnActionPerformed
+
     @Override
     public void onPageSetted() {
         refreshLists();
@@ -265,6 +282,7 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
     private javax.swing.JButton classToLessonAllBtn;
     private javax.swing.JButton classToLessonBtn;
     private javax.swing.JComboBox<Object> classesComboBox;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

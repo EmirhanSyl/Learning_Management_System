@@ -33,6 +33,7 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
         refreshToggleBtn = new javax.swing.JToggleButton();
         addDropLessonBtn = new javax.swing.JButton();
         addRemoveStudentBtn = new javax.swing.JButton();
+        homeBtn = new javax.swing.JButton();
 
         ClassLessonLabel.setText("Class Name:");
 
@@ -84,6 +85,13 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
             }
         });
 
+        homeBtn.setText("Home");
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,11 +121,15 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(addDropLessonBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(232, 232, 232))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(homeBtn))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(69, Short.MAX_VALUE)
+                .addComponent(homeBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(ClassLessonLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -183,6 +195,11 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
         MainFrame.instance.setPage(MainFrame.instance.getManageClassesStudentsPage());
     }//GEN-LAST:event_addRemoveStudentBtnActionPerformed
 
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+        // TODO add your handling code here:
+         MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+    }//GEN-LAST:event_homeBtnActionPerformed
+
     public void refreshTableData(){
         tableModel.setRowCount(0);
         
@@ -203,6 +220,7 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
     private javax.swing.JButton addClassBtn;
     private javax.swing.JButton addDropLessonBtn;
     private javax.swing.JButton addRemoveStudentBtn;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToggleButton refreshToggleBtn;
     private javax.swing.JButton removeClassBtn;

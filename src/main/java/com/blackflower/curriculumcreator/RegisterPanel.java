@@ -33,7 +33,7 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
         jLabel1 = new javax.swing.JLabel();
         stuLecComboBox = new javax.swing.JComboBox<>();
         stulecLabel = new javax.swing.JLabel();
-        addClassManagementBtn = new javax.swing.JButton();
+        homeBtn = new javax.swing.JButton();
 
         termsCheckBox.setText("I agree with the terms and conditions");
 
@@ -79,10 +79,10 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
 
         stulecLabel.setText("Student Class:");
 
-        addClassManagementBtn.setText("Add Class Management");
-        addClassManagementBtn.addActionListener(new java.awt.event.ActionListener() {
+        homeBtn.setText("Home");
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addClassManagementBtnActionPerformed(evt);
+                homeBtnActionPerformed(evt);
             }
         });
 
@@ -112,22 +112,27 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
                                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(stulecLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(stuLecComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(termsCheckBox)
-                                        .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(10, 10, 10))
-                                .addComponent(addClassManagementBtn)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(stulecLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                        .addComponent(stuLecComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(termsCheckBox)
+                                            .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(10, 10, 10)))))))
                 .addGap(344, 344, 344))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -155,9 +160,7 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
                 .addComponent(termsCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(registerButton)
-                .addGap(28, 28, 28)
-                .addComponent(addClassManagementBtn)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -198,10 +201,10 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
         refreshComboBox("Instructor Lesson:", Database.getLessons());
     }//GEN-LAST:event_instructorRadioBtnActionPerformed
 
-    private void addClassManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClassManagementBtnActionPerformed
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
-        MainFrame.instance.setPage(MainFrame.instance.getAddClassPage());
-    }//GEN-LAST:event_addClassManagementBtnActionPerformed
+        MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+    }//GEN-LAST:event_homeBtnActionPerformed
 
     public final void refreshComboBox(String labelText, ArrayList arrayList){
         stulecLabel.setText(labelText);
@@ -214,8 +217,8 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addClassManagementBtn;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JRadioButton instructorRadioBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -232,6 +235,11 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
-        
+        if (buttonGroup1.isSelected(studentRadioBtn.getModel())) {
+            refreshComboBox("Instructor Lesson:", Database.getClasses());
+        }
+        else if(buttonGroup1.isSelected(instructorRadioBtn.getModel())){
+            refreshComboBox("Instructor Lesson:", Database.getLessons());
+        }
     }
 }

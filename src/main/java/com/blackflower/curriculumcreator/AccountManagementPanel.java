@@ -1,6 +1,7 @@
 package com.blackflower.curriculumcreator;
 
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,6 +36,7 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
         refreshTableBtn = new javax.swing.JToggleButton();
         createAccountBtn = new javax.swing.JButton();
         addClassBtn = new javax.swing.JButton();
+        homeBtn = new javax.swing.JButton();
 
         usersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,10 +81,17 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
             }
         });
 
-        addClassBtn.setText("Add class");
+        addClassBtn.setText("Add Class");
         addClassBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addClassBtnActionPerformed(evt);
+            }
+        });
+
+        homeBtn.setText("Home");
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtnActionPerformed(evt);
             }
         });
 
@@ -109,11 +118,15 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
                             .addComponent(createAccountBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(194, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addComponent(ClassLessonLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -133,12 +146,25 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
 
     private void findUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findUserBtnActionPerformed
         // TODO add your handling code here:
-        
+        Person user = Database.findPersonByName(nameField.getText());
+        if (user != null) {
+            refreshTableData(user);
+        }else{
+            JOptionPane.showMessageDialog(this, "This user cannot found!", "User Not Found", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_findUserBtnActionPerformed
 
     private void removeUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUserBtnActionPerformed
         // TODO add your handling code here:
+       if (usersTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select An User!", "User Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
        
+       int selectedUserId = (Integer)tableModel.getValueAt(usersTable.getSelectedRow(), 0);
+       Database.removeUser(Database.findPersonById(selectedUserId));
+       
+       refreshTableData();
     }//GEN-LAST:event_removeUserBtnActionPerformed
 
     private void refreshTableBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTableBtnActionPerformed
@@ -156,6 +182,11 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
         MainFrame.instance.setPage(MainFrame.instance.getAddClassPage());
     }//GEN-LAST:event_addClassBtnActionPerformed
 
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+        // TODO add your handling code here:
+         MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+    }//GEN-LAST:event_homeBtnActionPerformed
+
     public final void refreshTableData(){
         tableModel.setRowCount(0);
         
@@ -165,6 +196,7 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
             }
             Vector newData = new Vector();
             
+            newData.add(user.getId());
             newData.add(user.getFirstName());
             newData.add(user.getLastName());
                 
@@ -177,12 +209,30 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
             tableModel.addRow(newData);
         }
     }
+    public void refreshTableData(Person user) {
+        tableModel.setRowCount(0);
+
+        Vector newData = new Vector();
+        newData.add(user.getId());
+        newData.add(user.getFirstName());
+        newData.add(user.getLastName());
+
+        if (user instanceof Instructor) {
+            newData.add("Instructor");
+        } else if (user instanceof Student) {
+            newData.add("Student");
+        }
+        
+        tableModel.addRow(newData);
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ClassLessonLabel;
     private javax.swing.JButton addClassBtn;
     private javax.swing.JButton createAccountBtn;
     private javax.swing.JButton findUserBtn;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameField;
     private javax.swing.JToggleButton refreshTableBtn;

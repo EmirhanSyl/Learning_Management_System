@@ -37,6 +37,7 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
         searchByClassBtn = new javax.swing.JButton();
         changeClassButton = new javax.swing.JButton();
         manageClassPageBtn = new javax.swing.JButton();
+        homeBtn = new javax.swing.JButton();
 
         studentsTable.setAutoCreateRowSorter(true);
         studentsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -92,6 +93,13 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
             }
         });
 
+        homeBtn.setText("Home");
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,14 +123,18 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
                                 .addComponent(searchByNameBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(changeClassButton, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                                .addComponent(changeClassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                                 .addComponent(manageClassPageBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(230, 230, 230))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(homeBtn))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addComponent(homeBtn)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
@@ -185,6 +197,11 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
         MainFrame.instance.setPage(MainFrame.instance.getAddClassPage());
     }//GEN-LAST:event_manageClassPageBtnActionPerformed
 
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+        // TODO add your handling code here:
+        MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+    }//GEN-LAST:event_homeBtnActionPerformed
+
     public void refreshTableData() {
         if (selectedClass == null) {
             return;
@@ -227,6 +244,7 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton changeClassButton;
     private javax.swing.JComboBox<Object> classComboBox;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
