@@ -86,6 +86,20 @@ public class Class {
         }
     }
     
+    public int remainedSessions(Lesson lesson){
+        int remainedSessions = lesson.getLessonCount();
+        for (CourseSession session : sessions) {
+            if (session.getSessionClass().equals(this)) {
+                remainedSessions -= session.getSessionHours();
+            }
+        }
+        return remainedSessions;
+    }
+    
+    public void addCourseSession(CourseSession session){
+        sessions.add(session);
+    }
+    
     @Override
     public String toString() {
         return className;

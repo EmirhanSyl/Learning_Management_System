@@ -45,6 +45,17 @@ public class Lesson {
         topics.add(topicIndex, topicName);
     }
     
+    public ArrayList<Class> lessonClasses(){
+        ArrayList<Class> result = new ArrayList<>();
+        
+        for (Class classe : Database.getClasses()) {
+            if (classe.getLessons().contains(this)) {
+                result.add(classe);
+            }
+        }
+        return result;
+    }
+    
     @Override
     public String toString() {
         return getLessonName();

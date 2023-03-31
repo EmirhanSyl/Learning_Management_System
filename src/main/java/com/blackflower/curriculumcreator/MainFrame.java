@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 public class MainFrame extends javax.swing.JFrame {
 
     public Admin tmp_admin = new Admin("admin", "admin", "admin", "123");
-
+    
 // --------------- VARIABLE DECLERATIONS ------------------
 
     public static MainFrame instance;
@@ -28,8 +28,12 @@ public class MainFrame extends javax.swing.JFrame {
     private final AddLessonPanel addLessonPage;
     private final AdminHomePanel adminHomePage;
     
+    private final AddSessionPanel addSessionPage;
+    private final InstructorHomePanel instructorHomePage;
     
     private final JPanel pageContainer;
+    
+    private Person account;
     
     public MainFrame() {
         initComponents();
@@ -45,11 +49,13 @@ public class MainFrame extends javax.swing.JFrame {
         addLessonPage = new AddLessonPanel();
         accountManagementPage = new AccountManagementPanel();
         adminHomePage = new AdminHomePanel();
+        addSessionPage = new AddSessionPanel();
+        instructorHomePage = new InstructorHomePanel();
         
         pageContainer = new JPanel();
         
         this.add(pageContainer);
-        pageContainer.add(adminHomePage);
+        pageContainer.add(loginPage);
         setSize(950, 600);
     }
     
@@ -64,7 +70,11 @@ public class MainFrame extends javax.swing.JFrame {
     public AddLessonPanel getAddLessonPage() { return addLessonPage; }
     public AccountManagementPanel getAccountManagementPage() { return accountManagementPage; }
     public AdminHomePanel getAdminHomePage() { return adminHomePage; }
+    public AddSessionPanel getaddSessionPage() { return addSessionPage; }
+    public InstructorHomePanel getInstructorHomePage() { return instructorHomePage; }
 
+    public Person getAccount(){ return  account; }
+    public void setAccount(Person account){ this.account = account; }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -128,6 +138,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     public static void testInit(){
+        Admin admin = new Admin("admin", "admin", "admin", "123");
+        
         Instructor instructor = new Instructor("Ali", "Nizam");
         Instructor instructor2 = new Instructor("Nazlı", "Doğan");
         
@@ -152,6 +164,8 @@ public class MainFrame extends javax.swing.JFrame {
         
         newClass2.getStudents().add(student3);
         newClass2.getStudents().add(student4);
+        
+        Database.getUsers().add(admin);
         
         Database.getUsers().add(instructor);
         Database.getUsers().add(instructor2);

@@ -101,4 +101,17 @@ public class Database {
             users.remove(user);
         }
     }
+    
+    public static Person login(String username, String password){
+        Person account = null;
+        
+        for (Person user : users) {
+            if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
+                account = user;
+                break;
+            }
+        }
+        
+        return account;
+    }
 }

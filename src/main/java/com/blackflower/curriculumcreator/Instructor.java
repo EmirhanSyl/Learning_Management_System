@@ -24,4 +24,27 @@ public class Instructor extends Person{
     public final void addLesson(Lesson lesson){
         lessons.add(lesson);
     }
+    
+    public ArrayList<Class> lessonsClasses(){
+        ArrayList<Class> result = new ArrayList<>();
+        
+        for (Lesson lesson : lessons) {
+            ArrayList<Class> lessonClasses = lesson.lessonClasses();
+            
+            for (Class lessonClasse : lessonClasses) {
+                if (!result.contains(lessonClasse)) {
+                    result.add(lessonClasse);
+                }
+            }
+        }
+        
+        return result;
+    }
+    
+    public void createSession(Lesson lesson, Class sessionClass, int day, 
+            int month, int year, int sessionHours){
+        
+        CourseSession session = new CourseSession(lesson, sessionClass, day, month, year, sessionHours);
+        sessionClass.addCourseSession(session);
+    }
 }
