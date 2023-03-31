@@ -1,4 +1,7 @@
-package com.blackflower.curriculumcreator;
+package com.blackflower.curriculumcreator.instructorpages;
+
+import com.blackflower.curriculumcreator.MainFrame;
+import com.blackflower.curriculumcreator.core.IPage;
 
 /**
  *

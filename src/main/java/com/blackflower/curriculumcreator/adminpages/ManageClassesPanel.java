@@ -1,5 +1,10 @@
-package com.blackflower.curriculumcreator;
+package com.blackflower.curriculumcreator.adminpages;
 
+import com.blackflower.curriculumcreator.MainFrame;
+import com.blackflower.curriculumcreator.core.Lesson;
+import com.blackflower.curriculumcreator.core.IPage;
+import com.blackflower.curriculumcreator.core.Database;
+import com.blackflower.curriculumcreator.core.Class;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 

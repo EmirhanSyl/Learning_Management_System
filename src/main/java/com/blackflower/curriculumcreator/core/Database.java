@@ -1,5 +1,6 @@
-package com.blackflower.curriculumcreator;
+package com.blackflower.curriculumcreator.core;
 
+import com.blackflower.curriculumcreator.core.Class;
 import java.util.ArrayList;
 
 /**

@@ -1,5 +1,24 @@
 package com.blackflower.curriculumcreator;
 
+import com.blackflower.curriculumcreator.test.TestPanel;
+import com.blackflower.curriculumcreator.test.HomePagePanel;
+import com.blackflower.curriculumcreator.core.Student;
+import com.blackflower.curriculumcreator.adminpages.RegisterPanel;
+import com.blackflower.curriculumcreator.core.Person;
+import com.blackflower.curriculumcreator.adminpages.ManageClassesPanel;
+import com.blackflower.curriculumcreator.adminpages.ManageClassStudentsPanel;
+import com.blackflower.curriculumcreator.core.Lesson;
+import com.blackflower.curriculumcreator.instructorpages.InstructorHomePanel;
+import com.blackflower.curriculumcreator.core.Instructor;
+import com.blackflower.curriculumcreator.core.IPage;
+import com.blackflower.curriculumcreator.core.Database;
+import com.blackflower.curriculumcreator.core.Class;
+import com.blackflower.curriculumcreator.adminpages.AdminHomePanel;
+import com.blackflower.curriculumcreator.core.Admin;
+import com.blackflower.curriculumcreator.instructorpages.AddSessionPanel;
+import com.blackflower.curriculumcreator.adminpages.AddLessonPanel;
+import com.blackflower.curriculumcreator.adminpages.AddClassPanel;
+import com.blackflower.curriculumcreator.adminpages.AccountManagementPanel;
 import javax.swing.JPanel;
 
 /**

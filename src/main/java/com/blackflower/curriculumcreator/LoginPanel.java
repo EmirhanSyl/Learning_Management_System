@@ -1,5 +1,11 @@
 package com.blackflower.curriculumcreator;
 
+import com.blackflower.curriculumcreator.core.Student;
+import com.blackflower.curriculumcreator.core.Person;
+import com.blackflower.curriculumcreator.core.Instructor;
+import com.blackflower.curriculumcreator.core.IPage;
+import com.blackflower.curriculumcreator.core.Database;
+import com.blackflower.curriculumcreator.core.Admin;
 import javax.swing.JOptionPane;
 
 /**
