@@ -1,8 +1,6 @@
 
 package com.blackflower.curriculumcreator.core;
 
-import com.blackflower.curriculumcreator.core.CourseSession;
-import com.blackflower.curriculumcreator.core.Class;
 import java.util.ArrayList;
 
 /**
@@ -48,5 +46,19 @@ public class Instructor extends Person{
         
         CourseSession session = new CourseSession(lesson, sessionClass, day, month, year, sessionHours);
         sessionClass.addCourseSession(session);
+    }
+    
+    public ArrayList<Class> getResponsibleClasses(){
+        ArrayList<Class> result = new ArrayList<>();
+        
+        for (Lesson lesson : lessons) {
+            lesson.lessonClasses().forEach((classe) -> {
+                if (!result.contains(classe)) {
+                    result.add(classe);
+                }
+            });
+        }
+        
+        return result;
     }
 }

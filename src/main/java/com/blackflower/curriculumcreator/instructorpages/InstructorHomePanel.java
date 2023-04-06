@@ -21,7 +21,6 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
         jLabel3 = new javax.swing.JLabel();
         welcomeLabel = new javax.swing.JLabel();
         showClassStudentsBtn = new javax.swing.JButton();
-        showLessonsBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         manageLessonsBtn = new javax.swing.JButton();
         addLessonSessionBtn = new javax.swing.JButton();
@@ -42,13 +41,6 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
             }
         });
 
-        showLessonsBtn.setText("Show Lessons");
-        showLessonsBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showLessonsBtnActionPerformed(evt);
-            }
-        });
-
         logoutBtn.setText("Logout");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,7 +48,7 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
             }
         });
 
-        manageLessonsBtn.setText("Manage Lessons");
+        manageLessonsBtn.setText("Manage Sessions");
         manageLessonsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageLessonsBtnActionPerformed(evt);
@@ -95,8 +87,7 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(manageLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addLessonSessionBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(showLessonsBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addLessonSessionBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                         .addGap(43, 43, 43)))
                 .addGap(195, 195, 195))
         );
@@ -107,39 +98,32 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(addLessonSessionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(manageLessonsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(showLessonsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(manageLessonsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(showClassStudentsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
                         .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void showClassStudentsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showClassStudentsBtnActionPerformed
         // TODO add your handling code here:
-        MainFrame.instance.setPage(MainFrame.instance.getManageClassesStudentsPage());
+        MainFrame.instance.setPage(MainFrame.instance.getShowClassDeteails_InstructorPage());
     }//GEN-LAST:event_showClassStudentsBtnActionPerformed
-
-    private void showLessonsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showLessonsBtnActionPerformed
-        // TODO add your handling code here:
-        MainFrame.instance.setPage(MainFrame.instance.getManageClassesPage());
-    }//GEN-LAST:event_showLessonsBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
-        MainFrame.instance.setPage(MainFrame.instance.getRegisterPage());
+        MainFrame.instance.logout();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void manageLessonsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLessonsBtnActionPerformed
@@ -161,7 +145,6 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton manageLessonsBtn;
     private javax.swing.JButton showClassStudentsBtn;
-    private javax.swing.JButton showLessonsBtn;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 

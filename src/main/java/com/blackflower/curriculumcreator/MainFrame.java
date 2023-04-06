@@ -1,24 +1,10 @@
 package com.blackflower.curriculumcreator;
 
-import com.blackflower.curriculumcreator.test.TestPanel;
-import com.blackflower.curriculumcreator.test.HomePagePanel;
-import com.blackflower.curriculumcreator.core.Student;
-import com.blackflower.curriculumcreator.adminpages.RegisterPanel;
-import com.blackflower.curriculumcreator.core.Person;
-import com.blackflower.curriculumcreator.adminpages.ManageClassesPanel;
-import com.blackflower.curriculumcreator.adminpages.ManageClassStudentsPanel;
-import com.blackflower.curriculumcreator.core.Lesson;
-import com.blackflower.curriculumcreator.instructorpages.InstructorHomePanel;
-import com.blackflower.curriculumcreator.core.Instructor;
-import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Database;
+import com.blackflower.curriculumcreator.test.*;
+import com.blackflower.curriculumcreator.core.*;
 import com.blackflower.curriculumcreator.core.Class;
-import com.blackflower.curriculumcreator.adminpages.AdminHomePanel;
-import com.blackflower.curriculumcreator.core.Admin;
-import com.blackflower.curriculumcreator.instructorpages.AddSessionPanel;
-import com.blackflower.curriculumcreator.adminpages.AddLessonPanel;
-import com.blackflower.curriculumcreator.adminpages.AddClassPanel;
-import com.blackflower.curriculumcreator.adminpages.AccountManagementPanel;
+import com.blackflower.curriculumcreator.adminpages.*;
+import com.blackflower.curriculumcreator.instructorpages.*;
 import javax.swing.JPanel;
 
 /**
@@ -49,6 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     private final AddSessionPanel addSessionPage;
     private final InstructorHomePanel instructorHomePage;
+    private final ShowClassDeteails_InstructorPanel showClassDeteails_InstructorPage;
     
     private final JPanel pageContainer;
     
@@ -70,6 +57,7 @@ public class MainFrame extends javax.swing.JFrame {
         adminHomePage = new AdminHomePanel();
         addSessionPage = new AddSessionPanel();
         instructorHomePage = new InstructorHomePanel();
+        showClassDeteails_InstructorPage = new ShowClassDeteails_InstructorPanel();
         
         pageContainer = new JPanel();
         
@@ -91,6 +79,7 @@ public class MainFrame extends javax.swing.JFrame {
     public AdminHomePanel getAdminHomePage() { return adminHomePage; }
     public AddSessionPanel getaddSessionPage() { return addSessionPage; }
     public InstructorHomePanel getInstructorHomePage() { return instructorHomePage; }
+    public ShowClassDeteails_InstructorPanel getShowClassDeteails_InstructorPage(){ return showClassDeteails_InstructorPage; };
 
     public Person getAccount(){ return  account; }
     public void setAccount(Person account){ this.account = account; }
@@ -156,14 +145,19 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
     
+    public void logout() {
+          account = null;
+          setPage(getLoginPage());
+    }
+    
     public static void testInit(){
         Admin admin = new Admin("admin", "admin", "admin", "123");
         
         Instructor instructor = new Instructor("Ali", "Nizam");
         Instructor instructor2 = new Instructor("Nazlı", "Doğan");
         
-        Lesson lesson = new Lesson("CP2", instructor, 6);
-        Lesson lesson2 = new Lesson("CP1", instructor, 6);
+        Database.addLesson("CP2", instructor, 6);
+        Database.addLesson("CP1", instructor, 6);
         
         Class newClass = new Class("Software Eng.");
         Class newClass2 = new Class("Computer Eng.");
@@ -189,9 +183,6 @@ public class MainFrame extends javax.swing.JFrame {
         Database.getUsers().add(instructor);
         Database.getUsers().add(instructor2);
         
-        Database.getLessons().add(lesson);
-        Database.getLessons().add(lesson2);
-        
         Database.getClasses().add(newClass);
         Database.getClasses().add(newClass2);
         
@@ -202,6 +193,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

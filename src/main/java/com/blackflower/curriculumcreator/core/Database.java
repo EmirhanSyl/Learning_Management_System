@@ -1,6 +1,5 @@
 package com.blackflower.curriculumcreator.core;
 
-import com.blackflower.curriculumcreator.core.Class;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +21,7 @@ public class Database {
      // --------------- ENCAPSULATE FIELDS END ------------------
     
     public static void addClass(String className){
-        Class newClass = new Class(className);
+        Class newClass = new Class(className); 
         classes.add(newClass);
     }
     
@@ -32,6 +31,7 @@ public class Database {
     
     public static void addLesson(String lessonName, Instructor instructor, int lessonCount){
         Lesson newLesson = new Lesson(lessonName, instructor, lessonCount);
+        instructor.addLesson(newLesson);
         lessons.add(newLesson);
     }
     
@@ -115,4 +115,5 @@ public class Database {
         
         return account;
     }
+    
 }

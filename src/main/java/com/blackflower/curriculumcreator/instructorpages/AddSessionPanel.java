@@ -18,6 +18,7 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
     public AddSessionPanel() {
         initComponents();
         //setDateComboBoxes();
+        stateText.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -43,6 +44,7 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         sessionHoursText = new javax.swing.JLabel();
         addSessionBtn = new javax.swing.JButton();
         stateText = new javax.swing.JLabel();
+        homeBtn = new javax.swing.JButton();
 
         welcomeLabel.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -125,6 +127,13 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         stateText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         stateText.setText("'5' hour(s) 'CP1' lesson's session added to 'Software Eng.' class on 02.03.2023");
 
+        homeBtn.setText("Home");
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,7 +141,8 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
             .addGroup(layout.createSequentialGroup()
                 .addGap(183, 183, 183)
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
-                .addGap(169, 169, 169))
+                .addGap(100, 100, 100)
+                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,8 +185,11 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -226,12 +239,14 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
 
     private void monthComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_monthComboBoxİtemStateChanged
         // TODO add your handling code here:
+        if (monthComboBox.getSelectedIndex() == -1) { return; }
         setDayComboBox((Integer)monthComboBox.getSelectedItem());
         setDateText();
     }//GEN-LAST:event_monthComboBoxİtemStateChanged
 
     private void yearComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_yearComboBoxİtemStateChanged
         // TODO add your handling code here:
+        if (monthComboBox.getSelectedIndex() == -1) { return; }
         setDayComboBox((Integer)monthComboBox.getSelectedItem());
         setDateText(); 
     }//GEN-LAST:event_yearComboBoxİtemStateChanged
@@ -256,12 +271,18 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         int sessionHours = sessionHoursSlider.getValue();
         
         account.createSession(selectedLesson, sessionClass, day, month, year, sessionHours);
+        stateText.setText("'" + sessionHours + "' hour(s) '" + selectedLesson 
+                + "' lesson's session added to '" + sessionClass + "' class on " 
+                + day +"."+ month + "." + year);
     }//GEN-LAST:event_addSessionBtnActionPerformed
 
     private void classComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_classComboBoxİtemStateChanged
         // TODO add your handling code here:
         Lesson selectedLesson = (Lesson)lessonComboBox.getSelectedItem();
         Class selectedClass = (Class)classComboBox.getSelectedItem();
+        
+        if (selectedClass == null || selectedLesson == null) { return; }
+        
         int remainedSessions = selectedClass.remainedSessions(selectedLesson);
         sessionHoursText.setText("'" + remainedSessions + "' hour(s) sessions left from this lesson");
         if (remainedSessions != 0) {
@@ -272,11 +293,17 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         }
     }//GEN-LAST:event_classComboBoxİtemStateChanged
 
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+        // TODO add your handling code here:
+        MainFrame.instance.setPage(MainFrame.instance.getInstructorHomePage());
+    }//GEN-LAST:event_homeBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addSessionBtn;
     private javax.swing.JComboBox<Object> classComboBox;
     private javax.swing.JComboBox<Integer> dayComboBox;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -302,6 +329,7 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
             account = instructor;
         }
         
+        setDateComboBoxes();
         refreshLessonsComboBox();
         refreshClassesComboBox();
     }
@@ -311,11 +339,11 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         monthComboBox.removeAllItems();
         yearComboBox.removeAllItems();
         
-        int year = 2022;
-        for (int i = 1; i < 31; i++) {
-            dayComboBox.addItem(i);
+        int year = 2023;
+        for (int i = 0; i < 30; i++) {
+            dayComboBox.addItem(i+1);
             if (i <= 12) {
-                monthComboBox.addItem(i);
+                monthComboBox.addItem(i+1);
                 yearComboBox.addItem(year + i);
             }
             
@@ -359,11 +387,13 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
     }
     
     private void setDateText(){
-        sessionDateText.setText(
-                "Session Date: "
-                + dayComboBox.getSelectedItem().toString() + "."
-                + monthComboBox.getSelectedItem().toString() + "."
-                + yearComboBox.getSelectedItem().toString()
-        );
+        if (dayComboBox.getSelectedIndex() != -1 && monthComboBox.getSelectedIndex() != -1 && yearComboBox.getSelectedIndex() != -1 ) {
+            sessionDateText.setText(
+                    "Session Date: "
+                    + dayComboBox.getSelectedItem().toString() + "."
+                    + monthComboBox.getSelectedItem().toString() + "."
+                    + yearComboBox.getSelectedItem().toString()
+            );
+        }
     }
 }

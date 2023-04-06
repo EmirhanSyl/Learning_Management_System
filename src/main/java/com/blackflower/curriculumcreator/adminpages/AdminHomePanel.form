@@ -32,6 +32,7 @@
                           <Component id="manageAccountsBtn" alignment="1" max="32767" attributes="0"/>
                           <Component id="createAccpuntBtn" alignment="1" pref="163" max="32767" attributes="0"/>
                           <Component id="jLabel3" max="32767" attributes="0"/>
+                          <Component id="logoutBtn" alignment="0" pref="163" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -75,7 +76,10 @@
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="manageClassLessonsBtn" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="manageClassLessonsBtn" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="logoutBtn" min="-2" pref="31" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
@@ -164,6 +168,14 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Welcome: admin"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="logoutBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Logout"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
