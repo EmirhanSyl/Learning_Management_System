@@ -3,6 +3,10 @@ package com.blackflower.curriculumcreator.instructorpages;
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.*;
 import com.blackflower.curriculumcreator.core.Class;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -10,10 +14,15 @@ import com.blackflower.curriculumcreator.core.Class;
  */
 public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
 
-    private Instructor acount;
+    private Instructor account;
+    private final DefaultTableModel tableModel = new DefaultTableModel();
+    private final String[] columnNames = {"ID", "Date", "Lesson", "Class", "Length(Hours)"};
     
     public ManageSessionsPanel() {
         initComponents();
+        
+        tableModel.setColumnIdentifiers(columnNames);
+        sessionsTable.setModel(tableModel);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,6 +42,7 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
         sessionsTable = new javax.swing.JTable();
         addSessionBtn = new javax.swing.JButton();
         removeSessionBtn = new javax.swing.JButton();
+        clearFilterTextBtn = new javax.swing.JLabel();
 
         welcomeLabel.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -48,6 +58,7 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
         jLabel1.setText("Filter By:");
 
         buttonGroup1.add(classRadioBtn);
+        classRadioBtn.setSelected(true);
         classRadioBtn.setText("Class");
         classRadioBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +89,7 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
             }
         });
 
-        filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Software Eng." }));
 
         sessionsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,6 +118,15 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
             }
         });
 
+        clearFilterTextBtn.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        clearFilterTextBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        clearFilterTextBtn.setText("Clear Filter");
+        clearFilterTextBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clearFilterTextBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,11 +147,12 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
                             .addComponent(dateRadioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(classRadioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(filterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(filterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clearFilterTextBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -161,7 +182,9 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
                         .addGap(30, 30, 30)
                         .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(filterBtn)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(filterBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(clearFilterTextBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -182,38 +205,66 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
 
     private void lessonRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonRadioBtnActionPerformed
         // TODO add your handling code here:
+        refreshLessonsComboBox();
     }//GEN-LAST:event_lessonRadioBtnActionPerformed
 
     private void filterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBtnActionPerformed
         // TODO add your handling code here:
+        if (filterComboBox.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (buttonGroup1.isSelected(lessonRadioBtn.getModel())) {
+            Lesson selectedLesson = (Lesson)filterComboBox.getSelectedItem();
+            refreshTableData(account.getResponsibleSessions(selectedLesson));
+        }else if(buttonGroup1.isSelected(classRadioBtn.getModel())){
+            Class selectedClass = (Class)filterComboBox.getSelectedItem();
+            refreshTableData(account.getResponsibleSessions(selectedClass));
+        }
     }//GEN-LAST:event_filterBtnActionPerformed
 
     private void addSessionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSessionBtnActionPerformed
         // TODO add your handling code here:
+         MainFrame.instance.setPage(MainFrame.instance.getaddSessionPage());
     }//GEN-LAST:event_addSessionBtnActionPerformed
 
     private void removeSessionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeSessionBtnActionPerformed
         // TODO add your handling code here:
+        if (sessionsTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select A Session!", "Session Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int sessionID = (Integer)sessionsTable.getValueAt(sessionsTable.getSelectedRow(), 0);
+        
+        account.removeSession(sessionID);
+        
+        refreshTableData(account.getResponsibleSessions());
     }//GEN-LAST:event_removeSessionBtnActionPerformed
 
     private void classRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classRadioBtnActionPerformed
         // TODO add your handling code here:
+        refreshClassesComboBox();
     }//GEN-LAST:event_classRadioBtnActionPerformed
 
     private void dateRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateRadioBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dateRadioBtnActionPerformed
 
-    
-    
+    private void clearFilterTextBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearFilterTextBtnMouseClicked
+        // TODO add your handling code here:
+        refreshTableData(account.getResponsibleSessions());
+    }//GEN-LAST:event_clearFilterTextBtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addSessionBtn;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton classRadioBtn;
+    private javax.swing.JLabel clearFilterTextBtn;
     private javax.swing.JRadioButton dateRadioBtn;
     private javax.swing.JButton filterBtn;
-    private javax.swing.JComboBox<String> filterComboBox;
+    private javax.swing.JComboBox<Object> filterComboBox;
     private javax.swing.JButton homeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -226,5 +277,40 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
     @Override
     public void onPageSetted() {
         account = (Instructor)MainFrame.instance.getAccount();
+        
+        refreshClassesComboBox();
+        refreshTableData(account.getResponsibleSessions());
     }
+    
+    private void refreshLessonsComboBox(){
+        filterComboBox.removeAllItems();
+        
+        account.getLessons().forEach((lesson) -> {
+            filterComboBox.addItem(lesson);
+        });
+    }
+    
+    private void refreshClassesComboBox(){
+        filterComboBox.removeAllItems();
+        
+        account.getResponsibleClasses().forEach((lesson) -> {
+            filterComboBox.addItem(lesson);
+        });
+    }
+    
+    private void refreshTableData(ArrayList<CourseSession> dataArray){
+        tableModel.setRowCount(0);
+        
+        for (CourseSession session : dataArray) {
+            Vector newData = new Vector();
+            newData.add(session.getID());
+            newData.add(session.getDate());
+            newData.add(session.getLesson());
+            newData.add(session.getSessionClass());
+            newData.add(session.getSessionHours());
+            
+            tableModel.addRow(newData);
+        }
+    }
+    
 }

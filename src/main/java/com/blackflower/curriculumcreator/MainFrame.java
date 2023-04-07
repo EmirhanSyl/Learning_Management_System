@@ -36,6 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final AddSessionPanel addSessionPage;
     private final InstructorHomePanel instructorHomePage;
     private final ShowClassDeteails_InstructorPanel showClassDeteails_InstructorPage;
+    private final ManageSessionsPanel manageSessionsPage;
     
     private final JPanel pageContainer;
     
@@ -58,6 +59,7 @@ public class MainFrame extends javax.swing.JFrame {
         addSessionPage = new AddSessionPanel();
         instructorHomePage = new InstructorHomePanel();
         showClassDeteails_InstructorPage = new ShowClassDeteails_InstructorPanel();
+        manageSessionsPage = new ManageSessionsPanel();
         
         pageContainer = new JPanel();
         
@@ -80,6 +82,7 @@ public class MainFrame extends javax.swing.JFrame {
     public AddSessionPanel getaddSessionPage() { return addSessionPage; }
     public InstructorHomePanel getInstructorHomePage() { return instructorHomePage; }
     public ShowClassDeteails_InstructorPanel getShowClassDeteails_InstructorPage(){ return showClassDeteails_InstructorPage; };
+    public ManageSessionsPanel getManageSessionsPage() { return manageSessionsPage; }
 
     public Person getAccount(){ return  account; }
     public void setAccount(Person account){ this.account = account; }

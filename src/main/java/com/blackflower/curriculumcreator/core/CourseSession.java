@@ -9,6 +9,9 @@ import com.blackflower.curriculumcreator.core.Class;
 public class CourseSession {
 
     // --------------- VARIABLE DECLERATIONS ------------------
+    private static int sessionCount = 10000;
+    private final int id;
+    
     private Lesson lesson;
     private Class sessionClass;
     
@@ -20,15 +23,20 @@ public class CourseSession {
     // --------------- VARIABLE DECLERATIONS END------------------
 
     public CourseSession(Lesson lesson, Class sessionClass, int day, int month, int year, int sessionHours) {
+        id = sessionCount;
         this.lesson = lesson;
         this.sessionClass = sessionClass;
         this.day = day;
         this.month = month;
         this.year = year;
         this.sessionHours = sessionHours;
+        
+        sessionCount++;
     }
 
      // --------------- ENCAPSULATE FIELDS ------------------
+    public int getID() { return id; }
+    
     public Lesson getLesson() { return lesson; }
     public void setLesson(Lesson lesson) { this.lesson = lesson; }
 
@@ -47,4 +55,8 @@ public class CourseSession {
     public int getSessionHours() { return sessionHours; }
     public void setSessionHours(int sessionHours) { this.sessionHours = sessionHours; }
      // --------------- ENCAPSULATE FIELDS END ------------------
+    
+    public String getDate(){
+        return day + "." + month + "." + year;
+    }
 }

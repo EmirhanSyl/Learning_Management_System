@@ -128,7 +128,7 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
 
     private void manageLessonsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLessonsBtnActionPerformed
         // TODO add your handling code here:
-        MainFrame.instance.setPage(MainFrame.instance.getAddLessonPage());
+        MainFrame.instance.setPage(MainFrame.instance.getManageSessionsPage());
     }//GEN-LAST:event_manageLessonsBtnActionPerformed
 
     private void addLessonSessionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLessonSessionBtnActionPerformed

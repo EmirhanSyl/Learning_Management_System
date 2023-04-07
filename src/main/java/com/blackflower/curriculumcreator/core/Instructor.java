@@ -61,4 +61,56 @@ public class Instructor extends Person{
         
         return result;
     }
+    
+    // Too complex Structure! Will be done better in the future updates...
+    public ArrayList<CourseSession> getResponsibleSessions(){
+        ArrayList<CourseSession> result = new ArrayList<>();
+        
+        for (Lesson lesson : lessons) {
+            getResponsibleClasses().forEach((classe) -> {
+                result.addAll(classe.getLessonSessions(lesson.getLessonName()));
+            });
+        }
+        
+        return result;
+    }
+    
+    public ArrayList<CourseSession> getResponsibleSessions(Lesson lesson){
+        ArrayList<CourseSession> result = new ArrayList<>();
+        
+        getResponsibleClasses().forEach((classe) -> {
+            result.addAll(classe.getLessonSessions(lesson.getLessonName()));
+        });
+        return result;
+    }
+    
+    public ArrayList<CourseSession> getResponsibleSessions(Class classe){
+        ArrayList<CourseSession> result = new ArrayList<>();
+        
+        for (Lesson lesson : lessons) {
+            result.addAll(classe.getLessonSessions(lesson.getLessonName()));
+        }
+        
+        return result;
+    }
+    
+    public void removeSession(int sessionID){
+        
+        Class targetClass = null;
+        CourseSession targetSession = null;
+        for (Class classe : Database.getClasses()) {
+            for (CourseSession session : classe.getSessions()) {
+                if (session.getID() == sessionID) {
+                    targetClass = classe;
+                    targetSession = session;
+                }
+            }
+        }
+        if (targetClass != null) {
+            targetClass.getSessions().remove(targetSession);
+        }
+    }
+    
+    
+    
 }
