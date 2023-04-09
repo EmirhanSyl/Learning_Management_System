@@ -24,23 +24,35 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="602" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jScrollPane1" alignment="1" min="-2" pref="620" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="lessonComboBox" alignment="0" pref="231" max="32767" attributes="0"/>
-                                      <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel1" max="32767" attributes="0"/>
-                                      <Component id="topicTextField" pref="231" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="addTopicBtn" max="32767" attributes="0"/>
-                                  <Component id="removeTopicBtn" min="-2" pref="212" max="-2" attributes="0"/>
+                                  <Component id="findTopicTextField" max="32767" attributes="0"/>
+                                  <Component id="jLabel3" pref="231" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="findTopicBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="clearFilterBtn" min="-2" pref="118" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="removeTopicBtn" min="-2" pref="162" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel2" max="32767" attributes="0"/>
+                                  <Component id="lessonComboBox" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel1" alignment="0" min="-2" pref="224" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="topicTextField" min="-2" pref="231" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="weekComboBox" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="addTopicBtn" min="-2" pref="110" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -59,22 +71,29 @@
                   <Component id="welcomeLabel" min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lessonComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="topicTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="weekComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addTopicBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="8" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="topicTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="findTopicTextField" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="findTopicBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="removeTopicBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="clearFilterBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="340" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -159,6 +178,41 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeTopicBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="findTopicTextField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Topic Name:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="findTopicBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Find Topic"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="findTopicBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="weekComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="1">
+            <StringItem index="0" value="Week-1"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="clearFilterBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear Filter"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearFilterBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

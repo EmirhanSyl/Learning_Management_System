@@ -2,6 +2,10 @@
 package com.blackflower.curriculumcreator.core;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -19,6 +23,10 @@ public class Lesson {
         this.lessonName = lessonName;
         this.instructor = instructor;
         this.lessonCount = lessonCount;
+        
+        for (int i = 0; i < topics.length; i++) {
+            topics[i] = "";
+        }
     }
     
     // --------------- VARIABLE DECLERATIONS END ------------------
@@ -56,11 +64,38 @@ public class Lesson {
         }
         return result;
     }
+
+    public ArrayList<String> findTopic(String patternText) {
+        ArrayList<String> result = new ArrayList<>();
+        
+        Pattern pattern = Pattern.compile(patternText);
+        for (String topic : topics) {
+            Matcher matcher = pattern.matcher(topic);
+            if (matcher.find()) {
+                result.add(topic);
+            }
+        }
+        
+        return result;
+    }
     
+    public Dictionary<String, String> findTopic(String patternText, int k) {
+        Dictionary<String, String> result = new Hashtable<>();
+        
+        Pattern pattern = Pattern.compile(patternText);
+        for (int i = 0; i < topics.length; i++) {
+            Matcher matcher = pattern.matcher(topics[i]);
+            if (matcher.find()) {
+                result.put("Week-" + i, topics[i]);
+            }
+        }
+        
+        return result;
+    }
+
     @Override
     public String toString() {
         return getLessonName();
     }
-    
-    
+
 }

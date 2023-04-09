@@ -3,18 +3,23 @@ package com.blackflower.curriculumcreator.instructorpages;
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.core.Instructor;
+import com.blackflower.curriculumcreator.core.Lesson;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author emirs
  */
-public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements IPage{
+public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements IPage {
 
     private Instructor account;
     private DefaultTableModel tableModel = new DefaultTableModel();
-    private String[] columnNames = {"Topic", "Week"};
-    
+    private final String[] columnNames = {"Topic", "Week"};
+
     public ManageLessons_InstructorPanel() {
         initComponents();
         tableModel.setColumnIdentifiers(columnNames);
@@ -35,6 +40,11 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
         lessonComboBox = new javax.swing.JComboBox<>();
         addTopicBtn = new javax.swing.JButton();
         removeTopicBtn = new javax.swing.JButton();
+        findTopicTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        findTopicBtn = new javax.swing.JButton();
+        weekComboBox = new javax.swing.JComboBox<>();
+        clearFilterBtn = new javax.swing.JButton();
 
         welcomeLabel.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -85,6 +95,24 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
             }
         });
 
+        jLabel3.setText("Topic Name:");
+
+        findTopicBtn.setText("Find Topic");
+        findTopicBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findTopicBtnActionPerformed(evt);
+            }
+        });
+
+        weekComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week-1" }));
+
+        clearFilterBtn.setText("Clear Filter");
+        clearFilterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearFilterBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,20 +124,31 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
                         .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(findTopicTextField)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(findTopicBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clearFilterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(removeTopicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(lessonComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 231, Short.MAX_VALUE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(topicTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)))
-                                .addGap(97, 97, 97)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(addTopicBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(removeTopicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lessonComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(topicTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(weekComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(addTopicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addGap(73, 73, 73)
                 .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -120,20 +159,26 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
                     .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lessonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addTopicBtn))
-                .addGap(22, 22, 22)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(topicTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(removeTopicBtn))
-                .addGap(17, 17, 17)
+                    .addComponent(weekComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addTopicBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(findTopicTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(findTopicBtn)
+                    .addComponent(removeTopicBtn)
+                    .addComponent(clearFilterBtn))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -144,48 +189,154 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
 
     private void addTopicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTopicBtnActionPerformed
         // TODO add your handling code here:
-        
+        if (lessonComboBox.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Lesson selectedLesson = (Lesson) lessonComboBox.getSelectedItem();
+        int index = 0;
+        try {
+            String str_index = (String) weekComboBox.getSelectedItem();
+            index = Integer.parseInt(str_index.split("-")[1]);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Something went wrong! Please try again", "UPPS!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "No more week left! Please try remove some topics to add new one!", "Weeks Full!", JOptionPane.ERROR_MESSAGE);
+            addTopicBtn.setEnabled(false);
+            return;
+        }
+
+        selectedLesson.addTopic(topicTextField.getText(), index);
+
+        refreshTableData();
+        refreshWeekComboBox();
     }//GEN-LAST:event_addTopicBtnActionPerformed
 
     private void removeTopicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeTopicBtnActionPerformed
         // TODO add your handling code here:
+        if (topicsTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select A Topic!", "Topic Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Lesson selectedLesson = (Lesson) lessonComboBox.getSelectedItem();
+        int index = 0;
+        try {
+            String str_index = (String) tableModel.getValueAt(topicsTable.getSelectedRow(), 1);
+            index = Integer.parseInt(str_index.split("-")[1]);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Something went wrong! Please try again", "UPPS!", JOptionPane.ERROR_MESSAGE);
+        }
         
+        selectedLesson.removeTopic(index);
+        addTopicBtn.setEnabled(true);
+        refreshTableData();
+        refreshWeekComboBox();
     }//GEN-LAST:event_removeTopicBtnActionPerformed
 
     private void lessonComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonComboBoxActionPerformed
         // TODO add your handling code here:
-        
+        refreshWeekComboBox();
     }//GEN-LAST:event_lessonComboBoxActionPerformed
+
+    private void findTopicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findTopicBtnActionPerformed
+        // TODO add your handling code here:
+        findText();
+    }//GEN-LAST:event_findTopicBtnActionPerformed
+
+    private void clearFilterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFilterBtnActionPerformed
+        // TODO add your handling code here:
+        refreshTableData();
+    }//GEN-LAST:event_clearFilterBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addTopicBtn;
+    private javax.swing.JButton clearFilterBtn;
+    private javax.swing.JButton findTopicBtn;
+    private javax.swing.JTextField findTopicTextField;
     private javax.swing.JButton homeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<Object> lessonComboBox;
     private javax.swing.JButton removeTopicBtn;
     private javax.swing.JTextField topicTextField;
     private javax.swing.JTable topicsTable;
+    private javax.swing.JComboBox<String> weekComboBox;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void onPageSetted() {
-         account = (Instructor)MainFrame.instance.getAccount();
-         refreshLessonsComboBox();
+        account = (Instructor) MainFrame.instance.getAccount();
+        refreshLessonsComboBox();
+        refreshTableData();
     }
-    
-     private void refreshLessonsComboBox(){
+
+    private void refreshLessonsComboBox() {
         lessonComboBox.removeAllItems();
-        
+
         account.getLessons().forEach((lesson) -> {
             lessonComboBox.addItem(lesson);
         });
+        lessonComboBox.setSelectedIndex(0);
     }
-     
-     private void refreshTableData(){
-         
-     }
+
+    private void refreshWeekComboBox() {
+        if (lessonComboBox.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        weekComboBox.removeAllItems();
+
+        Lesson selectedLesson = (Lesson) lessonComboBox.getSelectedItem();
+        for (int i = 0; i < selectedLesson.getTopics().length; i++) {
+            if (selectedLesson.getTopics()[i].equals("")) {
+                weekComboBox.addItem("Week-" + i);
+            }
+        }
+    }
+
+    private void refreshTableData() {
+        if (lessonComboBox.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        tableModel.setRowCount(0);
+        Lesson selectedLesson = (Lesson) lessonComboBox.getSelectedItem();
+        
+        for (int i = 0; i < selectedLesson.getTopics().length; i++) {
+            Vector newData = new Vector();
+            newData.add(selectedLesson.getTopics()[i]);
+            newData.add("Week-" + i);
+            tableModel.addRow(newData);
+        }
+    }
+    
+    private void findText(){
+        if (lessonComboBox.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        tableModel.setRowCount(0);
+        Lesson selectedLesson = (Lesson) lessonComboBox.getSelectedItem();
+        Dictionary<String, String> results = selectedLesson.findTopic(findTopicTextField.getText(), 5);
+        
+        Enumeration<String> keys = results.keys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            Vector newData = new Vector();
+            
+            newData.add(results.get(key));
+            newData.add(key);
+            
+            tableModel.addRow(newData);
+        }
+    }
 }

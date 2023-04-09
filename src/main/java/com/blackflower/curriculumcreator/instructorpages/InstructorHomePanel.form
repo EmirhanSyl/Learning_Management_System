@@ -28,13 +28,14 @@
                           <Component id="showClassStudentsBtn" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel2" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="manageLessonsBtn" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="addLessonSessionBtn" alignment="1" pref="164" max="32767" attributes="0"/>
+                          <Component id="addLessonSessionBtn" alignment="0" pref="164" max="32767" attributes="0"/>
+                          <Component id="manageTopicsBtn" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
@@ -47,13 +48,15 @@
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               <Component id="welcomeLabel" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" pref="29" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="addLessonSessionBtn" min="-2" pref="31" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="manageLessonsBtn" min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="manageTopicsBtn" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel2" min="-2" pref="29" max="-2" attributes="0"/>
@@ -135,6 +138,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Class"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="manageTopicsBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Manage Topics"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageTopicsBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -26,6 +26,7 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
         addLessonSessionBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        manageTopicsBtn = new javax.swing.JButton();
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setText("Account");
@@ -68,6 +69,13 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel2.setText("Class");
 
+        manageTopicsBtn.setText("Manage Topics");
+        manageTopicsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageTopicsBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,12 +91,13 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(showClassStudentsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(121, 121, 121)
+                        .addGap(122, 122, 122)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(manageLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addLessonSessionBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
-                        .addGap(43, 43, 43)))
+                            .addComponent(addLessonSessionBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                            .addComponent(manageTopicsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(42, 42, 42)))
                 .addGap(195, 195, 195))
         );
         layout.setVerticalGroup(
@@ -97,13 +106,15 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
                 .addGap(57, 57, 57)
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addLessonSessionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(manageLessonsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(manageLessonsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(manageTopicsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -136,6 +147,11 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
         MainFrame.instance.setPage(MainFrame.instance.getaddSessionPage());
     }//GEN-LAST:event_addLessonSessionBtnActionPerformed
 
+    private void manageTopicsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageTopicsBtnActionPerformed
+        // TODO add your handling code here:
+        MainFrame.instance.setPage(MainFrame.instance.getManageLessons_InstructorPage());
+    }//GEN-LAST:event_manageTopicsBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addLessonSessionBtn;
@@ -144,6 +160,7 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton manageLessonsBtn;
+    private javax.swing.JButton manageTopicsBtn;
     private javax.swing.JButton showClassStudentsBtn;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
