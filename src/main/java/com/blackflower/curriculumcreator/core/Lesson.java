@@ -11,7 +11,7 @@ public class Lesson {
 
     // --------------- VARIABLE DECLERATIONS ------------------
     private String lessonName;
-    private final ArrayList<String> topics = new ArrayList<>();
+    private final String[] topics = new String[14];
     private Instructor instructor;
     private int lessonCount;
 
@@ -33,16 +33,17 @@ public class Lesson {
     public int getLessonCount(){ return lessonCount; }
     public void setLessonCount(int lessonCount){ this.lessonCount = lessonCount; }
     
-    public ArrayList<String> getTopics() { return topics; }
+    public String[] getTopics() { return topics; }
     
      // --------------- ENCAPSULATE FIELDS END ------------------
     
     
-    public void addTopic(String topicName){
-        topics.add(topicName);
-    }
     public void addTopic(String topicName, int topicIndex){
-        topics.add(topicIndex, topicName);
+        topics[topicIndex] = topicName;
+    }    
+    
+    public void removeTopic(int topicIndex){
+        topics[topicIndex] = "";
     }
     
     public ArrayList<Class> lessonClasses(){
