@@ -5,6 +5,7 @@ import com.blackflower.curriculumcreator.core.*;
 import com.blackflower.curriculumcreator.core.Class;
 import com.blackflower.curriculumcreator.adminpages.*;
 import com.blackflower.curriculumcreator.instructorpages.*;
+import com.blackflower.curriculumcreator.studentspages.*;
 import javax.swing.JPanel;
 
 /**
@@ -39,6 +40,9 @@ public class MainFrame extends javax.swing.JFrame {
     private final ManageSessionsPanel manageSessionsPage;
     private final ManageLessons_InstructorPanel manageTopics;
     
+    private final StudentHomePanel studentHomePage;
+    private final ShowClass_StudentPanel showClass_StudentPage;
+    
     private final JPanel pageContainer;
     
     private Person account;
@@ -62,6 +66,8 @@ public class MainFrame extends javax.swing.JFrame {
         showClassDeteails_InstructorPage = new ShowClassDeteails_InstructorPanel();
         manageSessionsPage = new ManageSessionsPanel();
         manageTopics = new ManageLessons_InstructorPanel();
+        studentHomePage = new StudentHomePanel();
+        showClass_StudentPage = new ShowClass_StudentPanel();
         
         pageContainer = new JPanel();
         
@@ -86,7 +92,9 @@ public class MainFrame extends javax.swing.JFrame {
     public ShowClassDeteails_InstructorPanel getShowClassDeteails_InstructorPage(){ return showClassDeteails_InstructorPage; };
     public ManageSessionsPanel getManageSessionsPage() { return manageSessionsPage; }
     public ManageLessons_InstructorPanel getManageLessons_InstructorPage(){ return manageTopics; }
-
+    public StudentHomePanel getStudentHomePage(){ return studentHomePage; }
+    public ShowClass_StudentPanel getShowClass_StudentPage(){ return showClass_StudentPage; }
+    
     public Person getAccount(){ return  account; }
     public void setAccount(Person account){ this.account = account; }
     

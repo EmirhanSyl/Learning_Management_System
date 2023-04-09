@@ -105,6 +105,7 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
              MainFrame.instance.setPage(MainFrame.instance.getInstructorHomePage());
         }else if (account instanceof Student) {
             MainFrame.instance.setAccount(account);
+            MainFrame.instance.setPage(MainFrame.instance.getStudentHomePage());
         }else{
             JOptionPane.showMessageDialog(this, "Something went wrong!", "Unclassified Error", JOptionPane.ERROR_MESSAGE);
         }
