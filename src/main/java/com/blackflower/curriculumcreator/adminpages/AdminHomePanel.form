@@ -38,6 +38,7 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="manageLessonsBtn" pref="164" max="32767" attributes="0"/>
                           <Component id="jLabel1" max="32767" attributes="0"/>
+                          <Component id="newStyleAccBtn" pref="164" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -56,6 +57,8 @@
                       <Component id="jLabel1" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Component id="manageLessonsBtn" min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Component id="newStyleAccBtn" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -175,6 +178,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="newStyleAccBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="New Style Accounts"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newStyleAccBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

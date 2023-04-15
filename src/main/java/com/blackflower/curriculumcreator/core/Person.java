@@ -15,6 +15,8 @@ public class Person {
     private String userName;
     private String password;
     
+    private String imagePath = "C:\\Users\\emirs\\Desktop\\pics\\user.png";
+    
     public Person(String firstName, String lastName, String userName, String password){
         this.id = personCount;
         this.firstName = firstName;
@@ -35,6 +37,9 @@ public class Person {
     
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+    
+    public String getImagePath() { return imagePath; }
+    public void setImagePath(String path) { this.imagePath = path; }
 
     @Override
     public String toString() {

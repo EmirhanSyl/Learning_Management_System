@@ -30,6 +30,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final AddClassPanel addClassPage;
     private final ManageClassesPanel manageClassesPage;
     private final ManageClassStudentsPanel manageClassStudentsPage;
+    private final ShowAccountsNewStylePanel showAccountsNewStylePage;
     
     private final AddLessonPanel addLessonPage;
     private final AdminHomePanel adminHomePage;
@@ -42,6 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     private final StudentHomePanel studentHomePage;
     private final ShowClass_StudentPanel showClass_StudentPage;
+    private final ShowSessionDetailsPanel showSessionDetailsPage;
     
     private final JPanel pageContainer;
     
@@ -68,6 +70,8 @@ public class MainFrame extends javax.swing.JFrame {
         manageTopics = new ManageLessons_InstructorPanel();
         studentHomePage = new StudentHomePanel();
         showClass_StudentPage = new ShowClass_StudentPanel();
+        showSessionDetailsPage = new ShowSessionDetailsPanel();
+        showAccountsNewStylePage = new ShowAccountsNewStylePanel();
         
         pageContainer = new JPanel();
         
@@ -94,6 +98,8 @@ public class MainFrame extends javax.swing.JFrame {
     public ManageLessons_InstructorPanel getManageLessons_InstructorPage(){ return manageTopics; }
     public StudentHomePanel getStudentHomePage(){ return studentHomePage; }
     public ShowClass_StudentPanel getShowClass_StudentPage(){ return showClass_StudentPage; }
+    public ShowSessionDetailsPanel getShowSessionDetailsPage(){ return showSessionDetailsPage; }
+    public ShowAccountsNewStylePanel getShowAccountsNewStylePage() { return showAccountsNewStylePage; }
     
     public Person getAccount(){ return  account; }
     public void setAccount(Person account){ this.account = account; }
@@ -188,6 +194,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         newClass.getStudents().add(student);
         newClass.getStudents().add(student2);
+        student2.setImagePath("C:\\Users\\emirs\\Desktop\\pics\\s1.png");
         
         newClass2.getStudents().add(student3);
         newClass2.getStudents().add(student4);

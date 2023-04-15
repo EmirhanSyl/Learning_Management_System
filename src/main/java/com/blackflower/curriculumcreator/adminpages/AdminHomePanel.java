@@ -2,6 +2,7 @@ package com.blackflower.curriculumcreator.adminpages;
 
 import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.MainFrame;
+import com.blackflower.curriculumcreator.core.Admin;
 
 /**
  *
@@ -9,6 +10,7 @@ import com.blackflower.curriculumcreator.MainFrame;
  */
 public class AdminHomePanel extends javax.swing.JPanel implements IPage{
 
+    Admin account;
     public AdminHomePanel() {
         initComponents();
     }
@@ -28,6 +30,7 @@ public class AdminHomePanel extends javax.swing.JPanel implements IPage{
         jLabel3 = new javax.swing.JLabel();
         welcomeLabel = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
+        newStyleAccBtn = new javax.swing.JButton();
 
         manageClassBtn.setText("Manage Class");
         manageClassBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +94,13 @@ public class AdminHomePanel extends javax.swing.JPanel implements IPage{
             }
         });
 
+        newStyleAccBtn.setText("New Style Accounts");
+        newStyleAccBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newStyleAccBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +124,8 @@ public class AdminHomePanel extends javax.swing.JPanel implements IPage{
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(manageLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(newStyleAccBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))))
                 .addGap(174, 174, 174))
         );
         layout.setVerticalGroup(
@@ -127,7 +138,9 @@ public class AdminHomePanel extends javax.swing.JPanel implements IPage{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)
-                        .addComponent(manageLessonsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(manageLessonsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(newStyleAccBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,6 +198,11 @@ public class AdminHomePanel extends javax.swing.JPanel implements IPage{
         MainFrame.instance.logout();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
+    private void newStyleAccBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStyleAccBtnActionPerformed
+        // TODO add your handling code here:
+         MainFrame.instance.setPage(MainFrame.instance.getShowAccountsNewStylePage());
+    }//GEN-LAST:event_newStyleAccBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createAccpuntBtn;
@@ -197,11 +215,12 @@ public class AdminHomePanel extends javax.swing.JPanel implements IPage{
     private javax.swing.JButton manageClassLessonsBtn;
     private javax.swing.JButton manageClassStudentsBtn;
     private javax.swing.JButton manageLessonsBtn;
+    private javax.swing.JButton newStyleAccBtn;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void onPageSetted() {
-        
+         account = (Admin)MainFrame.instance.getAccount();
     }
 }

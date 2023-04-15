@@ -125,7 +125,7 @@ public class StudentHomePanel extends javax.swing.JPanel implements IPage{
 
     private void manageLessonsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLessonsBtnActionPerformed
         // TODO add your handling code here:
-        
+        MainFrame.instance.setPage(MainFrame.instance.getShowSessionDetailsPage());
     }//GEN-LAST:event_manageLessonsBtnActionPerformed
 
     private void manageTopicsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageTopicsBtnActionPerformed
