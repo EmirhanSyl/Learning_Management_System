@@ -30,6 +30,8 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
         usernameField = new javax.swing.JTextField();
         rememberMeCheckBox = new javax.swing.JCheckBox();
 
+        setBackground(new java.awt.Color(240, 248, 255));
+
         loginbtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         loginbtn.setText("Login");
         loginbtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -67,7 +69,7 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addContainerGap(434, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,7 +88,7 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
                 .addComponent(rememberMeCheckBox)
                 .addGap(27, 27, 27)
                 .addComponent(loginbtn)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
