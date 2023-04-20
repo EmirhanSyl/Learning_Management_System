@@ -96,22 +96,25 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
         // TODO add your handling code here:
         String pwd = String.valueOf(passwordField.getPassword());
         Person account = Database.login(usernameField.getText(), pwd);
-        
+
         if (account == null) {
             JOptionPane.showMessageDialog(this, "This user does not exist!", "User Not Found", JOptionPane.ERROR_MESSAGE);
-        }else if (account instanceof Admin) {
+        } else if (account instanceof Admin) {
             MainFrame.instance.setAccount(account);
-             MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
-        }else if (account instanceof Instructor) {
+            MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+            MainFrame.instance.login();
+        } else if (account instanceof Instructor) {
             MainFrame.instance.setAccount(account);
-             MainFrame.instance.setPage(MainFrame.instance.getInstructorHomePage());
-        }else if (account instanceof Student) {
+            MainFrame.instance.setPage(MainFrame.instance.getInstructorHomePage());
+            MainFrame.instance.login();
+        } else if (account instanceof Student) {
             MainFrame.instance.setAccount(account);
             MainFrame.instance.setPage(MainFrame.instance.getStudentHomePage());
-        }else{
+            MainFrame.instance.login();
+        } else {
             JOptionPane.showMessageDialog(this, "Something went wrong!", "Unclassified Error", JOptionPane.ERROR_MESSAGE);
         }
-       
+
     }//GEN-LAST:event_loginbtnActionPerformed
 
 

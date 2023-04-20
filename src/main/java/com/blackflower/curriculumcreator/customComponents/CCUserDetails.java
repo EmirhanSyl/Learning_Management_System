@@ -25,8 +25,7 @@ public class CCUserDetails extends javax.swing.JPanel {
         //ImageIcon icon = new ImageIcon("C:\\Users\\emirs\\Desktop\\pics\\user.png");
         ImageIcon icon = new ImageIcon(avatarImagePath);
         cCAvatarImageLabel1.setImage(icon);
-        Image imFit = icon.getImage();
-        Image imgFit = imFit.getScaledInstance(75, 75, Image.SCALE_AREA_AVERAGING);
+        Image imgFit = icon.getImage().getScaledInstance(75, 75, Image.SCALE_AREA_AVERAGING);
         icon.setImage(imgFit);
         System.out.println("00");
         

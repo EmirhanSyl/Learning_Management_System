@@ -33,11 +33,11 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="sideMenuPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="sideMenuPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="mainPanel" pref="1000" max="32767" attributes="0"/>
-                  <Component id="headerPanel1" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="headerPanel" max="32767" attributes="0"/>
+                  <Component id="mainPanel" pref="950" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -45,16 +45,25 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="headerPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="headerPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="mainPanel" pref="550" max="32767" attributes="0"/>
+              <Component id="mainPanel" min="-2" pref="490" max="-2" attributes="0"/>
           </Group>
-          <Component id="sideMenuPanel1" alignment="1" max="32767" attributes="0"/>
+          <Component id="sideMenuPanel" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="com.blackflower.curriculumcreator.HeaderPanel" name="headerPanel1">
+    <Container class="javax.swing.JPanel" name="mainPanel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="e1" green="e1" red="e1" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+    </Container>
+    <Container class="javax.swing.JPanel" name="headerPanel">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -64,12 +73,12 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
     </Container>
-    <Container class="com.blackflower.curriculumcreator.SideMenuPanel" name="sideMenuPanel1">
+    <Container class="javax.swing.JPanel" name="sideMenuPanel">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -83,15 +92,6 @@
           </Group>
         </DimensionLayout>
       </Layout>
-    </Container>
-    <Container class="javax.swing.JPanel" name="mainPanel">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e1" green="e1" red="e1" type="rgb"/>
-        </Property>
-      </Properties>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
     </Container>
   </SubComponents>
 </Form>

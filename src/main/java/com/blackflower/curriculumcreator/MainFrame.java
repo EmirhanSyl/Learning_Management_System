@@ -8,8 +8,10 @@ import com.blackflower.curriculumcreator.instructorpages.*;
 import com.blackflower.curriculumcreator.studentspages.*;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 
 /**
  *
@@ -48,6 +50,9 @@ public class MainFrame extends javax.swing.JFrame {
     private final ShowClass_StudentPanel showClass_StudentPage;
     private final ShowSessionDetailsPanel showSessionDetailsPage;
     
+    private final HeaderPanel header;
+    private final SideMenuPanel sideMenu;
+    
     //private final JPanel pageContainer;
     
     private Person account;
@@ -76,13 +81,29 @@ public class MainFrame extends javax.swing.JFrame {
         showSessionDetailsPage = new ShowSessionDetailsPanel();
         showAccountsNewStylePage = new ShowAccountsNewStylePanel();
         
-        //jPanel1 = new JPanel();
+        
+        
+        headerPanel.setLayout(new GridLayout());
+        header = new HeaderPanel();
+        header.setSize(headerPanel.getWidth(), headerPanel.getWidth());
+        headerPanel.add(header);
+        
+        sideMenuPanel.setLayout(new GridLayout());
+        sideMenu = new SideMenuPanel();
+        sideMenu.setSize(sideMenuPanel.getWidth(), sideMenuPanel.getWidth());
+        sideMenuPanel.add(sideMenu);
         
         this.add(mainPanel);
         mainPanel.add(loginPage);
         
         this.setPreferredSize(new Dimension(1200, 600));
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        
+//        dispose();
+//        this.setUndecorated(true);
+//        this.getRootPane().setWindowDecorationStyle(JRootPane.PROPERTIES);
+//        this.setDefaultCloseOperation(0);
     }
     
     // --------------- ENCAPSULATE FIELDS ------------------
@@ -113,57 +134,57 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        headerPanel1 = new com.blackflower.curriculumcreator.HeaderPanel();
-        sideMenuPanel1 = new com.blackflower.curriculumcreator.SideMenuPanel();
         mainPanel = new javax.swing.JPanel();
+        headerPanel = new javax.swing.JPanel();
+        sideMenuPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(240, 248, 255));
         setForeground(new java.awt.Color(240, 248, 255));
         setSize(new java.awt.Dimension(1000, 600));
 
-        javax.swing.GroupLayout headerPanel1Layout = new javax.swing.GroupLayout(headerPanel1);
-        headerPanel1.setLayout(headerPanel1Layout);
-        headerPanel1Layout.setHorizontalGroup(
-            headerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mainPanel.setBackground(new java.awt.Color(225, 225, 225));
+
+        javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
+        headerPanel.setLayout(headerPanelLayout);
+        headerPanelLayout.setHorizontalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        headerPanel1Layout.setVerticalGroup(
-            headerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+        headerPanelLayout.setVerticalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 52, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout sideMenuPanel1Layout = new javax.swing.GroupLayout(sideMenuPanel1);
-        sideMenuPanel1.setLayout(sideMenuPanel1Layout);
-        sideMenuPanel1Layout.setHorizontalGroup(
-            sideMenuPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout sideMenuPanelLayout = new javax.swing.GroupLayout(sideMenuPanel);
+        sideMenuPanel.setLayout(sideMenuPanelLayout);
+        sideMenuPanelLayout.setHorizontalGroup(
+            sideMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 200, Short.MAX_VALUE)
         );
-        sideMenuPanel1Layout.setVerticalGroup(
-            sideMenuPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        sideMenuPanelLayout.setVerticalGroup(
+            sideMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-
-        mainPanel.setBackground(new java.awt.Color(225, 225, 225));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(sideMenuPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sideMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
-                    .addComponent(headerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(headerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
-            .addComponent(sideMenuPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(sideMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -223,7 +244,15 @@ public class MainFrame extends javax.swing.JFrame {
     public void logout() {
           account = null;
           setPage(getLoginPage());
+          
+          sideMenu.adjustSideMenuContent(account);
     }
+    
+    public void login(){
+        sideMenu.adjustSideMenuContent(account);
+    }
+    
+    
     
     public static void testInit(){
         Admin admin = new Admin("admin", "admin", "admin", "123");
@@ -272,8 +301,8 @@ public class MainFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.blackflower.curriculumcreator.HeaderPanel headerPanel1;
+    private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel mainPanel;
-    private com.blackflower.curriculumcreator.SideMenuPanel sideMenuPanel1;
+    private javax.swing.JPanel sideMenuPanel;
     // End of variables declaration//GEN-END:variables
 }
