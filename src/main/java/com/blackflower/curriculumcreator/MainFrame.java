@@ -98,7 +98,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         this.setPreferredSize(new Dimension(1200, 600));
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
+        //this.setLocationRelativeTo(null);
         
 //        dispose();
 //        this.setUndecorated(true);
@@ -144,6 +144,7 @@ public class MainFrame extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1000, 600));
 
         mainPanel.setBackground(new java.awt.Color(225, 225, 225));
+        mainPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
@@ -160,11 +161,11 @@ public class MainFrame extends javax.swing.JFrame {
         sideMenuPanel.setLayout(sideMenuPanelLayout);
         sideMenuPanelLayout.setHorizontalGroup(
             sideMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 230, Short.MAX_VALUE)
         );
         sideMenuPanelLayout.setVerticalGroup(
             sideMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,15 +176,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(sideMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)))
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+                    .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(sideMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -246,10 +247,12 @@ public class MainFrame extends javax.swing.JFrame {
           setPage(getLoginPage());
           
           sideMenu.adjustSideMenuContent(account);
+          header.adjustHeader(account);
     }
     
     public void login(){
         sideMenu.adjustSideMenuContent(account);
+        header.adjustHeader(account);
     }
     
     

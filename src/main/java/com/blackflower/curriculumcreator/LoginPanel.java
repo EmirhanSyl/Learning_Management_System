@@ -22,15 +22,22 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cCRoundedButton1 = new com.blackflower.curriculumcreator.customComponents.CCRoundedButton();
+        cCGradientPanel1 = new com.blackflower.curriculumcreator.customComponents.CCGradientPanel();
+        rememberMeCheckBox = new javax.swing.JCheckBox();
         loginbtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         usernameField = new javax.swing.JTextField();
-        rememberMeCheckBox = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(240, 248, 255));
+
+        cCGradientPanel1.setGradientEndd(new java.awt.Color(255, 102, 255));
+        cCGradientPanel1.setGradientStart(new java.awt.Color(102, 255, 255));
+
+        rememberMeCheckBox.setText("Remember me");
 
         loginbtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         loginbtn.setText("Login");
@@ -50,35 +57,33 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
 
         jLabel3.setText("Password");
 
-        rememberMeCheckBox.setText("Remember me");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(323, 323, 323)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+        javax.swing.GroupLayout cCGradientPanel1Layout = new javax.swing.GroupLayout(cCGradientPanel1);
+        cCGradientPanel1.setLayout(cCGradientPanel1Layout);
+        cCGradientPanel1Layout.setHorizontalGroup(
+            cCGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cCGradientPanel1Layout.createSequentialGroup()
+                .addGap(359, 359, 359)
+                .addGroup(cCGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cCGradientPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(cCGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(rememberMeCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(usernameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(434, Short.MAX_VALUE))
+                        .addComponent(usernameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(360, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+        cCGradientPanel1Layout.setVerticalGroup(
+            cCGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cCGradientPanel1Layout.createSequentialGroup()
+                .addGap(114, 114, 114)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jLabel3)
@@ -86,9 +91,22 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rememberMeCheckBox)
-                .addGap(27, 27, 27)
+                .addGap(32, 32, 32)
                 .addComponent(loginbtn)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(cCGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cCGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -119,6 +137,8 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.blackflower.curriculumcreator.customComponents.CCGradientPanel cCGradientPanel1;
+    private com.blackflower.curriculumcreator.customComponents.CCRoundedButton cCRoundedButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

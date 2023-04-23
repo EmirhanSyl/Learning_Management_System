@@ -12,10 +12,14 @@ import java.awt.RenderingHints;
 public class ListItem extends javax.swing.JPanel {
 
     private boolean isSelected;
+    private Item item;
     
     public ListItem() {
         initComponents();
     }
+    
+    public Item getItem(){ return item; }
+    public void setItem(Item item){ this.item = item; }
 
     @Override
     public void setForeground(Color fg) {
@@ -33,9 +37,10 @@ public class ListItem extends javax.swing.JPanel {
             return;
         }
         
-        if (obj instanceof Item item) {
-            jLabel1.setIcon(item.getIcon());
-            jLabel1.setText(item.getText());
+        if (obj instanceof Item givenItem) {
+            jLabel1.setIcon(givenItem.getIcon());
+            jLabel1.setText(givenItem.getText());
+            item = givenItem;
         }
         else{
             jLabel1.setText(obj.toString());
@@ -56,6 +61,10 @@ public class ListItem extends javax.swing.JPanel {
             int y[] = {getHeight()/2, 5, getHeight()-5};
             
             g2.fillPolygon(x, y, x.length);
+            this.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255, 160)));
+        }
+        else{
+            this.setBorder(null);
         }
     }
     
@@ -85,7 +94,7 @@ public class ListItem extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

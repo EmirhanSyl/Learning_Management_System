@@ -1,5 +1,6 @@
 package com.blackflower.curriculumcreator.customComponents;
 
+import com.blackflower.curriculumcreator.MainFrame;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GradientPaint;
@@ -24,6 +25,8 @@ public class CCSideMenuList<E extends Object> extends JList<E>{
     private final DefaultListModel model;
     private Color selectedColor;
     private int hoverIndex = -1;
+    private ListItem selectedListItem;
+    private int selectedPreIndex = -1;
     
     public CCSideMenuList() {
         this.model = new DefaultListModel();
@@ -76,9 +79,24 @@ public class CCSideMenuList<E extends Object> extends JList<E>{
                 item.setItem(value);
                 item.setBackground(CCSideMenuList.this.getBackground());
                 item.setForeground(CCSideMenuList.this.getForeground());
+                item.setOpaque(CCSideMenuList.this.isOpaque());
                 item.setIsSelected(isSelected);
                 if (index == hoverIndex || isSelected) {
-                    item.setBackground(selectedColor);
+                    if (!item.isOpaque()) {
+                        item.setOpaque(true);
+                        item.setBackground(new Color(selectedColor.getRed(), selectedColor.getGreen(), selectedColor.getBlue(), 60));
+                    }else{
+                        item.setBackground(selectedColor);
+                    }
+                    
+                }
+                
+                if (isSelected && selectedPreIndex != getSelectedIndex()) {
+                    selectedPreIndex = getSelectedIndex();
+                    selectedListItem = item;
+                    if (item.getItem().getPage() != null) {
+                        MainFrame.instance.setPage(item.getItem().getPage());
+                    }
                 }
                 
                 return item;
@@ -96,10 +114,19 @@ public class CCSideMenuList<E extends Object> extends JList<E>{
     public void removeAllItems(){
         model.removeAllElements();
     }
+    
+    public Item getSelectedItem(){
+        if (CCSideMenuList.this.getSelectedIndex() == -1) {
+            return null;
+        }
+        ListItem listItem = (ListItem)model.getElementAt(CCSideMenuList.this.getSelectedIndex());
+        
+        return listItem.getItem();
+    }
 
 //    @Override
 //    protected void paintComponent(Graphics g) {
-//        //super.paintComponent(g);
+//        super.paintComponent(g);
 //        
 //        int width = getWidth();
 //        int height = getHeight();
@@ -130,7 +157,7 @@ public class CCSideMenuList<E extends Object> extends JList<E>{
 //        g2.setPaint(oldPainter);
 //        super.paintComponent(g);
 //    }
-//    
+    
     
     
 }
