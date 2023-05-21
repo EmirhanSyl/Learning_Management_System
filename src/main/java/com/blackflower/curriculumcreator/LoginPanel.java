@@ -34,8 +34,8 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
 
         setBackground(new java.awt.Color(240, 248, 255));
 
-        cCGradientPanel1.setGradientEndd(new java.awt.Color(255, 102, 255));
-        cCGradientPanel1.setGradientStart(new java.awt.Color(102, 255, 255));
+        cCGradientPanel1.setGradientEndd(new java.awt.Color(153, 153, 153));
+        cCGradientPanel1.setGradientStart(new java.awt.Color(204, 204, 204));
 
         rememberMeCheckBox.setText("Remember me");
 
