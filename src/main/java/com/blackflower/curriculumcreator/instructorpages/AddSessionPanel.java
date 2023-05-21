@@ -6,6 +6,8 @@ import com.blackflower.curriculumcreator.core.Instructor;
 import com.blackflower.curriculumcreator.core.Lesson;
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.Person;
+import java.text.DecimalFormat;
+import java.text.Format;
 
 /**
  *
@@ -62,6 +64,11 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         dayComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 dayComboBoxİtemStateChanged(evt);
+            }
+        });
+        dayComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dayComboBoxActionPerformed(evt);
             }
         });
 
@@ -298,11 +305,15 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         MainFrame.instance.setPage(MainFrame.instance.getInstructorHomePage());
     }//GEN-LAST:event_homeBtnActionPerformed
 
+    private void dayComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dayComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addSessionBtn;
     private javax.swing.JComboBox<Object> classComboBox;
-    private javax.swing.JComboBox<Integer> dayComboBox;
+    private javax.swing.JComboBox<String> dayComboBox;
     private javax.swing.JButton homeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -341,7 +352,9 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         
         int year = 2023;
         for (int i = 0; i < 30; i++) {
-            dayComboBox.addItem(i+1);
+            DecimalFormat f = new DecimalFormat("00");
+            String output = String.format("%02d", Integer.valueOf(i+1));
+            dayComboBox.addItem(output);
             if (i <= 12) {
                 monthComboBox.addItem(i+1);
                 yearComboBox.addItem(year + i);
@@ -365,7 +378,9 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
         int selectedIndex = dayComboBox.getSelectedIndex();
         dayComboBox.removeAllItems();
         for (int i = 0; i < dayCount; i++) {
-            dayComboBox.addItem(i + 1);
+            DecimalFormat f = new DecimalFormat("00");
+            String output = String.format("%02d", Integer.valueOf(i+1));
+            dayComboBox.addItem(output);
         }
         if (selectedIndex <= 28) {
             dayComboBox.setSelectedIndex(selectedIndex);

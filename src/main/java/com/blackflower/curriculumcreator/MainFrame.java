@@ -281,6 +281,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         newClass.getStudents().add(student);
         newClass.getStudents().add(student2);
+        student.setImagePath("C:\\Users\\emirs\\Desktop\\pics\\papatya.jpg");
         student2.setImagePath("C:\\Users\\emirs\\Desktop\\pics\\s1.png");
         
         newClass2.getStudents().add(student3);
