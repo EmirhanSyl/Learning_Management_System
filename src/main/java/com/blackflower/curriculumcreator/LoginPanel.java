@@ -2,16 +2,19 @@ package com.blackflower.curriculumcreator;
 
 import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author emirs
  */
-public class LoginPanel extends javax.swing.JPanel implements IPage{
+public class LoginPanel extends javax.swing.JPanel implements IPage {
 
     public LoginPanel() {
         initComponents();
@@ -134,7 +137,6 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
         } else {
             JOptionPane.showMessageDialog(this, "Something went wrong!", "Unclassified Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_loginbtnActionPerformed
 
 
@@ -153,14 +155,59 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
     @Override
     public void onPageSetted() {
         Database.initDatabase("LMS_PE");
+        //checkRememberMe();
     }
-    
-    
+
+    public void checkRememberMe() {
+        String filename = "C:\\Users\\emirs\\Documents\\NetBeansProjects\\CurriculumCreator\\settings\\rememberMe.txt";
+
+        ArrayList<String> lines = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(filename);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                lines.add(line);
+            }
+
+            bufferedReader.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file: " + e.getMessage());
+        }
+        
+        if (lines.size() == 2) {
+            validation(lines.get(0), lines.get(1));
+        }
+    }
+
+    public void validation(String username, String pwd) {
+        Person account = Login.loginValidation(username, pwd);
+
+        if (account == null) {
+            JOptionPane.showMessageDialog(this, "Corrupted Remember Me File!!!", "Corrupted File", JOptionPane.ERROR_MESSAGE);
+        } else if (account instanceof Admin) {
+            MainFrame.instance.setAccount(account);
+            MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+            MainFrame.instance.login();
+        } else if (account instanceof Instructor) {
+            MainFrame.instance.setAccount(account);
+            MainFrame.instance.setPage(MainFrame.instance.getInstructorHomePage());
+            MainFrame.instance.login();
+        } else if (account instanceof Student) {
+            MainFrame.instance.setAccount(account);
+            MainFrame.instance.setPage(MainFrame.instance.getStudentHomePage());
+            MainFrame.instance.login();
+        } else {
+            JOptionPane.showMessageDialog(this, "Something went wrong!", "Unclassified Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public void rememberMe() {
         if (!rememberMeCheckBox.isSelected()) {
             return;
         }
-        
+
         String filename = "C:\\Users\\emirs\\Documents\\NetBeansProjects\\CurriculumCreator\\settings\\rememberMe.txt";
         String[] lines = {
             usernameField.getText(),
@@ -175,6 +222,21 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
                 bufferedWriter.write(line);
                 bufferedWriter.newLine();
             }
+
+            bufferedWriter.close();
+            System.out.println("Content written to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
+
+    public void forgetMe() {
+        String filename = "C:\\Users\\emirs\\Documents\\NetBeansProjects\\CurriculumCreator\\settings\\rememberMe.txt";
+        try {
+            FileWriter fileWriter = new FileWriter(filename);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.write("");
 
             bufferedWriter.close();
             System.out.println("Content written to the file.");

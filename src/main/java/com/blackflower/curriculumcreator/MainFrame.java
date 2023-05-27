@@ -2,17 +2,14 @@ package com.blackflower.curriculumcreator;
 
 import com.blackflower.curriculumcreator.test.*;
 import com.blackflower.curriculumcreator.jpa.model.Person;
-import com.blackflower.curriculumcreator.core.Class;
 import com.blackflower.curriculumcreator.adminpages.*;
 import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.instructorpages.*;
+import com.blackflower.curriculumcreator.jpa.model.Login;
 import com.blackflower.curriculumcreator.studentspages.*;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 
 /**
  *
@@ -29,6 +26,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final HomePagePanel homePage;
     private final TestPanel testPage;
     
+    private final WelcomePanel welcomePage;
     private final LoginPanel loginPage;
     private final RegisterPanel registerPage;
     private final AccountManagementPanel accountManagementPage;
@@ -83,7 +81,7 @@ public class MainFrame extends javax.swing.JFrame {
         showSessionDetailsPage = new ShowSessionDetailsPanel();
         showAccountsNewStylePage = new ShowAccountsNewStylePanel();
         showLessonDetailsPage = new ShowLessonDetailsPanel();
-        
+        welcomePage = new WelcomePanel();
         
         headerPanel.setLayout(new GridLayout());
         header = new HeaderPanel();
@@ -96,11 +94,13 @@ public class MainFrame extends javax.swing.JFrame {
         sideMenuPanel.add(sideMenu);
         
         this.add(mainPanel);
-        mainPanel.add(loginPage);
+        
+        account = Login.checkRememberMe();
+        setPage(welcomePage);        
         
         this.setPreferredSize(new Dimension(1200, 600));
         this.setResizable(false);
-        //this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         
 //        dispose();
 //        this.setUndecorated(true);
@@ -231,35 +231,35 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-    
-    public final void setPage(JPanel page){
+
+    public final void setPage(JPanel page) {
         mainPanel.removeAll();
         mainPanel.add(page);
         mainPanel.revalidate();
         mainPanel.repaint();
         System.out.println("Page Setted!");
-        
+
         if (page instanceof IPage) {
-            IPage iPage = (IPage)page;
+            IPage iPage = (IPage) page;
             iPage.onPageSetted();
         }
     }
-    
+
     public void logout() {
-          account = null;
-          setPage(getLoginPage());
-          
-          sideMenu.adjustSideMenuContent(account);
-          header.adjustHeader(account);
-    }
-    
-    public void login(){
+        loginPage.forgetMe();
+        account = null;
+        setPage(getLoginPage());
+
         sideMenu.adjustSideMenuContent(account);
         header.adjustHeader(account);
     }
-    
-    
-    
+
+    public void login() {
+        sideMenu.adjustSideMenuContent(account);
+        header.adjustHeader(account);
+    }
+
+
     public static void testInit(){
 //        Admin admin = new Admin("admin", "admin", "admin", "123");
 //        
@@ -304,9 +304,6 @@ public class MainFrame extends javax.swing.JFrame {
 //        Database.getUsers().add(student4);
     }
     
-    
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel mainPanel;
