@@ -3,8 +3,7 @@ package com.blackflower.curriculumcreator.studentspages;
 
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Lesson;
-import com.blackflower.curriculumcreator.core.Student;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -135,23 +134,24 @@ public class ShowClass_StudentPanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         account = (Student)MainFrame.instance.getAccount();
         
         classLabel.setText("Class: " + account.getStudentClass().toString());
         lessonCountLabel.setText("Lesson Count: " + Integer.toString(account.getStudentClass().getLessons().size()));
         int totalLessonHours = 0;
         for (Lesson lesson : account.getStudentClass().getLessons()) {
-            totalLessonHours+=lesson.getLessonCount();
+            totalLessonHours+=lesson.getInstructorLessonList().get(0).getLessonCount();
         }
         totalLessonHoursLabel.setText("Total Lesson Hours: " + totalLessonHours);
-        totalStudentsLabel.setText("Total Students: " + Integer.toString(account.getStudentClass().getStudents().size()));
+        totalStudentsLabel.setText("Total Students: " + Integer.toString(Database.getClassStudents(account.getStudentClass()).size()));
         refreshTableData();
     }
     
     private void refreshTableData(){
         tableModel.setRowCount(0);
         
-        for (Student student : account.getStudentClass().getStudents()) {
+        for (Student student : Database.getClassStudents(account.getStudentClass())) {
             Vector newData = new Vector();
             newData.add(student.getId());
             newData.add(student.getFirstName());

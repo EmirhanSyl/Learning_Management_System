@@ -2,8 +2,9 @@ package com.blackflower.curriculumcreator.studentspages;
 
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.*;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -121,12 +122,19 @@ public class ShowSessionDetailsPanel extends javax.swing.JPanel implements IPage
         
         Lesson selectedLesson = (Lesson) lessonsComboBox.getSelectedItem();
         
-        refreshTableData(account.getStudentClass().getLessonSessions(selectedLesson.getLessonName()));
+        List<CourseSession> filteredSessions = new ArrayList<>();
+        for (CourseSession courseSession : selectedLesson.getCoursesessionList()) {
+            if (courseSession.getClassId().equals(account.getStudentClass())) {
+                filteredSessions.add(courseSession);
+            }
+        }
+        
+        refreshTableData(filteredSessions);
     }//GEN-LAST:event_filterBtnActionPerformed
 
     private void clearFilterLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearFilterLinkMouseClicked
         // TODO add your handling code here:
-        refreshTableData(account.getStudentClass().getSessions());
+        refreshTableData(account.getStudentClass().getCoursesessionList());
     }//GEN-LAST:event_clearFilterLinkMouseClicked
 
 
@@ -142,10 +150,11 @@ public class ShowSessionDetailsPanel extends javax.swing.JPanel implements IPage
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         account = (Student)MainFrame.instance.getAccount();
         
         refreshLessonsComboBox();
-        refreshTableData(account.getStudentClass().getSessions());
+        refreshTableData(account.getStudentClass().getCoursesessionList());
     }
     
     private void refreshLessonsComboBox() {
@@ -157,15 +166,15 @@ public class ShowSessionDetailsPanel extends javax.swing.JPanel implements IPage
         lessonsComboBox.setSelectedIndex(0);
     }
     
-    private void refreshTableData(ArrayList<CourseSession> dataArray){
+    private void refreshTableData(List<CourseSession> dataArray){
         tableModel.setRowCount(0);
         
         for (CourseSession session : dataArray) {
             Vector newData = new Vector();
-            newData.add(session.getID());
-            newData.add(session.getDate());
-            newData.add(session.getLesson());
-            newData.add(session.getSessionHours());
+            newData.add(session.getId());
+            newData.add(session.getStartDate().toString());
+            newData.add(session.getLessonId());
+            newData.add(session.getSessionLength());
             
             tableModel.addRow(newData);
         }

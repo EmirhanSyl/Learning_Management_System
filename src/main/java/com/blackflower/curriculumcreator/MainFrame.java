@@ -50,6 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final StudentHomePanel studentHomePage;
     private final ShowClass_StudentPanel showClass_StudentPage;
     private final ShowSessionDetailsPanel showSessionDetailsPage;
+    private final ShowLessonDetailsPanel showLessonDetailsPage;
     
     private final HeaderPanel header;
     private final SideMenuPanel sideMenu;
@@ -81,7 +82,7 @@ public class MainFrame extends javax.swing.JFrame {
         showClass_StudentPage = new ShowClass_StudentPanel();
         showSessionDetailsPage = new ShowSessionDetailsPanel();
         showAccountsNewStylePage = new ShowAccountsNewStylePanel();
-        
+        showLessonDetailsPage = new ShowLessonDetailsPanel();
         
         
         headerPanel.setLayout(new GridLayout());
@@ -127,6 +128,7 @@ public class MainFrame extends javax.swing.JFrame {
     public ShowClass_StudentPanel getShowClass_StudentPage(){ return showClass_StudentPage; }
     public ShowSessionDetailsPanel getShowSessionDetailsPage(){ return showSessionDetailsPage; }
     public ShowAccountsNewStylePanel getShowAccountsNewStylePage() { return showAccountsNewStylePage; }
+    public ShowLessonDetailsPanel getShowLessonDetailsPage(){ return showLessonDetailsPage; }
     
     public Person getAccount(){ return  account; }
     public void setAccount(Person account){ this.account = account; }

@@ -254,6 +254,12 @@ public class SideMenuPanel extends javax.swing.JPanel {
         icon3.setImage(imgFit3);
         cCSideMenuList1.addItem(new Item("Lesson Sessions", icon3,MainFrame.instance.getShowSessionDetailsPage()));
         
+        // ------------ LESSON TOPICS -------------
+        ImageIcon icon4 = new ImageIcon("C:\\Users\\emirs\\Desktop\\pics\\sideBarIcons\\list.png");
+        Image imgFit4 = icon4.getImage().getScaledInstance(25, 25, Image.SCALE_AREA_AVERAGING);
+        icon4.setImage(imgFit4);
+        cCSideMenuList1.addItem(new Item("Lesson Topics", icon4,MainFrame.instance.getShowLessonDetailsPage()));
+        
         cCSideMenuList1.setSelectedIndex(0);
     }
     

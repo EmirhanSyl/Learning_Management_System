@@ -2,6 +2,9 @@ package com.blackflower.curriculumcreator;
 
 import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -114,14 +117,17 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
         if (account == null) {
             JOptionPane.showMessageDialog(this, "This user does not exist!", "User Not Found", JOptionPane.ERROR_MESSAGE);
         } else if (account instanceof Admin) {
+            rememberMe();
             MainFrame.instance.setAccount(account);
             MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
             MainFrame.instance.login();
         } else if (account instanceof Instructor) {
+            rememberMe();
             MainFrame.instance.setAccount(account);
             MainFrame.instance.setPage(MainFrame.instance.getInstructorHomePage());
             MainFrame.instance.login();
         } else if (account instanceof Student) {
+            rememberMe();
             MainFrame.instance.setAccount(account);
             MainFrame.instance.setPage(MainFrame.instance.getStudentHomePage());
             MainFrame.instance.login();
@@ -147,5 +153,33 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
     @Override
     public void onPageSetted() {
         Database.initDatabase("LMS_PE");
+    }
+    
+    
+    public void rememberMe() {
+        if (!rememberMeCheckBox.isSelected()) {
+            return;
+        }
+        
+        String filename = "C:\\Users\\emirs\\Documents\\NetBeansProjects\\CurriculumCreator\\settings\\rememberMe.txt";
+        String[] lines = {
+            usernameField.getText(),
+            String.valueOf(passwordField.getPassword())
+        };
+
+        try {
+            FileWriter fileWriter = new FileWriter(filename);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (String line : lines) {
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
+            }
+
+            bufferedWriter.close();
+            System.out.println("Content written to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
     }
 }

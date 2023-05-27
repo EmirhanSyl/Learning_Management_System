@@ -118,6 +118,9 @@ public class Database {
         entityManager.persist(dbClass);
         entityManager.persist(dbLesson);
         entityManager.getTransaction().commit();
+        
+        lesson.getCoursesessionList().add(session);
+        sessionClass.getCoursesessionList().add(session);
     }
 
 
@@ -208,11 +211,13 @@ public class Database {
         Lesson dbLesson = entityManager.find(Lesson.class, lesson.getId());
         
         LessonTopic topic = new LessonTopic(week, topicName, dbLesson);
+        dbLesson.getLessonTopicList().add(topic);
         lesson.getLessonTopicList().add(topic);
         
         entityManager.persist(topic);
         entityManager.persist(dbLesson);
         entityManager.getTransaction().commit();
+        
     }
     
     public static void updateTopicToLesson(Lesson lesson, int topicWeek, String newTopic){
@@ -256,6 +261,8 @@ public class Database {
         entityManager.remove(selectedTopic);
         entityManager.persist(dbLesson);
         entityManager.getTransaction().commit();
+        
+        lesson.getLessonTopicList().remove(selectedTopic);
     }
 
 
