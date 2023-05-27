@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -42,7 +43,52 @@ public class DDB {
         //one2Many();
         //query12Many();
         //createCourseSession();
-        queryCourseSession();
+        //queryCourseSession();
+        //many21Update();
+        //AddClassToLesson();
+        testQuery();
+    }
+    
+    public static void testQuery(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LMS_PE");
+        EntityManager entityManager = emf.createEntityManager();
+        
+        StudentClass selectedClass = entityManager.createNamedQuery("StudentClass.findAll", StudentClass.class).getResultList().get(0);
+        List<CourseSession> sessions = entityManager.
+                createQuery("SELECT c FROM CourseSession c WHERE c.classId = :classID", CourseSession.class)
+                .setParameter("classID", selectedClass).getResultList();
+        
+        System.out.println(sessions.size());
+        sessions.forEach((session) -> {
+            System.out.println(session.toString());
+        });
+        
+        entityManager.close();
+        emf.close();
+    }
+    
+    public static void AddClassToLesson(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LMS_PE");
+        EntityManager entityManager = emf.createEntityManager();
+        entityManager.getTransaction().begin();
+        
+        Lesson l1 = entityManager.createNamedQuery("Lesson.findAll", Lesson.class).getResultList().get(0);
+        Lesson l2 = entityManager.createNamedQuery("Lesson.findAll", Lesson.class).getResultList().get(1);
+        StudentClass c1 = entityManager.createNamedQuery("StudentClass.findAll", StudentClass.class).getResultList().get(0);
+        
+        ArrayList<Lesson> lessons = new ArrayList<>();
+        lessons.add(l1);
+        lessons.add(l2);
+        
+        c1.setLessons(lessons);
+        
+        entityManager.persist(c1);
+        entityManager.persist(l1);
+        entityManager.persist(l2);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        emf.close();
+        
     }
     
     public static void createCourseSession(){
@@ -132,6 +178,22 @@ public class DDB {
         entityManager.close();
         emf.close();
     }
+    
+    public static void many21Update(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LMS_PE");
+        EntityManager entityManager = emf.createEntityManager();
+        
+        entityManager.getTransaction().begin();
+        
+        Student student = entityManager.createNamedQuery("Person.findAllStudents", Student.class).getResultList().get(0);
+        student.setStudentClass(null);
+        
+        entityManager.persist(student);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        emf.close();
+    }
+    
     
     public static void ConnectDatabase(){
         try {

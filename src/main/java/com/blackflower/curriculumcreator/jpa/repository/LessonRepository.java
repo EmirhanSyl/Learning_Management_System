@@ -22,6 +22,11 @@ public class LessonRepository {
         entityManager = emf.createEntityManager();
     }
 
+    public LessonRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+    
+
     /**
      * Saves the specified movie to the database.
      *
@@ -76,6 +81,13 @@ public class LessonRepository {
                 lesson.getInstructorLessonList().forEach(instructorLesson -> {
                     entityManager.remove(instructorLesson);
                 });
+                lesson.getCoursesessionList().forEach((courseSession) ->{
+                    entityManager.remove(courseSession);
+                });
+                lesson.getLessonTopicList().forEach((lessonTopic) -> {
+                    entityManager.remove(lessonTopic);
+                });
+                
 
                 entityManager.remove(lesson);
                 entityManager.getTransaction().commit();

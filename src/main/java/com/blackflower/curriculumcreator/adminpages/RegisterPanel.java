@@ -1,11 +1,15 @@
 package com.blackflower.curriculumcreator.adminpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
-import com.blackflower.curriculumcreator.core.Lesson;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Database;
-import com.blackflower.curriculumcreator.core.Class;
+import com.blackflower.curriculumcreator.jpa.model.*;
+import com.blackflower.curriculumcreator.jpa.repository.LessonRepository;
+import com.blackflower.curriculumcreator.jpa.repository.StudentClassRepository;
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,11 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class RegisterPanel extends javax.swing.JPanel implements IPage{
 
-    
+    Admin account;
+    List<StudentClass> studentClasses;
+    List<Lesson> lessons;
     
     public RegisterPanel() {
         initComponents();
-        refreshComboBox("Instructor Lesson:", Database.getClasses());
     }
 
     @SuppressWarnings("unchecked")
@@ -181,12 +186,12 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
         
         
         if (buttonGroup1.isSelected(studentRadioBtn.getModel())) {
-            Class studentClass = (Class)stuLecComboBox.getSelectedItem(); 
-            MainFrame.instance.tmp_admin.addStudent(nameField.getText(), surnameField.getText(), studentClass);
+            StudentClass studentClass = (StudentClass)stuLecComboBox.getSelectedItem(); 
+            account.addStudent(nameField.getText(), surnameField.getText(), studentClass);
         }
         else if(buttonGroup1.isSelected(instructorRadioBtn.getModel())){
             Lesson lesson = (Lesson)stuLecComboBox.getSelectedItem(); 
-            MainFrame.instance.tmp_admin.addInstructor(nameField.getText(), surnameField.getText(), lesson);
+            account.addInstructor(nameField.getText(), surnameField.getText(), lesson);
         }
         
         nameField.setText("");
@@ -198,12 +203,12 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
 
     private void studentRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentRadioBtnActionPerformed
         // TODO add your handling code here:
-        refreshComboBox("Instructor Lesson:", Database.getClasses());
+        refreshComboBox("Instructor Lesson:", studentClasses);
     }//GEN-LAST:event_studentRadioBtnActionPerformed
 
     private void instructorRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instructorRadioBtnActionPerformed
         // TODO add your handling code here: 
-        refreshComboBox("Instructor Lesson:", Database.getLessons());
+        refreshComboBox("Instructor Lesson:", lessons);
     }//GEN-LAST:event_instructorRadioBtnActionPerformed
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
@@ -211,11 +216,11 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
         MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
     }//GEN-LAST:event_homeBtnActionPerformed
 
-    public final void refreshComboBox(String labelText, ArrayList arrayList){
+    public final void refreshComboBox(String labelText, List list){
         stulecLabel.setText(labelText);
         stuLecComboBox.removeAllItems();
         
-        for (Object item : arrayList) {
+        for (Object item : list) {
             stuLecComboBox.addItem(item);
         }
     }
@@ -240,11 +245,23 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
+        account = (Admin)MainFrame.instance.getAccount();
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LMS_PE");
+        EntityManager entityManager = emf.createEntityManager();
+        
+        LessonRepository lessonRepository = new LessonRepository(entityManager);
+        StudentClassRepository scr = new StudentClassRepository(entityManager);
+        
+        lessons = lessonRepository.findAll();
+        studentClasses = scr.findAll();
+        
         if (buttonGroup1.isSelected(studentRadioBtn.getModel())) {
-            refreshComboBox("Instructor Lesson:", Database.getClasses());
+            refreshComboBox("Instructor Lesson:", studentClasses);
         }
         else if(buttonGroup1.isSelected(instructorRadioBtn.getModel())){
-            refreshComboBox("Instructor Lesson:", Database.getLessons());
+            refreshComboBox("Instructor Lesson:", lessons);
         }
+        
     }
 }

@@ -54,12 +54,12 @@ public class CCAvatarImageLabel extends JComponent {
             int width = image.getIconWidth();
             int height = image.getIconHeight();
             int diameter = Math.min(width, height);
-            BufferedImage mask = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            BufferedImage mask = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = mask.createGraphics();
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);    //  for image smooth
             g2d.fillOval(0, 0, diameter - 1, diameter - 1);
             g2d.dispose();
-            BufferedImage masked = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
+            BufferedImage masked = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
             g2d = masked.createGraphics();
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);    //  for image smooth
             int x = (diameter - width) / 2;

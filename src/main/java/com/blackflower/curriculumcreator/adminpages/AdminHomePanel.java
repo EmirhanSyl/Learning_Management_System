@@ -2,7 +2,7 @@ package com.blackflower.curriculumcreator.adminpages;
 
 import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.MainFrame;
-import com.blackflower.curriculumcreator.core.Admin;
+import com.blackflower.curriculumcreator.jpa.model.*;
 
 /**
  *
@@ -30,6 +30,8 @@ public class AdminHomePanel extends javax.swing.JPanel implements IPage{
         jLabel3 = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
         newStyleAccBtn = new javax.swing.JButton();
+
+        setMaximumSize(new java.awt.Dimension(942, 554));
 
         manageClassBtn.setText("Manage Class");
         manageClassBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +212,7 @@ public class AdminHomePanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
          account = (Admin)MainFrame.instance.getAccount();
     }
 }

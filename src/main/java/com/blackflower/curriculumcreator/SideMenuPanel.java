@@ -1,17 +1,10 @@
 package com.blackflower.curriculumcreator;
 
-import com.blackflower.curriculumcreator.core.Admin;
-import com.blackflower.curriculumcreator.core.Instructor;
-import com.blackflower.curriculumcreator.core.Person;
-import com.blackflower.curriculumcreator.core.Student;
-import com.blackflower.curriculumcreator.customComponents.CCScrollBar;
-import com.blackflower.curriculumcreator.customComponents.CCTransparentViewport;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.customComponents.Item;
-import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 
 /**
  *

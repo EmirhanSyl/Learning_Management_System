@@ -1,8 +1,8 @@
 package com.blackflower.curriculumcreator.instructorpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
-import com.blackflower.curriculumcreator.core.*;
-import com.blackflower.curriculumcreator.core.Class;
+import com.blackflower.curriculumcreator.core.IPage;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -217,10 +217,10 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
         
         if (buttonGroup1.isSelected(lessonRadioBtn.getModel())) {
             Lesson selectedLesson = (Lesson)filterComboBox.getSelectedItem();
-            refreshTableData(account.getResponsibleSessions(selectedLesson));
+            refreshTableData(account.getResponsibleSessions(account, selectedLesson));
         }else if(buttonGroup1.isSelected(classRadioBtn.getModel())){
-            Class selectedClass = (Class)filterComboBox.getSelectedItem();
-            refreshTableData(account.getResponsibleSessions(selectedClass));
+            StudentClass selectedClass = (StudentClass)filterComboBox.getSelectedItem();
+            refreshTableData(account.getResponsibleSessions(account, selectedClass));
         }
     }//GEN-LAST:event_filterBtnActionPerformed
 
@@ -239,7 +239,16 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
         
         account.removeSession(sessionID);
         
-        refreshTableData(account.getResponsibleSessions());
+        for (InstructorLesson instructorLesson : account.getLessons()) {
+            for (CourseSession session : instructorLesson.getLessonId().getCoursesessionList()) {
+                if (session.getId() == sessionID) {
+                    instructorLesson.getLessonId().getCoursesessionList().remove(session);
+                    session.getClassId().getCoursesessionList().remove(session);
+                }
+            }
+        }
+        
+        refreshTableData(account.getResponsibleSessions(account));
     }//GEN-LAST:event_removeSessionBtnActionPerformed
 
     private void classRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classRadioBtnActionPerformed
@@ -253,7 +262,7 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
 
     private void clearFilterTextBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearFilterTextBtnMouseClicked
         // TODO add your handling code here:
-        refreshTableData(account.getResponsibleSessions());
+        refreshTableData(account.getResponsibleSessions(account));
     }//GEN-LAST:event_clearFilterTextBtnMouseClicked
 
 
@@ -276,26 +285,30 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         account = (Instructor)MainFrame.instance.getAccount();
         
         refreshClassesComboBox();
-        refreshTableData(account.getResponsibleSessions());
+        refreshTableData(account.getResponsibleSessions(account));
     }
     
     private void refreshLessonsComboBox(){
         filterComboBox.removeAllItems();
         
-        account.getLessons().forEach((lesson) -> {
-            filterComboBox.addItem(lesson);
+        account.getLessons().forEach((instructorLesson) -> {
+            filterComboBox.addItem(instructorLesson.getLessonId());
         });
     }
     
     private void refreshClassesComboBox(){
         filterComboBox.removeAllItems();
         
-        account.getResponsibleClasses().forEach((lesson) -> {
-            filterComboBox.addItem(lesson);
-        });
+        for (InstructorLesson instructorLesson : account.getLessons()) {
+            
+            instructorLesson.getLessonId().getStudentClasses().forEach((studentClass) -> {
+                filterComboBox.addItem(studentClass);
+            });
+        }
     }
     
     private void refreshTableData(ArrayList<CourseSession> dataArray){
@@ -303,11 +316,11 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
         
         for (CourseSession session : dataArray) {
             Vector newData = new Vector();
-            newData.add(session.getID());
-            newData.add(session.getDate());
-            newData.add(session.getLesson());
-            newData.add(session.getSessionClass());
-            newData.add(session.getSessionHours());
+            newData.add(session.getId());
+            newData.add(session.getStartDate().toString());
+            newData.add(session.getLessonId());
+            newData.add(session.getClassId());
+            newData.add(session.getSessionLength());
             
             tableModel.addRow(newData);
         }

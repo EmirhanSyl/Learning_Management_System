@@ -22,11 +22,11 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "COURSESESSION")
-//@NamedQueries({
-//    @NamedQuery(name = "CourseSession.findAll", query = "SELECT c FROM Coursesession c"),
-//    @NamedQuery(name = "CourseSession.findById", query = "SELECT c FROM Coursesession c WHERE c.id = :id"),
-//    @NamedQuery(name = "CourseSession.findByStartDate", query = "SELECT c FROM Coursesession c WHERE c.startDate = :startDate"),
-//    @NamedQuery(name = "CourseSession.findBySessionLength", query = "SELECT c FROM Coursesession c WHERE c.sessionLength = :sessionLength")})
+@NamedQueries({
+    @NamedQuery(name = "CourseSession.findAll", query = "SELECT c FROM CourseSession c"),
+    @NamedQuery(name = "CourseSession.findById", query = "SELECT c FROM CourseSession c WHERE c.id = :id"),
+    @NamedQuery(name = "CourseSession.findByStartDate", query = "SELECT c FROM CourseSession c WHERE c.startDate = :startDate"),
+    @NamedQuery(name = "CourseSession.findBySessionLength", query = "SELECT c FROM CourseSession c WHERE c.sessionLength = :sessionLength")})
 public class CourseSession implements Serializable {
 
     private static final long serialVersionUID = 1L;

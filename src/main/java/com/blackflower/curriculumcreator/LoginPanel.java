@@ -1,11 +1,7 @@
 package com.blackflower.curriculumcreator;
 
-import com.blackflower.curriculumcreator.core.Student;
-import com.blackflower.curriculumcreator.core.Person;
-import com.blackflower.curriculumcreator.core.Instructor;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Database;
-import com.blackflower.curriculumcreator.core.Admin;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,7 +30,7 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
 
         setBackground(new java.awt.Color(240, 248, 255));
 
-        cCGradientPanel1.setGradientEndd(new java.awt.Color(153, 153, 153));
+        cCGradientPanel1.setGradientEndd(new java.awt.Color(204, 204, 204));
         cCGradientPanel1.setGradientStart(new java.awt.Color(204, 204, 204));
 
         rememberMeCheckBox.setText("Remember me");
@@ -113,7 +109,7 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
         // TODO add your handling code here:
         String pwd = String.valueOf(passwordField.getPassword());
-        Person account = Database.login(usernameField.getText(), pwd);
+        Person account = Login.loginValidation(usernameField.getText(), pwd);
 
         if (account == null) {
             JOptionPane.showMessageDialog(this, "This user does not exist!", "User Not Found", JOptionPane.ERROR_MESSAGE);
@@ -150,6 +146,6 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
-        
+        Database.initDatabase("LMS_PE");
     }
 }

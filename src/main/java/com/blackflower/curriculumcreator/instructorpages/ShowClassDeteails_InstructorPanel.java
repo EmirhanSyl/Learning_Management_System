@@ -1,8 +1,9 @@
 package com.blackflower.curriculumcreator.instructorpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
-import com.blackflower.curriculumcreator.core.*;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.Class;
+import com.blackflower.curriculumcreator.core.IPage;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -120,20 +121,20 @@ public class ShowClassDeteails_InstructorPanel extends javax.swing.JPanel implem
     private void refreshComboBox(){
         classSelectionComboBox.removeAllItems();
         
-        account.getResponsibleClasses().forEach((classe) -> {classSelectionComboBox.addItem(classe);});
+        account.lessonsClasses(account).forEach((studentClass) -> {classSelectionComboBox.addItem(studentClass);});
     }
     
     private void refreshTableData(){
         tableModel.setRowCount(0);
         
         if (classSelectionComboBox.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Please Select A Class!", "Class Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Please Select A Class!", "Class Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        Class selectedClass = (Class)classSelectionComboBox.getSelectedItem();
+        StudentClass selectedClass = (StudentClass)classSelectionComboBox.getSelectedItem();
         
-        for (Student student : selectedClass.getStudents()) {
+        for (Student student : Database.getClassStudents(selectedClass)) {
             Vector newData = new Vector();
             newData.add(student.getId());
             newData.add(student.getFirstName());
@@ -157,6 +158,7 @@ public class ShowClassDeteails_InstructorPanel extends javax.swing.JPanel implem
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         account = (Instructor)MainFrame.instance.getAccount();
         refreshComboBox();
         refreshTableData();
