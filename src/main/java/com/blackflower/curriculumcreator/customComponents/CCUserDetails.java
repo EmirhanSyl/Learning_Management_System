@@ -27,7 +27,6 @@ public class CCUserDetails extends javax.swing.JPanel {
         cCAvatarImageLabel1.setImage(icon);
         Image imgFit = icon.getImage().getScaledInstance(75, 75, Image.SCALE_AREA_AVERAGING);
         icon.setImage(imgFit);
-        System.out.println("00");
         
         nameLabel.setText(nameText);
         classField.setText(classText);

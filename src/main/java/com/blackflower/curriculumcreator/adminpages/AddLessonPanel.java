@@ -11,19 +11,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author emirs
  */
-public class AddLessonPanel extends javax.swing.JPanel implements IPage{
+public class AddLessonPanel extends javax.swing.JPanel implements IPage {
 
     DefaultTableModel tableModel = new DefaultTableModel();
     String[] columnNames = {"Lesson ID", "Lesson Name", "Instructor", "Lesson Count"};
-    
+
     public AddLessonPanel() {
         initComponents();
-        
+
         tableModel.setColumnIdentifiers(columnNames);
         lessonTable.setModel(tableModel);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -34,7 +33,7 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage{
         lessonCountSlider = new javax.swing.JSlider();
         lessonNameField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lessonCountLabel = new javax.swing.JLabel();
         instructorComboBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         addLessonBtn = new javax.swing.JButton();
@@ -63,10 +62,17 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage{
 
         lessonCountSlider.setMaximum(15);
         lessonCountSlider.setMinimum(1);
+        lessonCountSlider.setPaintLabels(true);
+        lessonCountSlider.setPaintTicks(true);
+        lessonCountSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                lessonCountSliderStateChanged(evt);
+            }
+        });
 
         jLabel1.setText("Lesson Name");
 
-        jLabel2.setText("Lesson Count Per Week");
+        lessonCountLabel.setText("Lesson Count Per Week");
 
         instructorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
 
@@ -138,7 +144,7 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage{
                                 .addComponent(addLessonBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lessonCountLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lessonCountSlider, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +183,7 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(lessonCountLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lessonCountSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -200,7 +206,12 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage{
             JOptionPane.showMessageDialog(this, "Please Select An Instructor!", "Instructor Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Instructor instructor = (Instructor)instructorComboBox.getSelectedItem();
+        if (lessonNameField.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Lesson Name Cannot Be Empty!", "Lesson Name is Null", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        Instructor instructor = (Instructor) instructorComboBox.getSelectedItem();
         Database.addLesson(lessonNameField.getText(), instructor, lessonCountSlider.getValue());
         refreshTableData();
     }//GEN-LAST:event_addLessonBtnActionPerformed
@@ -210,17 +221,16 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage{
         if (instructorComboBox.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Please Select An Instructor!", "Instructor Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
-        }
-        else if (lessonTable.getSelectedRow() == -1) {
+        } else if (lessonTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Please Select An Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        int lessonID = (Integer)tableModel.getValueAt(lessonTable.getSelectedRow(), 0);
-        Lesson lesson = Database.findLessonByID(lessonID);
-        
-        Instructor newInstructor = (Instructor)instructorComboBox.getSelectedItem();
-        Database.updateLessonData(lesson, newInstructor, lessonCountSlider.getValue());
+
+        int lessonID = (Integer) tableModel.getValueAt(lessonTable.getSelectedRow(), 0);
+        //Lesson lesson = Database.findLessonByID(lessonID);
+
+        Instructor newInstructor = (Instructor) instructorComboBox.getSelectedItem();
+        Database.updateLessonData(lessonID, newInstructor, lessonCountSlider.getValue());
         refreshTableData();
     }//GEN-LAST:event_updateLessonBtnActionPerformed
 
@@ -229,16 +239,15 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage{
         if (lessonTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Please Select An Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
-        }
-        else if (instructorComboBox.getSelectedIndex() == -1) {
+        } else if (instructorComboBox.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Please Select An Instructor!", "Instructor Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        int lessonID = (Integer)tableModel.getValueAt(lessonTable.getSelectedRow(), 0);
+
+        int lessonID = (Integer) tableModel.getValueAt(lessonTable.getSelectedRow(), 0);
         Lesson lesson = Database.findLessonByID(lessonID);
         Database.removeLesson(lesson);
-        
+
         refreshTableData();
     }//GEN-LAST:event_removeLessonBtnActionPerformed
 
@@ -259,35 +268,41 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage{
         MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
     }//GEN-LAST:event_homeBtnActionPerformed
 
-    public final void refreshTableData(){
+    private void lessonCountSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_lessonCountSliderStateChanged
+        // TODO add your handling code here:
+        lessonCountLabel.setText("Lesson Count Per Week: " + lessonCountSlider.getValue());
+    }//GEN-LAST:event_lessonCountSliderStateChanged
+
+    public final void refreshTableData() {
         tableModel.setRowCount(0);
-        
+
         for (Lesson lesson : Database.getLessons()) {
             Vector newData = new Vector();
             newData.add(lesson.getId());
             newData.add(lesson.getName());
-            newData.add(lesson.getInstructorLessonList().get(0).getInstructorId().toString()); 
-            newData.add(lesson.getInstructorLessonList().get(0).getLessonCount());
-            try {
-                
-            } catch (Exception e) {
-                System.out.println("kesinlikle her şey normal ^^ ");
+            if (!lesson.getInstructorLessonList().isEmpty()) {
+                newData.add(lesson.getInstructorLessonList().get(0).getInstructorId().toString());
+                newData.add(lesson.getInstructorLessonList().get(0).getLessonCount());
+            }
+            else{
+                newData.add("Null");
+                newData.add(0);
             }
             tableModel.addRow(newData);
         }
     }
-    
-    public final void refreshComboBox(){
+
+    public final void refreshComboBox() {
         instructorComboBox.removeAllItems();
-        
+
         Database.getUsers().forEach((user) -> {
             if (user instanceof Instructor) {
-                Instructor instructor = (Instructor)user;
+                Instructor instructor = (Instructor) user;
                 instructorComboBox.addItem(instructor);
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addLessonBtn;
@@ -295,10 +310,10 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage{
     private javax.swing.JButton homeBtn;
     private javax.swing.JComboBox<Object> instructorComboBox;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lessonCountLabel;
     private javax.swing.JSlider lessonCountSlider;
     private javax.swing.JTextField lessonNameField;
     private javax.swing.JTable lessonTable;

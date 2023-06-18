@@ -41,7 +41,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lessonCountLabel" alignment="0" max="32767" attributes="0"/>
                           <Component id="lessonCountSlider" alignment="0" min="-2" pref="332" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
@@ -95,7 +95,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lessonCountLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lessonCountSlider" pref="31" max="32767" attributes="0"/>
                   </Group>
@@ -178,7 +178,12 @@
       <Properties>
         <Property name="maximum" type="int" value="15"/>
         <Property name="minimum" type="int" value="1"/>
+        <Property name="paintLabels" type="boolean" value="true"/>
+        <Property name="paintTicks" type="boolean" value="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="lessonCountSliderStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="lessonNameField">
     </Component>
@@ -187,7 +192,7 @@
         <Property name="text" type="java.lang.String" value="Lesson Name"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="lessonCountLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Lesson Count Per Week"/>
       </Properties>

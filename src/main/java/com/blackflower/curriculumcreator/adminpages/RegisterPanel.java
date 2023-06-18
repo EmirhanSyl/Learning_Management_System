@@ -176,34 +176,42 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         // TODO add your handling code here:
-        if (stuLecComboBox.getSelectedIndex() == -1) {
+        if (studentRadioBtn.isSelected() && stuLecComboBox.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Please Select A Class/Lesson!", "Class/Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }else if(!termsCheckBox.isSelected()){
             JOptionPane.showMessageDialog(this, "Please Accept Terms And Conditions!", "Terms And Conditions", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        else if (nameField.getText().isBlank() || surnameField.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Please fill All Fields!", "Field(s) are empty", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
+        String name = nameField.getText().replaceAll("\\s", "");
+        name = name.toLowerCase();
+        String surname = surnameField.getText().replaceAll("\\s", "");
+        surname = surname.toLowerCase();
         
         if (buttonGroup1.isSelected(studentRadioBtn.getModel())) {
             StudentClass studentClass = (StudentClass)stuLecComboBox.getSelectedItem(); 
-            account.addStudent(nameField.getText(), surnameField.getText(), studentClass);
+            Database.addStudent(nameField.getText(), surnameField.getText(), studentClass);
         }
         else if(buttonGroup1.isSelected(instructorRadioBtn.getModel())){
             Lesson lesson = (Lesson)stuLecComboBox.getSelectedItem(); 
-            account.addInstructor(nameField.getText(), surnameField.getText(), lesson);
+            Database.addInstructor(nameField.getText(), surnameField.getText(), lesson);
         }
         
         nameField.setText("");
         surnameField.setText("");
         
-        JOptionPane.showMessageDialog(this, "Account Created Succesfuly!", "Account Created", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Account Created Succesfuly! Username: " + name+surname + " Password: 123", "Account Created", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void studentRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentRadioBtnActionPerformed
         // TODO add your handling code here:
-        refreshComboBox("Instructor Lesson:", studentClasses);
+        refreshComboBox("Student Class:", studentClasses);
     }//GEN-LAST:event_studentRadioBtnActionPerformed
 
     private void instructorRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instructorRadioBtnActionPerformed
@@ -219,6 +227,10 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
     public final void refreshComboBox(String labelText, List list){
         stulecLabel.setText(labelText);
         stuLecComboBox.removeAllItems();
+        
+        if (labelText.equals("Instructor Lesson:")) {
+            stuLecComboBox.addItem(null);
+        }
         
         for (Object item : list) {
             stuLecComboBox.addItem(item);
@@ -247,17 +259,13 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
     public void onPageSetted() {
         account = (Admin)MainFrame.instance.getAccount();
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LMS_PE");
-        EntityManager entityManager = emf.createEntityManager();
+        Database.initDatabase("LMS_PE");
         
-        LessonRepository lessonRepository = new LessonRepository(entityManager);
-        StudentClassRepository scr = new StudentClassRepository(entityManager);
-        
-        lessons = lessonRepository.findAll();
-        studentClasses = scr.findAll();
+        lessons = Database.findAllLessons();
+        studentClasses = Database.findAllClasses();
         
         if (buttonGroup1.isSelected(studentRadioBtn.getModel())) {
-            refreshComboBox("Instructor Lesson:", studentClasses);
+            refreshComboBox("Student Class:", studentClasses);
         }
         else if(buttonGroup1.isSelected(instructorRadioBtn.getModel())){
             refreshComboBox("Instructor Lesson:", lessons);

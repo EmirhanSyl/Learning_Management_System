@@ -4,6 +4,8 @@ import com.blackflower.curriculumcreator.jpa.model.Admin;
 import com.blackflower.curriculumcreator.jpa.model.Instructor;
 import com.blackflower.curriculumcreator.jpa.model.Person;
 import com.blackflower.curriculumcreator.jpa.model.Student;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +19,12 @@ public class WelcomePanel extends javax.swing.JPanel {
      */
     public WelcomePanel() {
         initComponents();
+        
+        ImageIcon icon = new ImageIcon("C:\\Users\\emirs\\Desktop\\pics\\chalkboard.jpg");
+        Image imgFit = icon.getImage().getScaledInstance(930, 571, Image.SCALE_AREA_AVERAGING);
+        icon.setImage(imgFit);
+        
+        bgImageLayer.setIcon(icon);
     }
 
     /**
@@ -29,7 +37,9 @@ public class WelcomePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         loginBtn = new javax.swing.JButton();
-        infoText = new javax.swing.JLabel();
+        bgImageLayer = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         loginBtn.setText("Login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -37,31 +47,8 @@ public class WelcomePanel extends javax.swing.JPanel {
                 loginBtnActionPerformed(evt);
             }
         });
-
-        infoText.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        infoText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        infoText.setText("WELCOME BACK: ALİ NİZAM");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(338, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(loginBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(infoText, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
-                .addGap(296, 296, 296))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(infoText, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(281, Short.MAX_VALUE))
-        );
+        add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 242, 295, 43));
+        add(bgImageLayer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 929, 570));
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
@@ -86,7 +73,7 @@ public class WelcomePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel infoText;
+    private javax.swing.JLabel bgImageLayer;
     private javax.swing.JButton loginBtn;
     // End of variables declaration//GEN-END:variables
 }

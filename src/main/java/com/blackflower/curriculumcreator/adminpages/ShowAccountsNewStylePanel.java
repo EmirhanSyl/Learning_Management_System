@@ -17,7 +17,7 @@ import javax.swing.JScrollBar;
 public class ShowAccountsNewStylePanel extends javax.swing.JPanel implements IPage{
 
     Admin account;
-    int filterCount = 111;
+    int filterCount = 0;
     
     public ShowAccountsNewStylePanel() {
         initComponents();
@@ -66,17 +66,11 @@ public class ShowAccountsNewStylePanel extends javax.swing.JPanel implements IPa
         jScrollPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-        studentSwitchButton.setSelected(true);
-
         jLabel1.setText("Students:");
 
         jLabel2.setText("Instructors:");
 
-        instructorSwitchButton.setSelected(true);
-
         jLabel3.setText("Manager:");
-
-        managerSwitchButton.setSelected(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
