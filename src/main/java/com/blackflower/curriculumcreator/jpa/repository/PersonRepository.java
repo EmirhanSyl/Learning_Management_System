@@ -22,6 +22,12 @@ public class PersonRepository {
         entityManager = emf.createEntityManager();
     }
 
+    public PersonRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+    
+    
+
     /**
      * Saves the specified movie to the database.
      *
@@ -87,7 +93,7 @@ public class PersonRepository {
                     entityManager.remove(instructorLesson);
                     });
                 }else if (person instanceof Student student) {
-                    
+                    student.setStudentClass(null);
                 }else if (person instanceof Admin admin) {
                     
                 }

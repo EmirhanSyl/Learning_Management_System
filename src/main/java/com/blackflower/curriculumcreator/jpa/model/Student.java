@@ -1,6 +1,7 @@
 
 package com.blackflower.curriculumcreator.jpa.model;
 
+import com.blackflower.curriculumcreator.jpa.repository.PersonRepository;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -61,6 +62,7 @@ public class Student extends Person{
         }
         return true;
     }
+    
 
     @Override
     public String toString() {

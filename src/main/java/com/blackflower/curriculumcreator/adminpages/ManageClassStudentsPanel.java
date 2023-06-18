@@ -1,11 +1,9 @@
 package com.blackflower.curriculumcreator.adminpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
-import com.blackflower.curriculumcreator.core.Person;
-import com.blackflower.curriculumcreator.core.Student;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Database;
-import com.blackflower.curriculumcreator.core.Class;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +17,7 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
     DefaultTableModel tableModel = new DefaultTableModel();
     private String[] columnNames = {"ID", "First Name", "Last Name", "Class", "Class' Students"};
 
-    private Class selectedClass;
+    private StudentClass selectedClass;
 
     public ManageClassStudentsPanel() {
         initComponents();
@@ -75,6 +73,11 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
         });
 
         classComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        classComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Student Class:");
 
@@ -111,30 +114,37 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(248, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nameTextField)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
-                                .addComponent(classComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(11, 11, 11)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(searchByClassBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchByNameBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(changeClassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                .addComponent(manageClassPageBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(230, 230, 230))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(homeBtn))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(120, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(230, 230, 230))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(classComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nameTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(searchByClassBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(searchByNameBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(changeClassButton, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                            .addComponent(manageClassPageBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(197, 197, 197))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,19 +174,22 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
 
     private void searchByNameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchByNameBtnActionPerformed
         // TODO add your handling code here:
-        Person user = Database.findPersonByName(nameTextField.getText());
-        if (user != null) {
-            if (user instanceof Student) {
-                Student student = (Student) user;
-                refreshTableData(student);
-            }
+        
+        
+        ArrayList<Student> students = Database.findStudentsByName(nameTextField.getText());
+        
+        if (students.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Student not found!", "No Matches!", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        
+        refreshTableData(students);
     }//GEN-LAST:event_searchByNameBtnActionPerformed
 
     private void searchByClassBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchByClassBtnActionPerformed
         // TODO add your handling code here:
         if (classComboBox.getSelectedIndex() != -1) {
-            selectedClass = (Class) classComboBox.getSelectedItem();
+            selectedClass = (StudentClass)classComboBox.getSelectedItem();
         }
         refreshTableData();
     }//GEN-LAST:event_searchByClassBtnActionPerformed
@@ -187,26 +200,32 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
             JOptionPane.showMessageDialog(this, "Please Select A Student!", "Student Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        for (Student student : selectedClass.getStudents()) {
-            if (student.getId() == (Integer) tableModel.getValueAt(studentsTable.getSelectedRow(), 0)) {
-                student.changeStudentClass((Class) classComboBox.getSelectedItem());
-                break;
-            }
-        }
-
+        
+        int studentID = (Integer)tableModel.getValueAt(studentsTable.getSelectedRow(), 0);
+        Student selectedStudent = (Student)Database.findPersonById(studentID);
+        selectedStudent.setStudentClass(selectedClass);
+        Database.updateUser(selectedStudent);
         refreshTableData();
     }//GEN-LAST:event_changeClassButtonActionPerformed
 
     private void manageClassPageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageClassPageBtnActionPerformed
         // TODO add your handling code here:
+        Database.close();
         MainFrame.instance.setPage(MainFrame.instance.getAddClassPage());
     }//GEN-LAST:event_manageClassPageBtnActionPerformed
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
+        Database.close();
         MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
     }//GEN-LAST:event_homeBtnActionPerformed
+
+    private void classComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classComboBoxActionPerformed
+        // TODO add your handling code here:
+        if (classComboBox.getSelectedIndex() != -1) {
+            selectedClass = (StudentClass)classComboBox.getSelectedItem();
+        }
+    }//GEN-LAST:event_classComboBoxActionPerformed
 
     public void refreshTableData() {
         if (selectedClass == null) {
@@ -214,34 +233,35 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
         }
 
         tableModel.setRowCount(0);
-        for (Student student : selectedClass.getStudents()) {
+        for (Student student : Database.getClassStudents(selectedClass)) {
             Vector newData = new Vector();
             newData.add(student.getId());
             newData.add(student.getFirstName());
             newData.add(student.getLastName());
             newData.add(student.getStudentClass());
-            newData.add(selectedClass.getStudents().size());
+            newData.add(Database.getClassStudents(student.getStudentClass()).size());
             tableModel.addRow(newData);
         }
     }
 
-    public void refreshTableData(Student student) {
+    public void refreshTableData(ArrayList<Student> students) {
         tableModel.setRowCount(0);
-
-        Vector newData = new Vector();
-        newData.add(student.getId());
-        newData.add(student.getFirstName());
-        newData.add(student.getLastName());
-        newData.add(student.getStudentClass());
-        newData.add(student.getStudentClass().getStudents().size());
-        tableModel.addRow(newData);
+        for (Student student : students) {
+            Vector newData = new Vector();
+            newData.add(student.getId());
+            newData.add(student.getFirstName());
+            newData.add(student.getLastName());
+            newData.add(student.getStudentClass());
+            newData.add(Database.getClassStudents(student.getStudentClass()).size());
+            tableModel.addRow(newData);
+        }
 
     }
 
     public final void refreshComboBox() {
         classComboBox.removeAllItems();
-        for (Class classe : Database.getClasses()) {
-            classComboBox.addItem(classe);
+        for (StudentClass studentClass : Database.getClasses()) {
+            classComboBox.addItem(studentClass);
         }
 
     }
@@ -264,6 +284,7 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         refreshTableData();
         refreshComboBox();
     }

@@ -2,11 +2,13 @@ package com.blackflower.curriculumcreator.instructorpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Instructor;
-import com.blackflower.curriculumcreator.core.Lesson;
+import com.blackflower.curriculumcreator.jpa.model.*;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -195,7 +197,7 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
         }
 
         Lesson selectedLesson = (Lesson) lessonComboBox.getSelectedItem();
-        int index = 0;
+        int index = 1;
         try {
             String str_index = (String) weekComboBox.getSelectedItem();
             index = Integer.parseInt(str_index.split("-")[1]);
@@ -207,7 +209,7 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
             return;
         }
 
-        selectedLesson.addTopic(topicTextField.getText(), index);
+        Database.addTopicToLesson(selectedLesson, index, topicTextField.getText());
 
         refreshTableData();
         refreshWeekComboBox();
@@ -229,7 +231,7 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
             JOptionPane.showMessageDialog(this, "Something went wrong! Please try again", "UPPS!", JOptionPane.ERROR_MESSAGE);
         }
         
-        selectedLesson.removeTopic(index);
+        Database.deleteTopicFromLesson(selectedLesson, index);
         addTopicBtn.setEnabled(true);
         refreshTableData();
         refreshWeekComboBox();
@@ -238,6 +240,7 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
     private void lessonComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonComboBoxActionPerformed
         // TODO add your handling code here:
         refreshWeekComboBox();
+        refreshTableData();
     }//GEN-LAST:event_lessonComboBoxActionPerformed
 
     private void findTopicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findTopicBtnActionPerformed
@@ -271,6 +274,7 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         account = (Instructor) MainFrame.instance.getAccount();
         refreshLessonsComboBox();
         refreshTableData();
@@ -279,64 +283,91 @@ public class ManageLessons_InstructorPanel extends javax.swing.JPanel implements
     private void refreshLessonsComboBox() {
         lessonComboBox.removeAllItems();
 
-        account.getLessons().forEach((lesson) -> {
-            lessonComboBox.addItem(lesson);
+        account.getLessons().forEach((instructorLesson) -> {
+            lessonComboBox.addItem(instructorLesson.getLessonId());
         });
         lessonComboBox.setSelectedIndex(0);
     }
 
     private void refreshWeekComboBox() {
         if (lessonComboBox.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         weekComboBox.removeAllItems();
 
         Lesson selectedLesson = (Lesson) lessonComboBox.getSelectedItem();
-        for (int i = 0; i < selectedLesson.getTopics().length; i++) {
-            if (selectedLesson.getTopics()[i].equals("")) {
-                weekComboBox.addItem("Week-" + i);
+        for (int i = 0; i < 15; i++) {
+            
+            boolean isConsist = false;
+            for (LessonTopic lessonTopic : selectedLesson.getLessonTopicList()) {
+                if (lessonTopic.getWeek() == (i+1)) {
+                    isConsist = true;
+                }
+            }
+            
+            if (!isConsist) {
+                weekComboBox.addItem("Week-" + (i+1));
             }
         }
     }
 
     private void refreshTableData() {
         if (lessonComboBox.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         tableModel.setRowCount(0);
         Lesson selectedLesson = (Lesson) lessonComboBox.getSelectedItem();
         
-        for (int i = 0; i < selectedLesson.getTopics().length; i++) {
+        ArrayList<Integer> weeks = new ArrayList<>();
+        selectedLesson.getLessonTopicList().forEach((topic) -> {
+            weeks.add(topic.getWeek());
+        });
+        
+        for (int i = 1; i < 16; i++) {
             Vector newData = new Vector();
-            newData.add(selectedLesson.getTopics()[i]);
-            newData.add("Week-" + i);
+            
+            boolean isConsist = false;
+            for (LessonTopic lessonTopic : selectedLesson.getLessonTopicList()) {
+                if (lessonTopic.getWeek() == i) {
+                    newData.add(lessonTopic.getTopic());
+                    newData.add("Week-" + lessonTopic.getWeek());
+                    isConsist = true;
+                }
+            }
+            
+            if (!isConsist) {
+                newData.add("");
+                newData.add("Week-" + i);
+            }
+            
             tableModel.addRow(newData);
         }
     }
     
     private void findText(){
         if (lessonComboBox.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Please Select A Lesson!", "Lesson Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         tableModel.setRowCount(0);
         Lesson selectedLesson = (Lesson) lessonComboBox.getSelectedItem();
-        Dictionary<String, String> results = selectedLesson.findTopic(findTopicTextField.getText(), 5);
         
-        Enumeration<String> keys = results.keys();
-        while (keys.hasMoreElements()) {
-            String key = keys.nextElement();
-            Vector newData = new Vector();
+        Pattern pattern = Pattern.compile(findTopicTextField.getText().toLowerCase());
+        for (LessonTopic topic : selectedLesson.getLessonTopicList()) {
+            Matcher matcher = pattern.matcher(topic.getTopic().toLowerCase());
             
-            newData.add(results.get(key));
-            newData.add(key);
-            
-            tableModel.addRow(newData);
+            if (matcher.find()) {
+                Vector newData = new Vector();
+                
+                newData.add(topic.getTopic());
+                newData.add("Week-" + topic.getWeek());
+                
+                tableModel.addRow(newData);
+            }
         }
     }
 }

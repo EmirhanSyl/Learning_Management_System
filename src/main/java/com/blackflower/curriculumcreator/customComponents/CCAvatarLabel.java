@@ -1,4 +1,3 @@
-
 package com.blackflower.curriculumcreator.customComponents;
 
 /**

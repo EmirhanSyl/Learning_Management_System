@@ -1,6 +1,6 @@
 package com.blackflower.curriculumcreator;
 
-import com.blackflower.curriculumcreator.core.Person;
+import com.blackflower.curriculumcreator.jpa.model.Person;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 

@@ -1,17 +1,15 @@
 package com.blackflower.curriculumcreator;
 
 import com.blackflower.curriculumcreator.test.*;
-import com.blackflower.curriculumcreator.core.*;
-import com.blackflower.curriculumcreator.core.Class;
+import com.blackflower.curriculumcreator.jpa.model.Person;
 import com.blackflower.curriculumcreator.adminpages.*;
+import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.instructorpages.*;
+import com.blackflower.curriculumcreator.jpa.model.Login;
 import com.blackflower.curriculumcreator.studentspages.*;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 
 /**
  *
@@ -19,7 +17,7 @@ import javax.swing.JRootPane;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    public Admin tmp_admin = new Admin("admin", "admin", "admin", "123");
+    //public Admin tmp_admin = new Admin("admin", "admin", "admin", "123");
     
 // --------------- VARIABLE DECLERATIONS ------------------
 
@@ -28,6 +26,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final HomePagePanel homePage;
     private final TestPanel testPage;
     
+    private final WelcomePanel welcomePage;
     private final LoginPanel loginPage;
     private final RegisterPanel registerPage;
     private final AccountManagementPanel accountManagementPage;
@@ -49,6 +48,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final StudentHomePanel studentHomePage;
     private final ShowClass_StudentPanel showClass_StudentPage;
     private final ShowSessionDetailsPanel showSessionDetailsPage;
+    private final ShowLessonDetailsPanel showLessonDetailsPage;
     
     private final HeaderPanel header;
     private final SideMenuPanel sideMenu;
@@ -80,8 +80,8 @@ public class MainFrame extends javax.swing.JFrame {
         showClass_StudentPage = new ShowClass_StudentPanel();
         showSessionDetailsPage = new ShowSessionDetailsPanel();
         showAccountsNewStylePage = new ShowAccountsNewStylePanel();
-        
-        
+        showLessonDetailsPage = new ShowLessonDetailsPanel();
+        welcomePage = new WelcomePanel();
         
         headerPanel.setLayout(new GridLayout());
         header = new HeaderPanel();
@@ -94,11 +94,13 @@ public class MainFrame extends javax.swing.JFrame {
         sideMenuPanel.add(sideMenu);
         
         this.add(mainPanel);
-        mainPanel.add(loginPage);
+        
+        account = Login.checkRememberMe();
+        setPage(welcomePage);        
         
         this.setPreferredSize(new Dimension(1200, 600));
         this.setResizable(false);
-        //this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         
 //        dispose();
 //        this.setUndecorated(true);
@@ -126,6 +128,7 @@ public class MainFrame extends javax.swing.JFrame {
     public ShowClass_StudentPanel getShowClass_StudentPage(){ return showClass_StudentPage; }
     public ShowSessionDetailsPanel getShowSessionDetailsPage(){ return showSessionDetailsPage; }
     public ShowAccountsNewStylePanel getShowAccountsNewStylePage() { return showAccountsNewStylePage; }
+    public ShowLessonDetailsPanel getShowLessonDetailsPage(){ return showLessonDetailsPage; }
     
     public Person getAccount(){ return  account; }
     public void setAccount(Person account){ this.account = account; }
@@ -221,89 +224,86 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                testInit();
+                //testInit();
                 // ---------------- SINGLETON -----------------
                 instance = new MainFrame();
                 instance.setVisible(true);
             }
         });
     }
-    
-    public final void setPage(JPanel page){
+
+    public final void setPage(JPanel page) {
         mainPanel.removeAll();
         mainPanel.add(page);
         mainPanel.revalidate();
         mainPanel.repaint();
         System.out.println("Page Setted!");
-        
+
         if (page instanceof IPage) {
-            IPage iPage = (IPage)page;
+            IPage iPage = (IPage) page;
             iPage.onPageSetted();
         }
     }
-    
+
     public void logout() {
-          account = null;
-          setPage(getLoginPage());
-          
-          sideMenu.adjustSideMenuContent(account);
-          header.adjustHeader(account);
-    }
-    
-    public void login(){
+        loginPage.forgetMe();
+        account = null;
+        setPage(getLoginPage());
+
         sideMenu.adjustSideMenuContent(account);
         header.adjustHeader(account);
     }
-    
-    
-    
+
+    public void login() {
+        sideMenu.adjustSideMenuContent(account);
+        header.adjustHeader(account);
+    }
+
+
     public static void testInit(){
-        Admin admin = new Admin("admin", "admin", "admin", "123");
-        
-        Instructor instructor = new Instructor("Ali", "Nizam");
-        Instructor instructor2 = new Instructor("Nazlı", "Doğan");
-        
-        Database.addLesson("CP2", instructor, 6);
-        Database.addLesson("CP1", instructor, 6);
-        
-        Class newClass = new Class("Software Eng.");
-        Class newClass2 = new Class("Computer Eng.");
-        
-        Student student = new Student("Meryem", "Kılıç");
-        Student student2 = new Student("Emirhan", "Soylu");
-        student.setStudentClass(newClass);
-        student2.setStudentClass(newClass);
-        
-        Student student3 = new Student("Zahid", "Baltaci");
-        Student student4 = new Student("Sare", "Bayram");
-        student3.setStudentClass(newClass2);
-        student4.setStudentClass(newClass2);
-        
-        newClass.getStudents().add(student);
-        newClass.getStudents().add(student2);
-        student.setImagePath("C:\\Users\\emirs\\Desktop\\pics\\papatya.jpg");
-        student2.setImagePath("C:\\Users\\emirs\\Desktop\\pics\\s1.png");
-        
-        newClass2.getStudents().add(student3);
-        newClass2.getStudents().add(student4);
-        
-        Database.getUsers().add(admin);
-        
-        Database.getUsers().add(instructor);
-        Database.getUsers().add(instructor2);
-        
-        Database.getClasses().add(newClass);
-        Database.getClasses().add(newClass2);
-        
-        Database.getUsers().add(student);
-        Database.getUsers().add(student2);
-        Database.getUsers().add(student3);
-        Database.getUsers().add(student4);
+//        Admin admin = new Admin("admin", "admin", "admin", "123");
+//        
+//        Instructor instructor = new Instructor("Ali", "Nizam");
+//        Instructor instructor2 = new Instructor("Nazlı", "Doğan");
+//        
+//        Database.addLesson("CP2", instructor, 6);
+//        Database.addLesson("CP1", instructor, 6);
+//        
+//        Class newClass = new Class("Software Eng.");
+//        Class newClass2 = new Class("Computer Eng.");
+//        
+//        Student student = new Student("Meryem", "Kılıç");
+//        Student student2 = new Student("Emirhan", "Soylu");
+//        student.setStudentClass(newClass);
+//        student2.setStudentClass(newClass);
+//        
+//        Student student3 = new Student("Zahid", "Baltaci");
+//        Student student4 = new Student("Sare", "Bayram");
+//        student3.setStudentClass(newClass2);
+//        student4.setStudentClass(newClass2);
+//        
+//        newClass.getStudents().add(student);
+//        newClass.getStudents().add(student2);
+//        student.setImagePath("C:\\Users\\emirs\\Desktop\\pics\\papatya.jpg");
+//        student2.setImagePath("C:\\Users\\emirs\\Desktop\\pics\\s1.png");
+//        
+//        newClass2.getStudents().add(student3);
+//        newClass2.getStudents().add(student4);
+//        
+//        Database.getUsers().add(admin);
+//        
+//        Database.getUsers().add(instructor);
+//        Database.getUsers().add(instructor2);
+//        
+//        Database.getClasses().add(newClass);
+//        Database.getClasses().add(newClass2);
+//        
+//        Database.getUsers().add(student);
+//        Database.getUsers().add(student2);
+//        Database.getUsers().add(student3);
+//        Database.getUsers().add(student4);
     }
     
-    
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel mainPanel;

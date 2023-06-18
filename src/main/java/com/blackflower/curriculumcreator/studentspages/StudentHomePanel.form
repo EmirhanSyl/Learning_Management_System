@@ -26,7 +26,7 @@
                           <Component id="logoutBtn" alignment="1" max="32767" attributes="0"/>
                           <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                           <Component id="showClassStudentsBtn" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="1" pref="163" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">

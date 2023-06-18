@@ -1,7 +1,6 @@
 package com.blackflower.curriculumcreator.adminpages;
 
-import com.blackflower.curriculumcreator.core.Class;
-import com.blackflower.curriculumcreator.core.Database;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.MainFrame;
 import java.util.Vector;
@@ -12,12 +11,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author emirs
  */
-public class AddClassPanel extends javax.swing.JPanel implements IPage{
+public class AddClassPanel extends javax.swing.JPanel implements IPage {
 
     DefaultTableModel tableModel = new DefaultTableModel();
-    private final String[] columnNames = {"Class Name", "Students", "Lesson Count"};
-    
-    
+    private final String[] columnNames = {"Class ID", "Class Name", "Students", "Lesson Count"};
+
     public AddClassPanel() {
         initComponents();
         tableModel.setColumnIdentifiers(columnNames);
@@ -163,56 +161,56 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
     }//GEN-LAST:event_addClassBtnActionPerformed
 
     private void removeClassBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassBtnActionPerformed
-        // TODO add your handling code here:
+
         if (ClassTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Please Select A Class!", "Class Selectin is Null", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        String className = (String)tableModel.getValueAt(ClassTable.getSelectedRow(), 0);
-        Class selectedClass = null;
-        
-        for (Class classe : Database.getClasses()) {
-            if (classe.getClassName().equals(className)) {
-                selectedClass = classe;
-                break;
-            }
-        }
-        if (selectedClass == null) { 
+
+        int classId = (Integer) tableModel.getValueAt(ClassTable.getSelectedRow(), 0);
+        StudentClass studentClass = Database.getStudentClass(classId);
+
+        if (studentClass == null) {
             JOptionPane.showMessageDialog(this, "This Class Does Not Exists!", "Class Does Not Exists", JOptionPane.ERROR_MESSAGE);
-        }else if(!selectedClass.getStudents().isEmpty()){
+        } else if (!Database.getClassStudents(studentClass).isEmpty()) {
             JOptionPane.showMessageDialog(this, "Selected class contains students! Please trensfer them before removeing!", "Class Contains Students", JOptionPane.ERROR_MESSAGE);
-        }else{
-            Database.removeClass(selectedClass);
+        } else {
+            Database.removeClass(classId);
             refreshTableData();
         }
-        
+
     }//GEN-LAST:event_removeClassBtnActionPerformed
 
     private void addDropLessonBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDropLessonBtnActionPerformed
         // TODO add your handling code here:
+        Database.close();
         MainFrame.instance.setPage(MainFrame.instance.getManageClassesPage());
     }//GEN-LAST:event_addDropLessonBtnActionPerformed
 
     private void addRemoveStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRemoveStudentBtnActionPerformed
         // TODO add your handling code here:
+        Database.close();
         MainFrame.instance.setPage(MainFrame.instance.getManageClassesStudentsPage());
     }//GEN-LAST:event_addRemoveStudentBtnActionPerformed
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
-        // TODO add your handling code here:
-         MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+        Database.close();
+        MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
     }//GEN-LAST:event_homeBtnActionPerformed
 
-    public void refreshTableData(){
+    public void refreshTableData() {
         tableModel.setRowCount(0);
-        
-        for (Class classe : Database.getClasses()) {
+        for (StudentClass studentClass : Database.getClasses()) {
             Vector newData = new Vector();
-            newData.add(classe.getClassName());
-            newData.add(classe.getStudents().size());
-            newData.add(classe.getLessons().size());
-            
+            newData.add(studentClass.getId());
+            newData.add(studentClass.getName());
+            newData.add(Database.getClassStudents(studentClass).size());
+            if (studentClass.getLessons() != null) {
+                newData.add(studentClass.getLessons().size());
+            }else{
+                newData.add(0);
+            }
+
             tableModel.addRow(newData);
         }
     }
@@ -232,6 +230,7 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         refreshTableData();
         System.out.println("Data refreshed");
     }

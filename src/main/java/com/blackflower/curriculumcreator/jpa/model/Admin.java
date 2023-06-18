@@ -1,7 +1,6 @@
 
 package com.blackflower.curriculumcreator.jpa.model;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 

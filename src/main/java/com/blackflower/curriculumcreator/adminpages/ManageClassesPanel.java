@@ -1,10 +1,8 @@
 package com.blackflower.curriculumcreator.adminpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
-import com.blackflower.curriculumcreator.core.Lesson;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Database;
-import com.blackflower.curriculumcreator.core.Class;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -17,11 +15,10 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
     DefaultListModel<Object> classListModel = new DefaultListModel<>();
     DefaultListModel<Object> lessonListModel = new DefaultListModel<>();
 
-    private Class selectedClass;
+    private StudentClass selectedClass;
 
     public ManageClassesPanel() {
         initComponents();
-        refreshComboBox();
 
         classLessonsList.setModel(classListModel);
         lessonsList.setModel(lessonListModel);
@@ -47,14 +44,17 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
         manageClassPageBtn = new javax.swing.JButton();
         homeBtn = new javax.swing.JButton();
 
-        classesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         classesComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 classesComboBoxİtemStateChanged(evt);
             }
         });
+        add(classesComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 124, 178, -1));
 
         jLabel1.setText("Class:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 101, 178, -1));
 
         lessonsList.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Item 1" };
@@ -63,11 +63,15 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
         });
         jScrollPane1.setViewportView(lessonsList);
 
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 160, 290));
+
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Lessons");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 160, 29));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Class' Lessons");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, 160, 30));
 
         classLessonsList.setModel(new javax.swing.AbstractListModel<Object>() {
             String[] strings = { "Item 1" };
@@ -76,37 +80,44 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
         });
         jScrollPane2.setViewportView(classLessonsList);
 
-        classToLessonAllBtn.setText(">>");
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, 160, 290));
+
+        classToLessonAllBtn.setText("<<");
         classToLessonAllBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 classToLessonAllBtnActionPerformed(evt);
             }
         });
+        add(classToLessonAllBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 243, -1, -1));
 
-        classToLessonBtn.setText(">");
+        classToLessonBtn.setText("<");
         classToLessonBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 classToLessonBtnActionPerformed(evt);
             }
         });
+        add(classToLessonBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 286, 72, -1));
 
-        lessonToClassBtn.setText("<");
+        lessonToClassBtn.setText(">");
         lessonToClassBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lessonToClassBtnActionPerformed(evt);
             }
         });
+        add(lessonToClassBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 329, 72, -1));
 
-        lessonToClassAllBtn.setText("<<");
+        lessonToClassAllBtn.setText(">>");
         lessonToClassAllBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lessonToClassAllBtnActionPerformed(evt);
             }
         });
+        add(lessonToClassAllBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 372, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Lesson Add/Drop");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 36, 305, 47));
 
         manageClassPageBtn.setText("Manage Class");
         manageClassPageBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +125,7 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
                 manageClassPageBtnActionPerformed(evt);
             }
         });
+        add(manageClassPageBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
 
         homeBtn.setText("Home");
         homeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -121,87 +133,14 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
                 homeBtnActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(classToLessonBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lessonToClassBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lessonToClassAllBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(classToLessonAllBtn))
-                                .addGap(83, 83, 83))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addComponent(manageClassPageBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(classesComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(63, 63, 63)))
-                        .addGap(83, 83, 83)))
-                .addGap(232, 232, 232))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(homeBtn))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(homeBtn)
-                .addGap(13, 13, 13)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(classesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(classToLessonAllBtn)
-                        .addGap(20, 20, 20)
-                        .addComponent(classToLessonBtn)
-                        .addGap(20, 20, 20)
-                        .addComponent(lessonToClassBtn)
-                        .addGap(20, 20, 20)
-                        .addComponent(lessonToClassAllBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(manageClassPageBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(95, Short.MAX_VALUE))
-        );
+        add(homeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(856, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void classToLessonAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classToLessonAllBtnActionPerformed
         // TODO add your handling code here:
-        selectedClass.removeAllLesson();
+        for (int i = 0; i < selectedClass.getLessons().size(); i++) {
+            Database.removeLessonFromClass(selectedClass, selectedClass.getLessons().get(i));
+        }
         refreshLists();
     }//GEN-LAST:event_classToLessonAllBtnActionPerformed
 
@@ -212,7 +151,7 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
             return;
         }
         
-        selectedClass.removeLesson((Lesson)classListModel.getElementAt(classLessonsList.getSelectedIndex()));
+        Database.removeLessonFromClass(selectedClass, (Lesson)classListModel.getElementAt(classLessonsList.getSelectedIndex()));
         refreshLists();
     }//GEN-LAST:event_classToLessonBtnActionPerformed
 
@@ -223,22 +162,19 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
             return;
         }
         
-        selectedClass.addLesson((Lesson) lessonListModel.getElementAt(lessonsList.getSelectedIndex()));
+        selectedClass.getLessons().add((Lesson) lessonListModel.getElementAt(lessonsList.getSelectedIndex()));
+        Database.updateClass(selectedClass);
         refreshLists();
     }//GEN-LAST:event_lessonToClassBtnActionPerformed
 
     private void lessonToClassAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonToClassAllBtnActionPerformed
         // TODO add your handling code here:
         for (int i = 0; i < lessonListModel.getSize(); i++) {
-            selectedClass.addLesson((Lesson) lessonListModel.getElementAt(i));
+            selectedClass.getLessons().add((Lesson) lessonListModel.getElementAt(i));
         }
+        Database.updateClass(selectedClass);
         refreshLists();
     }//GEN-LAST:event_lessonToClassAllBtnActionPerformed
-
-    private void manageClassPageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageClassPageBtnActionPerformed
-        // TODO add your handling code here:
-        MainFrame.instance.setPage(MainFrame.instance.getAddClassPage());
-    }//GEN-LAST:event_manageClassPageBtnActionPerformed
 
     private void classesComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_classesComboBoxİtemStateChanged
         // TODO add your handling code here:
@@ -247,11 +183,18 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
+        
         MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
     }//GEN-LAST:event_homeBtnActionPerformed
 
+    private void manageClassPageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageClassPageBtnActionPerformed
+        // TODO add your handling code here:
+        MainFrame.instance.setPage(MainFrame.instance.getAddClassPage());
+    }//GEN-LAST:event_manageClassPageBtnActionPerformed
+
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         refreshLists();
         refreshComboBox();
     }
@@ -261,7 +204,7 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
         lessonListModel.removeAllElements();
 
         if (classesComboBox.getSelectedIndex() != -1) {
-            selectedClass = (Class) classesComboBox.getSelectedItem();
+            selectedClass = (StudentClass) classesComboBox.getSelectedItem();
             classListModel.addAll(selectedClass.getLessons());
 
             for (Lesson lesson : Database.getLessons()) {
@@ -275,8 +218,8 @@ public class ManageClassesPanel extends javax.swing.JPanel implements IPage {
 
     public final void refreshComboBox() {
         classesComboBox.removeAllItems();
-        for (Class classe : Database.getClasses()) {
-            classesComboBox.addItem(classe);
+        for (StudentClass studentClass : Database.getClasses()) {
+            classesComboBox.addItem(studentClass);
         }
 
     }

@@ -2,7 +2,8 @@ package com.blackflower.curriculumcreator.studentspages;
 
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Student;
+import com.blackflower.curriculumcreator.jpa.model.Database;
+import com.blackflower.curriculumcreator.jpa.model.Student;
 
 /**
  *
@@ -84,7 +85,7 @@ public class StudentHomePanel extends javax.swing.JPanel implements IPage{
                             .addComponent(logoutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(showClassStudentsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
                         .addGap(122, 122, 122)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(manageLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
@@ -125,12 +126,12 @@ public class StudentHomePanel extends javax.swing.JPanel implements IPage{
 
     private void manageLessonsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLessonsBtnActionPerformed
         // TODO add your handling code here:
-        MainFrame.instance.setPage(MainFrame.instance.getShowSessionDetailsPage());
+        MainFrame.instance.setPage(MainFrame.instance.getShowLessonDetailsPage());
     }//GEN-LAST:event_manageLessonsBtnActionPerformed
 
     private void manageTopicsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageTopicsBtnActionPerformed
         // TODO add your handling code here:
-        
+        MainFrame.instance.setPage(MainFrame.instance.getShowSessionDetailsPage());
     }//GEN-LAST:event_manageTopicsBtnActionPerformed
 
     private void showClassStudentsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showClassStudentsBtnActionPerformed
@@ -152,6 +153,7 @@ public class StudentHomePanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         account = (Student)MainFrame.instance.getAccount();
         welcomeLabel.setText("Welcome: " + account.toString().toUpperCase());
     }

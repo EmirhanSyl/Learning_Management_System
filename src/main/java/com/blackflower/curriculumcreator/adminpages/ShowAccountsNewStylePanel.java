@@ -1,8 +1,9 @@
 package com.blackflower.curriculumcreator.adminpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
+import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.customComponents.CCUserDetails;
-import com.blackflower.curriculumcreator.core.*;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.customComponents.CCScrollBar;
 import com.blackflower.curriculumcreator.customComponents.EventSwitchSelected;
 import java.awt.GridLayout;
@@ -16,7 +17,7 @@ import javax.swing.JScrollBar;
 public class ShowAccountsNewStylePanel extends javax.swing.JPanel implements IPage{
 
     Admin account;
-    int filterCount = 111;
+    int filterCount = 0;
     
     public ShowAccountsNewStylePanel() {
         initComponents();
@@ -65,17 +66,11 @@ public class ShowAccountsNewStylePanel extends javax.swing.JPanel implements IPa
         jScrollPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-        studentSwitchButton.setSelected(true);
-
         jLabel1.setText("Students:");
 
         jLabel2.setText("Instructors:");
 
-        instructorSwitchButton.setSelected(true);
-
         jLabel3.setText("Manager:");
-
-        managerSwitchButton.setSelected(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -130,6 +125,7 @@ public class ShowAccountsNewStylePanel extends javax.swing.JPanel implements IPa
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
          account = (Admin)MainFrame.instance.getAccount();
          createAccountList();
     }
@@ -152,7 +148,7 @@ public class ShowAccountsNewStylePanel extends javax.swing.JPanel implements IPa
                 String avatarImagePath =  student.getImagePath();
                 String nameText = student.toString();
                 String classText = student.getStudentClass().toString();
-                String usernameText = student.getUserName();
+                String usernameText = student.getUsername();
                 
                 CCUserDetails userListElement = new CCUserDetails(avatarImagePath, nameText, classText, usernameText);
                 userListElement.setSize(800, 100);
@@ -163,7 +159,7 @@ public class ShowAccountsNewStylePanel extends javax.swing.JPanel implements IPa
                 String avatarImagePath =  instructor.getImagePath();
                 String nameText = instructor.toString();
                 String classText = Integer.toString(instructor.getId());
-                String usernameText = instructor.getUserName();
+                String usernameText = instructor.getUsername();
                 
                 CCUserDetails userListElement = new CCUserDetails(avatarImagePath, nameText, "Lectorer", usernameText);
                 userListElement.setSize(800, 100);
@@ -174,7 +170,7 @@ public class ShowAccountsNewStylePanel extends javax.swing.JPanel implements IPa
                 String avatarImagePath =  admin.getImagePath();
                 String nameText = admin.toString();
                 String classText = Integer.toString(admin.getId());
-                String usernameText = admin.getUserName();
+                String usernameText = admin.getUsername();
                 
                 CCUserDetails userListElement = new CCUserDetails(avatarImagePath, nameText, "Manager", usernameText);
                 userListElement.setSize(800, 100);

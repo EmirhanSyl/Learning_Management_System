@@ -1,18 +1,20 @@
 package com.blackflower.curriculumcreator;
 
-import com.blackflower.curriculumcreator.core.Student;
-import com.blackflower.curriculumcreator.core.Person;
-import com.blackflower.curriculumcreator.core.Instructor;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Database;
-import com.blackflower.curriculumcreator.core.Admin;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author emirs
  */
-public class LoginPanel extends javax.swing.JPanel implements IPage{
+public class LoginPanel extends javax.swing.JPanel implements IPage {
 
     public LoginPanel() {
         initComponents();
@@ -34,7 +36,7 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
 
         setBackground(new java.awt.Color(240, 248, 255));
 
-        cCGradientPanel1.setGradientEndd(new java.awt.Color(153, 153, 153));
+        cCGradientPanel1.setGradientEndd(new java.awt.Color(204, 204, 204));
         cCGradientPanel1.setGradientStart(new java.awt.Color(204, 204, 204));
 
         rememberMeCheckBox.setText("Remember me");
@@ -113,26 +115,28 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
         // TODO add your handling code here:
         String pwd = String.valueOf(passwordField.getPassword());
-        Person account = Database.login(usernameField.getText(), pwd);
+        Person account = Login.loginValidation(usernameField.getText(), pwd);
 
         if (account == null) {
             JOptionPane.showMessageDialog(this, "This user does not exist!", "User Not Found", JOptionPane.ERROR_MESSAGE);
         } else if (account instanceof Admin) {
+            rememberMe();
             MainFrame.instance.setAccount(account);
             MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
             MainFrame.instance.login();
         } else if (account instanceof Instructor) {
+            rememberMe();
             MainFrame.instance.setAccount(account);
             MainFrame.instance.setPage(MainFrame.instance.getInstructorHomePage());
             MainFrame.instance.login();
         } else if (account instanceof Student) {
+            rememberMe();
             MainFrame.instance.setAccount(account);
             MainFrame.instance.setPage(MainFrame.instance.getStudentHomePage());
             MainFrame.instance.login();
         } else {
             JOptionPane.showMessageDialog(this, "Something went wrong!", "Unclassified Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_loginbtnActionPerformed
 
 
@@ -150,6 +154,94 @@ public class LoginPanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
+        //checkRememberMe();
+    }
+
+    public void checkRememberMe() {
+        String filename = "C:\\Users\\emirs\\Documents\\NetBeansProjects\\CurriculumCreator\\settings\\rememberMe.txt";
+
+        ArrayList<String> lines = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(filename);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                lines.add(line);
+            }
+
+            bufferedReader.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file: " + e.getMessage());
+        }
         
+        if (lines.size() == 2) {
+            validation(lines.get(0), lines.get(1));
+        }
+    }
+
+    public void validation(String username, String pwd) {
+        Person account = Login.loginValidation(username, pwd);
+
+        if (account == null) {
+            JOptionPane.showMessageDialog(this, "Corrupted Remember Me File!!!", "Corrupted File", JOptionPane.ERROR_MESSAGE);
+        } else if (account instanceof Admin) {
+            MainFrame.instance.setAccount(account);
+            MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+            MainFrame.instance.login();
+        } else if (account instanceof Instructor) {
+            MainFrame.instance.setAccount(account);
+            MainFrame.instance.setPage(MainFrame.instance.getInstructorHomePage());
+            MainFrame.instance.login();
+        } else if (account instanceof Student) {
+            MainFrame.instance.setAccount(account);
+            MainFrame.instance.setPage(MainFrame.instance.getStudentHomePage());
+            MainFrame.instance.login();
+        } else {
+            JOptionPane.showMessageDialog(this, "Something went wrong!", "Unclassified Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void rememberMe() {
+        if (!rememberMeCheckBox.isSelected()) {
+            return;
+        }
+
+        String filename = "C:\\Users\\emirs\\Documents\\NetBeansProjects\\CurriculumCreator\\settings\\rememberMe.txt";
+        String[] lines = {
+            usernameField.getText(),
+            String.valueOf(passwordField.getPassword())
+        };
+
+        try {
+            FileWriter fileWriter = new FileWriter(filename);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (String line : lines) {
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
+            }
+
+            bufferedWriter.close();
+            System.out.println("Content written to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
+
+    public void forgetMe() {
+        String filename = "C:\\Users\\emirs\\Documents\\NetBeansProjects\\CurriculumCreator\\settings\\rememberMe.txt";
+        try {
+            FileWriter fileWriter = new FileWriter(filename);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.write("");
+
+            bufferedWriter.close();
+            System.out.println("Content written to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
     }
 }

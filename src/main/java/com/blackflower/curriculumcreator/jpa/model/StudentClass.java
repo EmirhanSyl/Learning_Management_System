@@ -4,10 +4,15 @@ package com.blackflower.curriculumcreator.jpa.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -27,6 +32,14 @@ public class StudentClass implements Serializable {
 
     @OneToMany(mappedBy = "classId")
     private List<CourseSession> coursesessionList;
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "Lesson_CLass",
+            joinColumns = {@JoinColumn(name = "class_id")},
+            inverseJoinColumns = {@JoinColumn(name = "lesson_id")}
+    )
+    private List<Lesson> lessons;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -98,5 +111,16 @@ public class StudentClass implements Serializable {
     public void setCoursesessionList(List<CourseSession> coursesessionList) {
         this.coursesessionList = coursesessionList;
     }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+    
+    
+    
 
 }

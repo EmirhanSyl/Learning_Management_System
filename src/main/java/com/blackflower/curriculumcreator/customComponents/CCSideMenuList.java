@@ -1,6 +1,7 @@
 package com.blackflower.curriculumcreator.customComponents;
 
 import com.blackflower.curriculumcreator.MainFrame;
+import com.blackflower.curriculumcreator.jpa.model.Database;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GradientPaint;
@@ -95,6 +96,7 @@ public class CCSideMenuList<E extends Object> extends JList<E>{
                     selectedPreIndex = getSelectedIndex();
                     selectedListItem = item;
                     if (item.getItem().getPage() != null) {
+                        Database.close();
                         MainFrame.instance.setPage(item.getItem().getPage());
                     }
                 }

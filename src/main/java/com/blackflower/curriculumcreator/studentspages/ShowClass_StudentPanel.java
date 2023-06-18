@@ -1,10 +1,8 @@
-
 package com.blackflower.curriculumcreator.studentspages;
 
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Lesson;
-import com.blackflower.curriculumcreator.core.Student;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,20 +10,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author emirs
  */
-public class ShowClass_StudentPanel extends javax.swing.JPanel implements IPage{
+public class ShowClass_StudentPanel extends javax.swing.JPanel implements IPage {
 
     private Student account;
     private DefaultTableModel tableModel = new DefaultTableModel();
-    private String[] columnNames = {"ID", "First Name", "Last Name", };
-    
+    private String[] columnNames = {"ID", "First Name", "Last Name",};
+
     public ShowClass_StudentPanel() {
         initComponents();
-        
+
         tableModel.setColumnIdentifiers(columnNames);
         classDetailsTable.setModel(tableModel);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -135,28 +132,31 @@ public class ShowClass_StudentPanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
-        account = (Student)MainFrame.instance.getAccount();
-        
+        Database.initDatabase("LMS_PE");
+        account = (Student) MainFrame.instance.getAccount();
+
         classLabel.setText("Class: " + account.getStudentClass().toString());
         lessonCountLabel.setText("Lesson Count: " + Integer.toString(account.getStudentClass().getLessons().size()));
         int totalLessonHours = 0;
         for (Lesson lesson : account.getStudentClass().getLessons()) {
-            totalLessonHours+=lesson.getLessonCount();
+            if (!lesson.getInstructorLessonList().isEmpty()) {
+                totalLessonHours += lesson.getInstructorLessonList().get(0).getLessonCount();
+            }
         }
         totalLessonHoursLabel.setText("Total Lesson Hours: " + totalLessonHours);
-        totalStudentsLabel.setText("Total Students: " + Integer.toString(account.getStudentClass().getStudents().size()));
+        totalStudentsLabel.setText("Total Students: " + Integer.toString(Database.getClassStudents(account.getStudentClass()).size()));
         refreshTableData();
     }
-    
-    private void refreshTableData(){
+
+    private void refreshTableData() {
         tableModel.setRowCount(0);
-        
-        for (Student student : account.getStudentClass().getStudents()) {
+
+        for (Student student : Database.getClassStudents(account.getStudentClass())) {
             Vector newData = new Vector();
             newData.add(student.getId());
             newData.add(student.getFirstName());
             newData.add(student.getLastName());
-            
+
             tableModel.addRow(newData);
         }
     }

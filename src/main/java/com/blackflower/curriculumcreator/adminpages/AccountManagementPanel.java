@@ -1,12 +1,9 @@
 package com.blackflower.curriculumcreator.adminpages;
 
-import com.blackflower.curriculumcreator.core.Admin;
-import com.blackflower.curriculumcreator.core.Database;
+import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Instructor;
 import com.blackflower.curriculumcreator.MainFrame;
-import com.blackflower.curriculumcreator.core.Person;
-import com.blackflower.curriculumcreator.core.Student;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +23,6 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
         tableModel.setColumnIdentifiers(columnNames);
         usersTable.setModel(tableModel);
         
-        refreshTableData();
     }
 
     
@@ -153,9 +149,9 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
 
     private void findUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findUserBtnActionPerformed
         // TODO add your handling code here:
-        Person user = Database.findPersonByName(nameField.getText());
-        if (user != null) {
-            refreshTableData(user);
+        ArrayList<Person> users = Database.findPersonByName(nameField.getText());
+        if (users != null) {
+            refreshTableData(users);
         }else{
             JOptionPane.showMessageDialog(this, "This user cannot found!", "User Not Found", JOptionPane.ERROR_MESSAGE);
         }
@@ -181,17 +177,20 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
 
     private void createAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountBtnActionPerformed
         // TODO add your handling code here:
+        Database.close();
         MainFrame.instance.setPage(MainFrame.instance.getRegisterPage());
     }//GEN-LAST:event_createAccountBtnActionPerformed
 
     private void addClassBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClassBtnActionPerformed
         // TODO add your handling code here:
+        Database.close();
         MainFrame.instance.setPage(MainFrame.instance.getAddClassPage());
     }//GEN-LAST:event_addClassBtnActionPerformed
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
-         MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
+        Database.close();
+        MainFrame.instance.setPage(MainFrame.instance.getAdminHomePage());
     }//GEN-LAST:event_homeBtnActionPerformed
 
     public final void refreshTableData(){
@@ -206,31 +205,27 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
             newData.add(user.getId());
             newData.add(user.getFirstName());
             newData.add(user.getLastName());
-                
-            if(user instanceof Instructor){
-                newData.add("Instructor");
-            }else if(user instanceof Student){
-                newData.add("Student");
-            }
+            newData.add(user.getType());
             
             tableModel.addRow(newData);
         }
     }
-    public void refreshTableData(Person user) {
+    public void refreshTableData(ArrayList<Person> users) {
         tableModel.setRowCount(0);
 
-        Vector newData = new Vector();
-        newData.add(user.getId());
-        newData.add(user.getFirstName());
-        newData.add(user.getLastName());
-
-        if (user instanceof Instructor) {
-            newData.add("Instructor");
-        } else if (user instanceof Student) {
-            newData.add("Student");
+        for (Person user : users) {
+            if (user instanceof Admin || user == null) {
+                continue;
+            }
+            Vector newData = new Vector();
+            
+            newData.add(user.getId());
+            newData.add(user.getFirstName());
+            newData.add(user.getLastName());
+            newData.add(user.getType());
+            
+            tableModel.addRow(newData);
         }
-        
-        tableModel.addRow(newData);
 
     }
 
@@ -249,6 +244,7 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         refreshTableData();
     }
 }

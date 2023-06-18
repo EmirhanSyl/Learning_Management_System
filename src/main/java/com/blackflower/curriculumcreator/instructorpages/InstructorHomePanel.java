@@ -2,7 +2,7 @@ package com.blackflower.curriculumcreator.instructorpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
-import com.blackflower.curriculumcreator.core.Instructor;
+import com.blackflower.curriculumcreator.jpa.model.*;
 
 /**
  *
@@ -170,6 +170,7 @@ public class InstructorHomePanel extends javax.swing.JPanel implements IPage{
 
     @Override
     public void onPageSetted() {
+        Database.initDatabase("LMS_PE");
         account = (Instructor)MainFrame.instance.getAccount();
         welcomeLabel.setText("Welcome: " + account.toString().toUpperCase());
     }
