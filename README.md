@@ -3,7 +3,9 @@
 
 ## School Management System
 
+
 #### Aim of The Project and Requirements 	
+![image](https://github.com/EmirhanSyl/Learning_Management_System/assets/61618968/e72cd8b0-f2a7-43b9-86de-d2134aae0736)
 
 
 The aim of this project is to develop a School Management System that can be used to automate the management of the school.
