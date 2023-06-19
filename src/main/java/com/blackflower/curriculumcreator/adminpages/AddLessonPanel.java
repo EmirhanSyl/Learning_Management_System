@@ -3,6 +3,7 @@ package com.blackflower.curriculumcreator.adminpages;
 import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
+import com.blackflower.curriculumcreator.core.NotificationManager;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -214,6 +215,10 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage {
         Instructor instructor = (Instructor) instructorComboBox.getSelectedItem();
         Database.addLesson(lessonNameField.getText(), instructor, lessonCountSlider.getValue());
         refreshTableData();
+        
+        NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "New Lesson Added!", 
+                "New Lesson \""+ lessonNameField.getText() + "\" created. Instructor: " + instructor.toString() + " Lesson Hours: " + lessonCountSlider.getValue() );
     }//GEN-LAST:event_addLessonBtnActionPerformed
 
     private void updateLessonBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateLessonBtnActionPerformed
@@ -232,6 +237,10 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage {
         Instructor newInstructor = (Instructor) instructorComboBox.getSelectedItem();
         Database.updateLessonData(lessonID, newInstructor, lessonCountSlider.getValue());
         refreshTableData();
+        
+        NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "Lesson Updated!", 
+                "The Lesson \""+ Database.findLessonByID(lessonID).getName() + "\" updated. Instructor: " + newInstructor.toString() + " Lesson Hours: " + lessonCountSlider.getValue() );
     }//GEN-LAST:event_updateLessonBtnActionPerformed
 
     private void removeLessonBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeLessonBtnActionPerformed
@@ -249,6 +258,10 @@ public class AddLessonPanel extends javax.swing.JPanel implements IPage {
         Database.removeLesson(lesson);
 
         refreshTableData();
+        
+        NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "Lesson Removed!", 
+                "The Lesson \""+ lesson.getName() + "\" removed.");
     }//GEN-LAST:event_removeLessonBtnActionPerformed
 
     private void goClassManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goClassManagementBtnActionPerformed

@@ -3,6 +3,7 @@ package com.blackflower.curriculumcreator.adminpages;
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
+import com.blackflower.curriculumcreator.core.NotificationManager;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -206,6 +207,10 @@ public class ManageClassStudentsPanel extends javax.swing.JPanel implements IPag
         selectedStudent.setStudentClass(selectedClass);
         Database.updateUser(selectedStudent);
         refreshTableData();
+        
+        NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "Student Class Changed!", 
+                "The Student \""+ selectedStudent.toString() + "\" class changed. New Class: " + selectedClass.toString());
     }//GEN-LAST:event_changeClassButtonActionPerformed
 
     private void manageClassPageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageClassPageBtnActionPerformed

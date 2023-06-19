@@ -2,6 +2,7 @@ package com.blackflower.curriculumcreator.instructorpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
+import com.blackflower.curriculumcreator.core.NotificationManager;
 import com.blackflower.curriculumcreator.jpa.model.*;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -236,7 +237,6 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
             return;
         }
         int sessionID = (Integer)sessionsTable.getValueAt(sessionsTable.getSelectedRow(), 0);
-        
         account.removeSession(sessionID);
         
         for (InstructorLesson instructorLesson : account.getLessons()) {
@@ -249,6 +249,10 @@ public class ManageSessionsPanel extends javax.swing.JPanel implements IPage{
         }
         
         refreshTableData(account.getResponsibleSessions(account));
+        
+        NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "Session Deleted!", 
+                "The session id \""+ sessionID + "\" deleted by: " + account.toString());
     }//GEN-LAST:event_removeSessionBtnActionPerformed
 
     private void classRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classRadioBtnActionPerformed

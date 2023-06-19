@@ -3,6 +3,7 @@ package com.blackflower.curriculumcreator.instructorpages;
 import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.MainFrame;
+import com.blackflower.curriculumcreator.core.NotificationManager;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.time.LocalDateTime;
@@ -331,6 +332,10 @@ public class AddSessionPanel extends javax.swing.JPanel implements IPage{
                 + startDate.toString());
         
         refreshSlider(sessionClass, selectedLesson);
+        
+        NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "New Session Added!", 
+                "New Session \"Lesson:" + selectedLesson.getName() + " Class: " + sessionClass.toString() + " Session Length: " + sessionHours + " Session date: " + startDate.toString() + "\" created by: " + account.toString());
     }//GEN-LAST:event_addSessionBtnActionPerformed
 
     private void classComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_classComboBoxİtemStateChanged

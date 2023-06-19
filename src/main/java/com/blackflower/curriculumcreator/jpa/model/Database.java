@@ -128,27 +128,46 @@ public class Database {
         sessionClass.getCoursesessionList().add(session);
     }
 
-    public static void addStudent(String firstName, String lastName, StudentClass studentClass) {
+    public static Student addStudent(String firstName, String lastName, StudentClass studentClass) {
         entityManager.getTransaction().begin();
 
         String name = firstName.replaceAll("\\s", "");
         name = name.toLowerCase();
         String surname = lastName.replaceAll("\\s", "");
         surname = surname.toLowerCase();
-        
+
         String imagePath = "C:\\Users\\emirs\\Desktop\\pics\\user.png";
         String username = name + surname;
+
+        Query query = entityManager.createQuery("SELECT COUNT(u) FROM Person u WHERE u.username = :username");
+        query.setParameter("username", username);
+        Long count = (Long) query.getSingleResult();
+
+        if (count > 0) {
+            int i = 0;
+            String newUsername = username;
+            while (count != 0) {
+                newUsername = username+i;
+                query.setParameter("username", newUsername);
+                count = (Long) query.getSingleResult();
+                i++;
+            }
+            username = newUsername;
+        }
+
         String password = "123";
         Student student = new Student(studentClass, firstName, lastName, username, password, imagePath);
         student.setStudentClass(studentClass);
 
         entityManager.persist(student);
         entityManager.getTransaction().commit();
+        
+        return student;
     }
 
-    public static void addInstructor(String firstName, String lastName, Lesson lesson) {
+    public static Instructor addInstructor(String firstName, String lastName, Lesson lesson) {
         entityManager.getTransaction().begin();
-        
+
         String name = firstName.replaceAll("\\s", "");
         name = name.toLowerCase();
         String surname = lastName.replaceAll("\\s", "");
@@ -157,6 +176,24 @@ public class Database {
         String imagePath = "C:\\Users\\emirs\\Desktop\\pics\\user.png";
         String username = name + surname;
         String password = "123";
+        
+        Query query = entityManager.createQuery("SELECT COUNT(u) FROM Person u WHERE u.username = :username");
+        query.setParameter("username", username);
+        Long count = (Long) query.getSingleResult();
+
+        if (count > 0) {
+            int i = 0;
+            String newUsername = username;
+            while (count != 0) {
+                newUsername = username+i;
+                query.setParameter("username", newUsername);
+                count = (Long) query.getSingleResult();
+                i++;
+            }
+            username = newUsername;
+        }
+        
+        
         Instructor instructor = new Instructor(firstName, lastName, username, password, imagePath);
 
         if (lesson != null) {
@@ -179,6 +216,8 @@ public class Database {
         entityManager.getTransaction().commit();
         entityManager.close();
         emf.close();
+        
+        return instructor;
     }
 
     public static void addLesson(String lessonName, Instructor instructor, int lessonCount) {
@@ -210,14 +249,13 @@ public class Database {
             System.out.println("Something went wrong while updating lesson in Database! Please try again later...");
             return;
         }
-        
+
         for (InstructorLesson instructorLesson : dbLesson.getInstructorLessonList()) {
             instructorLesson.getInstructorId().getLessons().remove(instructorLesson);
             entityManager.persist(instructorLesson.getInstructorId());
             entityManager.remove(instructorLesson);
         }
         dbLesson.getInstructorLessonList().removeAll(dbLesson.getInstructorLessonList());
-        
 
         InstructorLesson instructorLesson = new InstructorLesson(newLessonCount, dbLesson, newInstructor);
         dbLesson.getInstructorLessonList().add(0, instructorLesson);
