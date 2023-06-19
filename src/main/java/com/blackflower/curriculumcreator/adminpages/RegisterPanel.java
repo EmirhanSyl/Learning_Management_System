@@ -2,6 +2,7 @@ package com.blackflower.curriculumcreator.adminpages;
 
 import com.blackflower.curriculumcreator.MainFrame;
 import com.blackflower.curriculumcreator.core.IPage;
+import com.blackflower.curriculumcreator.core.NotificationManager;
 import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.jpa.repository.LessonRepository;
 import com.blackflower.curriculumcreator.jpa.repository.StudentClassRepository;
@@ -188,25 +189,25 @@ public class RegisterPanel extends javax.swing.JPanel implements IPage{
             return;
         }
         
-        String name = nameField.getText().replaceAll("\\s", "");
-        name = name.toLowerCase();
-        String surname = surnameField.getText().replaceAll("\\s", "");
-        surname = surname.toLowerCase();
+        Person createdPerson = null;
         
         if (buttonGroup1.isSelected(studentRadioBtn.getModel())) {
             StudentClass studentClass = (StudentClass)stuLecComboBox.getSelectedItem(); 
-            Database.addStudent(nameField.getText(), surnameField.getText(), studentClass);
+            createdPerson = Database.addStudent(nameField.getText(), surnameField.getText(), studentClass);
         }
         else if(buttonGroup1.isSelected(instructorRadioBtn.getModel())){
             Lesson lesson = (Lesson)stuLecComboBox.getSelectedItem(); 
-            Database.addInstructor(nameField.getText(), surnameField.getText(), lesson);
+            createdPerson = Database.addInstructor(nameField.getText(), surnameField.getText(), lesson);
         }
         
         nameField.setText("");
         surnameField.setText("");
         
-        JOptionPane.showMessageDialog(this, "Account Created Succesfuly! Username: " + name+surname + " Password: 123", "Account Created", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Account Created Succesfuly! Username: " + createdPerson.getUsername() + " Password: 123", "Account Created", JOptionPane.INFORMATION_MESSAGE);
         
+        NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "New User Added!", 
+                "New User \""+ nameField.getText() + "\" created.");
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void studentRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentRadioBtnActionPerformed

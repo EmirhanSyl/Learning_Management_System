@@ -3,6 +3,7 @@ package com.blackflower.curriculumcreator.adminpages;
 import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.MainFrame;
+import com.blackflower.curriculumcreator.core.NotificationManager;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -158,6 +159,10 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage {
         // TODO add your handling code here:
         Database.addClass(ClassNameField.getText());
         refreshTableData();
+        
+        NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "New Class Added!", 
+                "New Class \""+ ClassNameField.getText() + "\" created.");
     }//GEN-LAST:event_addClassBtnActionPerformed
 
     private void removeClassBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassBtnActionPerformed
@@ -175,8 +180,13 @@ public class AddClassPanel extends javax.swing.JPanel implements IPage {
         } else if (!Database.getClassStudents(studentClass).isEmpty()) {
             JOptionPane.showMessageDialog(this, "Selected class contains students! Please trensfer them before removeing!", "Class Contains Students", JOptionPane.ERROR_MESSAGE);
         } else {
+            String className = Database.getStudentClass(classId).toString();
             Database.removeClass(classId);
             refreshTableData();
+            
+            NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "Class Removed!", 
+                "The Class \""+ className + "\" removed.");
         }
 
     }//GEN-LAST:event_removeClassBtnActionPerformed

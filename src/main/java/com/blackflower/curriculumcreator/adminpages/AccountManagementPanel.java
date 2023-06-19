@@ -3,6 +3,7 @@ package com.blackflower.curriculumcreator.adminpages;
 import com.blackflower.curriculumcreator.jpa.model.*;
 import com.blackflower.curriculumcreator.core.IPage;
 import com.blackflower.curriculumcreator.MainFrame;
+import com.blackflower.curriculumcreator.core.NotificationManager;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -165,9 +166,14 @@ public class AccountManagementPanel extends javax.swing.JPanel implements IPage{
         }
        
        int selectedUserId = (Integer)tableModel.getValueAt(usersTable.getSelectedRow(), 0);
-       Database.removeUser(Database.findPersonById(selectedUserId));
+       Person deletedPerson = Database.findPersonById(selectedUserId);
+       Database.removeUser(deletedPerson);
        
        refreshTableData();
+       
+       NotificationManager.createNotification("C:\\Users\\emirs\\Desktop\\pics\\appIcons\\bell-ring.png",
+                "The User Deleted!", 
+                "The User \""+ deletedPerson.toString() + "\" deleted.");
     }//GEN-LAST:event_removeUserBtnActionPerformed
 
     private void refreshTableBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTableBtnActionPerformed

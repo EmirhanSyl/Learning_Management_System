@@ -24,7 +24,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         Image imgFit = icon.getImage().getScaledInstance(930, 571, Image.SCALE_AREA_AVERAGING);
         icon.setImage(imgFit);
         
-        bgImageLayer.setIcon(icon);
+        //bgImageLayer.setIcon(icon);
     }
 
     /**
@@ -37,7 +37,6 @@ public class WelcomePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         loginBtn = new javax.swing.JButton();
-        bgImageLayer = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -48,7 +47,6 @@ public class WelcomePanel extends javax.swing.JPanel {
             }
         });
         add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 242, 295, 43));
-        add(bgImageLayer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 929, 570));
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
@@ -73,7 +71,6 @@ public class WelcomePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel bgImageLayer;
     private javax.swing.JButton loginBtn;
     // End of variables declaration//GEN-END:variables
 }
