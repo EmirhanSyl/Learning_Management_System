@@ -1,36 +1,20 @@
-New Class Added!
-New Class "bb" created.
-20/06/2023 02:31:44
-C:\Users\emirs\Desktop\pics\appIcons\bell-ring.png
-New User Added!
-New User "" created.
-20/06/2023 02:32:17
-C:\Users\emirs\Desktop\pics\appIcons\bell-ring.png
-Student Class Changed!
-The Student "a a" class changed. New Class: a
-20/06/2023 02:32:55
-C:\Users\emirs\Desktop\pics\appIcons\bell-ring.png
-Student Class Changed!
-The Student "ab ba" class changed. New Class: bb
-20/06/2023 02:33:00
-C:\Users\emirs\Desktop\pics\appIcons\bell-ring.png
-Student Class Changed!
-The Student "a a" class changed. New Class: a
-20/06/2023 02:33:10
+The User Deleted!
+The User "a a" deleted.
+20/06/2023 21:06:41
 C:\Users\emirs\Desktop\pics\appIcons\bell-ring.png
 Student Class Changed!
 The Student "a a" class changed. New Class: bb
-20/06/2023 02:33:17
+20/06/2023 21:07:01
 C:\Users\emirs\Desktop\pics\appIcons\bell-ring.png
-The User Deleted!
-The User "a a" deleted.
-20/06/2023 02:33:41
+Class Removed!
+The Class "ComputerEngineering" removed.
+21/06/2023 15:23:05
 C:\Users\emirs\Desktop\pics\appIcons\bell-ring.png
-Lesson Updated!
-The Lesson "a" updated. Instructor: aaa aaa Lesson Hours: 15
-20/06/2023 02:34:09
+Student Class Changed!
+The Student "aa aa" class changed. New Class: bb
+21/06/2023 15:23:51
 C:\Users\emirs\Desktop\pics\appIcons\bell-ring.png
-New Session Added!
-New Session "Lesson:CP-III Class: Software Engineering Session Length: 3 Session date: Thu Mar 02 02:30:00 TRT 2023" created by: Ali Nizam Hayraki
-20/06/2023 02:34:53
+New Class Added!
+New Class "kayıt" created.
+21/06/2023 15:26:39
 C:\Users\emirs\Desktop\pics\appIcons\bell-ring.png
