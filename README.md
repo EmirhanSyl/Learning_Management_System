@@ -1,4 +1,4 @@
-# CurriculumCreator
+# Learning Management System
  This project was developed for Computer Programming - II using Java Swing
 
 ## School Management System
@@ -93,3 +93,7 @@ Instructors and students can query the lesson topics by searching a string from 
 And project includes more and more specific rules.
 
   ### 4. UML DIAGRAM
+  ![image](https://github.com/EmirhanSyl/Learning_Management_System/assets/61618968/a894b9e8-ee88-4f26-baf5-171588fccada)
+
+  ### 5. DATABASE MODEL DIAGRAM
+  ![image](https://github.com/EmirhanSyl/Learning_Management_System/assets/61618968/59f3b78d-466e-4b30-9bab-3cde70066c92)
