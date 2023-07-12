@@ -3,6 +3,9 @@
 
 ## School Management System
 
+>### Important Note!
+>This is the last version of the Learning Management System. It's connecting to the database via JPA(Java Persistence API). So all required classes like 'User' are entities. If you don't need a database connection, check out this old commit that hasn't connection scripts:
+https://github.com/EmirhanSyl/Learning_Management_System/tree/6f63eb14662419384e18c48fdfd3b0e8d2327ebf
 
 #### Aim of The Project and Requirements 	
 ![image](https://github.com/EmirhanSyl/Learning_Management_System/assets/61618968/e72cd8b0-f2a7-43b9-86de-d2134aae0736)
